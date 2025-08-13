@@ -4,14 +4,9 @@
   "private": true,
   "scripts": {
     "build": "bunx @11ty/eleventy",
-    "build-nocolor": "cross-env NODE_DISABLE_COLORS=1 bunx @11ty/eleventy",
-    "build-ghpages": "bunx @11ty/eleventy --pathprefix=/eleventy-base-blog/",
-    "start": "bun run start:concurrent",
-    "start:concurrent": "bunx @11ty/eleventy --serve --incremental",
-    "start-ghpages": "bunx @11ty/eleventy --pathprefix=/eleventy-base-blog/ --serve --quiet",
-    "debug": "cross-env DEBUG=Eleventy* bunx @11ty/eleventy",
-    "debugstart": "cross-env DEBUG=Eleventy* bunx @11ty/eleventy --serve --quiet",
-    "benchmark": "cross-env DEBUG=Eleventy:Benchmark* bunx @11ty/eleventy"
+    "start": "bunx @11ty/eleventy --serve --incremental",
+    "debug": "DEBUG=Eleventy* bunx @11ty/eleventy",
+    "benchmark": "DEBUG=Eleventy:Benchmark* bunx @11ty/eleventy"
   },
   "devDependencies": {
     "@types/bun": "latest",
