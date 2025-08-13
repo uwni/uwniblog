@@ -69,7 +69,6 @@ export default function eleventyPluginTypst(eleventyConfig, options = {}) {
     workspace = ".",
     targets = ["html", "pdf"],
     collection = "posts",
-    layout = "layouts/post.webc",
   } = options;
 
   const compiler = NodeCompiler.create({
@@ -123,7 +122,7 @@ export default function eleventyPluginTypst(eleventyConfig, options = {}) {
           return;
         },
         eleventyComputed: {
-          layout: ({ target }) => {
+          layout: ({ target, layout }) => {
             return target === "pdf" ? false : layout;
           }
         }
