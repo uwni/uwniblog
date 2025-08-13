@@ -41,7 +41,7 @@ jobs:
         run: bun ci
         working-directory: ${{ env.BUILD_PATH }}
       - name: Build with 11ty
-        run: bun run build
+        run: SITE_ORIGIN=${{ steps.pages.outputs.origin }} BASE_PATH=${{steps.pages.outputs.base_path}} bun run build
         working-directory: ${{ env.BUILD_PATH }}
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
