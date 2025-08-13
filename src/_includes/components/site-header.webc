@@ -1,6 +1,6 @@
 <header webc:root="override">
-    <h1>Uwni'Space</h1>
-    <p>Full story of a cyber little girl</p>
+    <h1 @text="$data.metadata.title"></h1>
+    <p @text="$data.metadata.description"></p>
     <nav>
         <ul>
             <li><a href="/">Home</a></li>

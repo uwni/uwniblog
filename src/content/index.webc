@@ -2,8 +2,6 @@
 layout: layouts/base.webc
 ---
 
-<h1>Welcome to Uwni'Space</h1>
-
 <p>Hey there! Welcome to my little corner of the internet. I'm Uwni, and this is where I document my adventures
   through cyberspace, share technical discoveries, and explore what it means to exist digitally.</p>
 
