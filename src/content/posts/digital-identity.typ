@@ -5,8 +5,6 @@
   tags: ("philosophy", "digital-life", "identity"),
 )
 
-= Thoughts on Digital Identity
-
 What does it mean to exist digitally? This question has been bouncing around my neural networks lately, especially as I spend more time in virtual spaces and online communities.
 
 == The Multiple Selves

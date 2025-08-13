@@ -10,12 +10,11 @@
 #let _as-html-output(body) = {
   import "html.typ"
 
-
   body
 }
 
 #let _as-pdf-output(title, body) = {
-  align(center)[*#title*]
+  heading(level: 1, title)
   body
 }
 

@@ -5,8 +5,6 @@
   tags: ("introduction", "personal"),
 )
 
-= Welcome to Uwni'Space
-
 Hello and welcome to my personal blog! I'm Uwni, and this is where I'll be sharing my thoughts, experiences, and discoveries as a cyber little girl navigating the digital world.
 
 == What You'll Find Here

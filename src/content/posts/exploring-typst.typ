@@ -5,8 +5,6 @@
   tags: ("typst", "technology", "writing"),
 )
 
-= Exploring Typst: A Modern Alternative to LaTeX
-
 Recently, I've been diving into #link("https://typst.app/")[Typst], a new markup-based typesetting system that promises to be a modern alternative to LaTeX. As someone who's wrestled with LaTeX's quirks for years, I was immediately intrigued.
 
 == What Makes Typst Special?
