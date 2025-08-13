@@ -1,6 +1,6 @@
-<footer>
+<footer webc:root="override">
     <p>&copy; 2024 Uwni'Space. All rights reserved.</p>
-    <p>Made with d and <a href="https://www.11ty.dev/">Eleventy</a></p>
+    <p>Made with Typst and <a href="https://www.11ty.dev/">Eleventy</a></p>
 </footer>
 
 <style webc:scoped>
