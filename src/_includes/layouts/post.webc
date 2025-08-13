@@ -1,0 +1,9 @@
+<div webc:import="./base.webc" webc:nokeep>
+    <style>
+        h1 {
+            color: red;
+        }
+    </style>
+    <h1>POST</h1>
+    <template @html="content" webc:nokeep></template>
+</div>

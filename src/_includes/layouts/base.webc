@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="page-title">UW Niblog</title>
+    <meta name="description" content="" id="page-description">
+
+    <!-- inline bundles -->
+    <style @raw="getBundle('css')" webc:keep></style>
+    <script @raw="getBundle('js')" webc:keep></script>
+
+    <!-- Favicon -->
+    <!-- <link rel="icon" type="image/x-icon" href="/favicon.ico"> -->
+</head>
+
+<body>
+    <site-header></site-header>
+    <main>
+        <slot @html="content" webc:nokeep>Main</slot>
+    </main>
+    <site-footer></site-footer>
+</body>
+
+</html>
