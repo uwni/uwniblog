@@ -1,0 +1,83 @@
+<layout-base webc:nokeep>
+  <p>Hey there! Welcome to my little corner of the internet. I'm Uwni, and this is where I document my adventures
+    through cyberspace, share technical discoveries, and explore what it means to exist digitally.</p>
+
+  <h2>Recent Posts</h2>
+
+  <div class="post-list">
+    <article webc:for="post of collections.posts.reverse()" class="post-list-item">
+      <h3 class="post-list-title">
+        <a :href="post.url" @text="post.data.title"></a>
+      </h3>
+      <div class="post-list-meta">
+        <time @text="post.data.date"></time>
+          <span  webc:for="tag of post.data.tags">
+            <a :href="`/tags/${tag}/`" @text=`#${tag}`></a>
+          </span>
+      </div>
+      <div class="post-list-excerpt"
+        @text="(post.data.description || post.data.title || '').substring(0, 200) + (post.data.description && post.data.description.length > 200 ? '...' : '')">
+      </div>
+    </article>
+  </div>
+
+  <p>Feel free to explore, and don't hesitate to reach out if something resonates with you!</p>
+</layout-base>
+
+<style>
+  .post-list {
+    list-style: none;
+    padding: 0;
+    margin: 2rem 0;
+  }
+
+  .post-list-item {
+    margin-bottom: 2rem;
+    padding: 1.5rem;
+    background: #f8f9fa;
+    border-radius: 8px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .post-list-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .post-list-title {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+  }
+
+  .post-list-title a {
+    color: #2c3e50;
+    text-decoration: none;
+  }
+
+  .post-list-title a:hover {
+    color: #667eea;
+  }
+
+  .post-list-meta {
+    color: #6c757d;
+    font-size: 0.9rem;
+    margin-bottom: 0.75rem;
+    font-style: italic;
+  }
+
+  .post-list-meta a {
+    color: #667eea;
+    text-decoration: none;
+    margin-right: 0.5rem;
+  }
+
+  .post-list-meta a:hover {
+    text-decoration: underline;
+  }
+
+  .post-list-excerpt {
+    color: #555;
+    line-height: 1.6;
+  }
+</style>

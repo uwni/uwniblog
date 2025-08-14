@@ -4,9 +4,9 @@
             <h1 class="post-title" @text="title"></h1>
             <div class="post-meta">
                 <time @text="page.date"></time>
-                <span webc:if="tags"> • Tags:
+                <span webc:if="tags"> tags:
                     <span webc:for="tag of tags">
-                        <a :href="`/tags/${tag}/`" @text="tag"></a>
+                        <a :href="`/tags/${tag}/`" @text=`#${tag}`></a>
                     </span>
                 </span>
             </div>

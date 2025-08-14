@@ -7,9 +7,7 @@
   )
 }
 
-#let _as-html-output(title, body) = {
-  import "html.typ"
-  html.h1(title)
+#let _as-html-output(body) = {
   body
 }
 
@@ -39,7 +37,7 @@
       ..args.named(),
     ))<frontmatter>]
   } else if target == "html" {
-    _as-html-output(title, body)
+    _as-html-output(body)
   } else if target == "pdf" {
     _as-pdf-output(title, body)
   } else {

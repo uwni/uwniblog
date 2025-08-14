@@ -98,6 +98,7 @@ export default function eleventyPluginTypst(eleventyConfig, options = {}) {
     // inject data for only typst file, which may produce html
     getData: async function (inputPath) {
       let frontmatter = await getFrontmatter(compiler, inputPath);
+      // console.log(frontmatter)
       // Auto-configure collection data for dual HTML/PDF output
       // here pagination is abused until an official solution is supported for
       // multiple generation
@@ -106,7 +107,6 @@ export default function eleventyPluginTypst(eleventyConfig, options = {}) {
         targets: targets,
         // the targets from <frontmatter> should override the defaults
         ...frontmatter,
-        tags: [collection],
         pagination: {
           data: "targets",
           alias: "target",

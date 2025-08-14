@@ -130,7 +130,7 @@ export const config = {
 	],
 
 	// Pre-process *.html files with: (default: `liquid`)
-	// htmlTemplateEngine: "webc",
+	htmlTemplateEngine: "webc",
 
 	// These are all optional:
 	dir: {

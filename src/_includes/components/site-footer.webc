@@ -1,6 +1,6 @@
 <footer webc:root="override">
-    <p>&copy; 2024 Uwni'Space. All rights reserved.</p>
-    <p>Made with Typst and <a href="https://www.11ty.dev/">Eleventy</a></p>
+    <p @text="`&copy; ${new Date().getFullYear()} ${$data.metadata.title}. All rights reserved.`"></p>
+    <p>Made with <a href="https://typst.app/">Typst</a> and <a href="https://www.11ty.dev/">Eleventy</a></p>
 </footer>
 
 <style webc:scoped>

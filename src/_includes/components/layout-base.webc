@@ -4,12 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title id="page-title">Uwni'Space</title>
+    <title id="page-title" @text="$data.metadata.title"></title>
     <meta name="description" content="" id="page-description">
 
     <!-- inline bundles -->
     <style @raw="getBundle('css')" webc:keep></style>
-    <script @raw="getBundle('js')" webc:keep></script>
 
     <!-- Favicon -->
     <!-- <link rel="icon" type="image/x-icon" href="/favicon.ico"> -->
@@ -22,6 +21,7 @@
     </main>
     <site-footer></site-footer>
 </body>
+<script @raw="getBundle('js')" webc:keep></script>
 
 </html>
 
