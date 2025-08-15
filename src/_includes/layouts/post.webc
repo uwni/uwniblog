@@ -1,45 +1,6 @@
 <layout-base webc:nokeep>
-    <div class="post-layout">
-        <!-- 移动端目录（在内容前显示） -->
-        <div class="mobile-toc">
-            <details>
-                <summary>📖 目录</summary>
-                <nav class="mobile-toc-nav" id="mobile-table-of-contents">
-                    <!-- 移动端目录 -->
-                </nav>
-            </details>
-        </div>
-
-        <!-- 主要内容区域 -->
-        <div class="post-main">
-            <article class="post">
-                <div class="post-title-section">
-                    <h1 class="post-title" @text="title"></h1>
-                    <div class="post-meta">
-                        <time @text="page.date"></time>
-                        <span webc:if="tags"> tags:
-                            <span webc:for="tag of tags">
-                                <a :href="`/tags/${tag}/`" @text=`#${tag}`></a>
-                            </span>
-                        </span>
-                    </div>
-                </div>
-                <div class="post-content">
-                    <template @html="content" webc:nokeep></template>
-                </div>
-            </article>
-        </div>
-
-        <!-- 右侧目录区域 -->
-        <aside class="post-toc">
-            <div class="toc-container">
-                <h3>目录</h3>
-                <nav class="toc-nav" id="table-of-contents">
-                    <!-- 目录将通过JavaScript生成 -->
-                </nav>
-            </div>
-        </aside>
-    </div>
+    <!-- Typst生成的内容已包含完整布局，这里直接输出 -->
+    <template @html="content" webc:nokeep></template>
 </layout-base>
 
 <style>

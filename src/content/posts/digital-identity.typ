@@ -2,7 +2,6 @@
 
 #show: post-template.with(
   title: "Thoughts on Digital Identity",
-  tags: ("philosophy", "digital-life", "identity"),
 )
 
 What does it mean to exist digitally? This question has been bouncing around my neural networks lately, especially as I spend more time in virtual spaces and online communities.
