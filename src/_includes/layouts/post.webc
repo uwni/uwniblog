@@ -1,23 +1,127 @@
 <layout-base webc:nokeep>
-    <article class="post">
-        <div class="post-title-section">
-            <h1 class="post-title" @text="title"></h1>
-            <div class="post-meta">
-                <time @text="page.date"></time>
-                <span webc:if="tags"> tags:
-                    <span webc:for="tag of tags">
-                        <a :href="`/tags/${tag}/`" @text=`#${tag}`></a>
-                    </span>
-                </span>
+    <div class="post-layout">
+        <!-- 移动端目录（在内容前显示） -->
+        <div class="mobile-toc">
+            <details>
+                <summary>📖 目录</summary>
+                <nav class="mobile-toc-nav" id="mobile-table-of-contents">
+                    <!-- 移动端目录 -->
+                </nav>
+            </details>
+        </div>
+
+        <!-- 主要内容区域 -->
+        <div class="post-main">
+            <article class="post">
+                <div class="post-title-section">
+                    <h1 class="post-title" @text="title"></h1>
+                    <div class="post-meta">
+                        <time @text="page.date"></time>
+                        <span webc:if="tags"> tags:
+                            <span webc:for="tag of tags">
+                                <a :href="`/tags/${tag}/`" @text=`#${tag}`></a>
+                            </span>
+                        </span>
+                    </div>
+                </div>
+                <div class="post-content">
+                    <template @html="content" webc:nokeep></template>
+                </div>
+            </article>
+        </div>
+
+        <!-- 右侧目录区域 -->
+        <aside class="post-toc">
+            <div class="toc-container">
+                <h3>目录</h3>
+                <nav class="toc-nav" id="table-of-contents">
+                    <!-- 目录将通过JavaScript生成 -->
+                </nav>
             </div>
-        </div>
-        <div class="post-content">
-            <template @html="content" webc:nokeep></template>
-        </div>
-    </article>
+        </aside>
+    </div>
 </layout-base>
 
 <style>
+    /* 响应式布局容器 */
+    .post-layout {
+        display: grid;
+        gap: 2rem;
+        min-height: 100vh;
+        /* 为固定header留空间 */
+    }
+
+    /* 移动端：单列布局 */
+    @media (max-width: 767px) {
+        .post-layout {
+            grid-template-columns: 1fr;
+            grid-template-areas:
+                "mobile-toc"
+                "content";
+            padding: 1rem;
+        }
+
+        .mobile-toc {
+            grid-area: mobile-toc;
+        }
+
+        .post-main {
+            grid-area: content;
+        }
+
+        .post-toc {
+            display: none;
+        }
+    }
+
+    /* 中等屏幕：两列布局 */
+    @media (min-width: 768px) and (max-width: 1199px) {
+        .post-layout {
+            grid-template-columns: 1fr 280px;
+            grid-template-areas: "content toc";
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .mobile-toc {
+            display: none;
+        }
+
+        .post-main {
+            grid-area: content;
+        }
+
+        .post-toc {
+            grid-area: toc;
+        }
+    }
+
+    /* 大屏幕：三列布局（左侧导航 + 中间内容 + 右侧目录）*/
+    @media (min-width: 1200px) {
+        .post-layout {
+            grid-template-columns: 1fr 280px;
+            grid-template-areas: "content toc";
+            padding: 2rem 0;
+            padding-top: 0;
+            /* 大屏幕无固定header */
+            gap: 2rem;
+        }
+
+        .mobile-toc {
+            display: none;
+        }
+
+        .post-main {
+            grid-area: content;
+        }
+
+        .post-toc {
+            grid-area: toc;
+        }
+    }
+
+    /* 文章主体样式 */
     .post {
         margin-bottom: 3rem;
     }
@@ -56,6 +160,124 @@
         font-size: 1.1rem;
         line-height: 1.8;
     }
+
+    /* 目录样式 */
+    .post-toc {
+        position: sticky;
+        top: 2rem;
+        height: fit-content;
+        max-height: calc(100vh - 4rem);
+        overflow-y: auto;
+    }
+
+    .toc-container {
+        background: #f8fafc;
+        border: 1px solid #e2e8f0;
+        border-radius: 12px;
+        padding: 1.5rem;
+    }
+
+    .toc-container h3 {
+        margin: 0 0 1rem 0;
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: #2d3748;
+    }
+
+    .toc-nav ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    .toc-nav li {
+        margin: 0.25rem 0;
+    }
+
+    .toc-nav a {
+        display: block;
+        padding: 0.375rem 0.75rem;
+        color: #4a5568;
+        text-decoration: none;
+        border-radius: 6px;
+        font-size: 0.9rem;
+        line-height: 1.4;
+        transition: all 0.2s ease;
+    }
+
+    .toc-nav a:hover {
+        background: #e2e8f0;
+        color: #2d3748;
+    }
+
+    .toc-nav a.active {
+        background: #667eea;
+        color: white;
+    }
+
+    /* 嵌套目录缩进 */
+    .toc-nav ul ul {
+        margin-left: 1rem;
+    }
+
+    .toc-nav ul ul a {
+        font-size: 0.85rem;
+        opacity: 0.9;
+    }
+
+    /* 移动端目录 */
+    .mobile-toc {
+        margin-bottom: 2rem;
+    }
+
+    .mobile-toc details {
+        background: #f8fafc;
+        border: 1px solid #e2e8f0;
+        border-radius: 12px;
+        padding: 1rem;
+    }
+
+    .mobile-toc summary {
+        font-weight: 600;
+        color: #2d3748;
+        cursor: pointer;
+        user-select: none;
+        list-style: none;
+    }
+
+    .mobile-toc summary::-webkit-details-marker {
+        display: none;
+    }
+
+    .mobile-toc-nav {
+        margin-top: 1rem;
+        padding-top: 1rem;
+        border-top: 1px solid #e2e8f0;
+    }
+
+    .mobile-toc-nav ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    .mobile-toc-nav li {
+        margin: 0.5rem 0;
+    }
+
+    .mobile-toc-nav a {
+        color: #4a5568;
+        text-decoration: none;
+        font-size: 0.95rem;
+        line-height: 1.4;
+    }
+
+    .mobile-toc-nav a:hover {
+        color: #667eea;
+        text-decoration: underline;
+    }
+
+    /* 保持原有的内容样式 */
 
     .post-content h2 {
         color: #2c3e50;

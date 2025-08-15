@@ -1,284 +1,152 @@
-<!-- SVG滤镜定义 -->
-<svg style="display: none">
-    <filter id="liquid-glass-distortion" x="0%" y="0%" width="100%" height="100%" filterUnits="objectBoundingBox">
-        <feTurbulence type="fractalNoise" baseFrequency="0.01 0.01" numOctaves="1" seed="5" result="turbulence" />
-        <feComponentTransfer in="turbulence" result="mapped">
-            <feFuncR type="gamma" amplitude="1" exponent="10" offset="0.5" />
-            <feFuncG type="gamma" amplitude="0" exponent="1" offset="0" />
-            <feFuncB type="gamma" amplitude="0" exponent="1" offset="0.5" />
-        </feComponentTransfer>
-        <feGaussianBlur in="turbulence" stdDeviation="2" result="softMap" />
-        <feSpecularLighting in="softMap" surfaceScale="5" specularConstant="1" specularExponent="100"
-            lighting-color="white" result="specLight">
-            <fePointLight x="-200" y="-200" z="300" />
-        </feSpecularLighting>
-        <feComposite in="specLight" operator="arithmetic" k1="0" k2="1" k3="1" k4="0" result="litImage" />
-        <feDisplacementMap in="SourceGraphic" in2="softMap" scale="45" xChannelSelector="R" yChannelSelector="G" />
-    </filter>
-</svg>
-
+<!-- 响应式三列布局 Header -->
 <header webc:root="override">
     <div class="header-inner">
-        <div class="liquid-glass-effect"></div>
-        <div class="liquid-glass-tint"></div>
-        <div class="liquid-glass-shine"></div>
-        <div class="liquid-glass-content">
-            <div class="header-left">
-                <h1 @text="$data.metadata.title"></h1>
-            </div>
-            <nav class="header-center">
-                <ul>
-                    <li><a href="/">Home</a></li>
-                    <li><a href="/posts/">Posts</a></li>
-                    <li><a href="/about/">About</a></li>
-                </ul>
-            </nav>
-            <div class="header-right">
-                <button class="theme-toggle" aria-label="切换主题">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <circle class="sun" cx="12" cy="12" r="5"></circle>
-                        <path class="sun"
-                            d="M12 1v2m0 18v2M4.22 4.22l1.42 1.42m12.72 12.72l1.42 1.42M1 12h2m18 0h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42">
-                        </path>
-                        <path class="moon" d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" style="display: none;">
-                        </path>
-                    </svg>
-                </button>
-            </div>
+        <!-- 网站标题 -->
+        <site-title></site-title>
+
+        <!-- 导航链接 -->
+        <nav class="header-nav">
+            <ul class="nav-links">
+                <li><a href="/">Home</a></li>
+                <li><a href="/posts/">Posts</a></li>
+                <li><a href="/about/">About</a></li>
+            </ul>
+        </nav>
+
+        <!-- 右侧工具栏 -->
+        <div class="header-actions">
+            <!-- 主题切换 -->
+            <button class="theme-toggle" aria-label="切换主题">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle class="sun" cx="12" cy="12" r="5"></circle>
+                    <path class="sun"
+                        d="M12 1v2m0 18v2M4.22 4.22l1.42 1.42m12.72 12.72l1.42 1.42M1 12h2m18 0h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42">
+                    </path>
+                    <path class="moon" d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" style="display: none;">
+                    </path>
+                </svg>
+            </button>
         </div>
+    </div>
     </div>
 </header>
 
 <style webc:scoped>
-    :host {
-        position: fixed;
-        top: 20px;
-        left: 50%;
-        transform: translateX(-50%);
-        z-index: 1000;
-        max-width: 1160px;
-        width: calc(100% - 40px);
-        display: flex;
-        justify-content: flex-end;
+    /* 响应式断点 */
+    :root {
+        --content-max-width: 800px;
+        --breakpoint-md: 768px;
+        --breakpoint-lg: 1200px;
+        --breakpoint-xl: 1600px;
+    }
 
-        --collapse-duration: 0.4s;
-        --collapse-easing: cubic-bezier(0.175, 0.885, 0.32, 2.2);
-        --expanded-padding: 0.75rem 1.5rem;
-        --collapsed-padding: 0.75rem 1rem;
-        --hover-padding-expanded: 0.9rem 1.7rem;
-        --hover-padding-collapsed: 0.9rem 1.2rem;
+    /* Header 基础样式 */
+    :host {
+        margin: 0;
+        padding: 0;
     }
 
     .header-inner {
-        display: flex;
-        overflow: hidden;
-        position: relative;
-        padding: var(--expanded-padding);
-        border-radius: 9999px;
-        background: transparent;
-        width: 100%;
-        transition: all var(--collapse-duration) var(--collapse-easing);
-    }
-
-    /* 液态玻璃效果 */
-    :host.scrolled .header-inner,
-    .header-inner:hover {
-        box-shadow: 0 6px 6px rgba(0, 0, 0, 0.2), 0 0 20px rgba(0, 0, 0, 0.1);
-        background: rgba(255, 255, 255, 0.1);
-    }
-
-    .liquid-glass-effect {
-        position: absolute;
-        inset: 0;
-        z-index: 0;
-        overflow: hidden;
-        isolation: isolate;
-        contain: layout style paint;
-        opacity: 0;
-        backdrop-filter: none;
-        -webkit-backdrop-filter: none;
-        filter: none;
-        transition: all 0.4s var(--collapse-easing);
-    }
-
-    :host.scrolled .liquid-glass-effect,
-    .header-inner:hover .liquid-glass-effect {
-        opacity: 1;
-        backdrop-filter: blur(10px);
-        -webkit-backdrop-filter: blur(10px);
-        filter: url(#liquid-glass-distortion);
-    }
-
-    .liquid-glass-tint {
-        position: absolute;
-        inset: 0;
-        z-index: 1;
-        background: rgba(255, 255, 255, 0.15);
-        opacity: 0;
-        transition: all 0.4s var(--collapse-easing);
-    }
-
-    :host.scrolled .liquid-glass-tint,
-    .header-inner:hover .liquid-glass-tint {
-        opacity: 1;
-    }
-
-    .liquid-glass-shine {
-        position: absolute;
-        inset: 0;
-        z-index: 2;
-        overflow: hidden;
-        opacity: 0;
-        transition: all 0.4s var(--collapse-easing);
-        box-shadow: inset 2px 2px 1px 0 rgba(255, 255, 255, 0.5),
-            inset -1px -1px 1px 1px rgba(255, 255, 255, 0.3);
-    }
-
-    :host.scrolled .liquid-glass-shine,
-    .header-inner:hover .liquid-glass-shine {
-        opacity: 1;
-    }
-
-    .liquid-glass-content {
-        z-index: 3;
+        padding: 0 1.5rem;
         display: grid;
-        grid-template-columns: 1fr auto 1fr;
+        grid-template-columns: auto 1fr auto;
         align-items: center;
-        gap: 1rem;
-        width: 100%;
-        position: relative;
-        transition: all var(--collapse-duration) var(--collapse-easing);
+        column-gap: 2rem;
+        max-width: 100%;
+        box-sizing: border-box;
+        margin: 0;
     }
 
-    .header-left,
+    /* 移动端和中等屏幕的导航 */
+    .header-nav {
+        display: flex;
+        justify-content: center;
+        margin: 0;
+        padding: 0;
+    }
+
+    .nav-links {
+        list-style: none;
+        display: flex;
+        gap: 0.5rem;
+        margin: 0;
+        padding: 0;
+    }
+
+    .nav-links a {
+        color: #4a5568;
+        text-decoration: none;
+        font-weight: 500;
+        padding: 0.5rem 0.75rem;
+        border-radius: 8px;
+        font-size: 0.9rem;
+        transition: all 0.2s ease;
+    }
+
+    .nav-links a:hover {
+        background: rgba(0, 0, 0, 0.05);
+        color: #2d3748;
+    }
+
     .header-center {
-        justify-self: start;
-        overflow: hidden;
-        transform-origin: left center;
-        opacity: 1;
-        transform: scaleX(1);
-        width: auto;
-        transition: all var(--collapse-duration) var(--collapse-easing);
+        flex: 1;
     }
 
-    .header-center {
-        justify-self: center;
-    }
-
-    .header-right {
-        justify-self: end;
+    .header-actions {
         display: flex;
         gap: 0.5rem;
         align-items: center;
     }
 
-    /* 折叠状态 */
-    :host.collapsed .header-inner {
-        width: auto;
-        padding: var(--collapsed-padding);
-    }
-
-    :host.collapsed .header-left,
-    :host.collapsed .header-center {
-        opacity: 0;
-        transform: scaleX(0);
-        width: 0;
-        pointer-events: none;
-    }
-
-    :host.collapsed .liquid-glass-content {
-        display: flex;
-        align-items: center;
-        gap: 0;
-        width: auto;
-    }
-
-    :host.collapsed .header-inner:hover {
-        padding: var(--hover-padding-collapsed) !important;
-    }
-
-    /* 悬停展开功能 */
-    :host.collapsed:hover .header-left,
-    :host.collapsed:hover .header-center {
-        opacity: 1;
-        transform: scaleX(1);
-        width: auto;
-        pointer-events: auto;
-    }
-
-    :host.collapsed:hover .liquid-glass-content {
-        display: grid;
-        grid-template-columns: 1fr auto 1fr;
-        gap: 1rem;
-        width: 100%;
-    }
-
-    :host.collapsed:hover .header-inner {
-        width: 100%;
-        padding: var(--expanded-padding);
-    }
-
-    h1 {
-        font-size: 1.5rem;
-        margin: 0;
-        font-weight: 500;
-        color: #2c3e50;
-    }
-
-    .header-center ul {
-        list-style: none;
-        display: flex;
-        gap: 1rem;
-        margin: 0;
-        padding: 0;
-    }
-
-    .header-center a {
-        color: #4a5568;
-        text-decoration: none;
-        font-weight: 500;
-        padding: 0.4rem 0.8rem;
-        border-radius: 9999px;
-        font-size: 0.9rem;
-        background: rgba(255, 255, 255, 0.1);
-        border: 1px solid rgba(255, 255, 255, 0.2);
-        transition: all 0.2s ease-out;
-    }
-
-    .header-center a:hover {
-        background: rgba(255, 255, 255, 0.3);
-        border: 1px solid rgba(255, 255, 255, 0.4);
-        color: #2d3748;
-        transform: translateY(-1px);
-        box-shadow: inset -2px -2px 2px rgba(0, 0, 0, 0.1);
-        backdrop-filter: blur(2px);
-    }
-
     .theme-toggle {
-        background: rgba(255, 255, 255, 0.1);
-        border: 1px solid rgba(255, 255, 255, 0.2);
-        border-radius: 50%;
-        width: 40px;
-        height: 40px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
+        background: none;
+        border: none;
+        padding: 0.5rem;
+        border-radius: 8px;
         cursor: pointer;
-        transition: all 0.2s ease-out;
         color: #4a5568;
+        transition: all 0.2s ease;
     }
 
     .theme-toggle:hover {
-        background: rgba(255, 255, 255, 0.3);
-        border: 1px solid rgba(255, 255, 255, 0.4);
-        transform: translateY(-1px);
-        box-shadow: inset -2px -2px 2px rgba(0, 0, 0, 0.1);
+        background: rgba(0, 0, 0, 0.05);
     }
 
     .theme-toggle .moon {
         display: none;
     }
 
+    /* 响应式布局 */
+    /* 移动端：显示导航 */
+    @media (max-width: 767px) {
+        .header-nav {
+            display: flex;
+        }
+
+        .nav-links {
+            display: flex;
+        }
+    }
+
+    /* 中等屏幕：显示完整的头部导航 */
+    @media (min-width: 768px) and (max-width: 1199px) {
+        .header-nav {
+            display: flex;
+        }
+
+        .nav-links {
+            display: flex;
+        }
+    }
+
+    /* 大屏幕：隐藏header，使用layout-base中的sidebar */
+    @media (min-width: 1200px) {
+        :host {
+            display: none;
+        }
+    }
+
+    /* 深色模式 */
     .dark-mode .theme-toggle .sun {
         display: none;
     }
@@ -287,83 +155,32 @@
         display: block;
     }
 
-    .header-inner:hover {
-        padding: var(--hover-padding-expanded);
+    .dark-mode :host {
+        background: rgba(0, 0, 0, 0.95);
+        border-bottom-color: rgba(255, 255, 255, 0.1);
+    }
+
+    .dark-mode .nav-links a {
+        color: #a0aec0;
+    }
+
+    .dark-mode .nav-links a:hover {
+        background: rgba(255, 255, 255, 0.1);
+        color: #f7fafc;
     }
 </style>
 
-<script>
-    const header = document.querySelector('header');
+<script webc:bucket="defer">
+    // 主题切换功能
     const themeToggle = document.querySelector('.theme-toggle');
-    const sunIcon = document.querySelector('.sun');
-    const moonIcon = document.querySelector('.moon');
-
-    let lastScrollY = window.scrollY;
-    let isCollapsed = false;
-    let titleEndPosition = 0;
-
-    function calculateTitleEndPosition() {
-        const mainTitle = document.querySelector('main h1');
-        if (mainTitle) {
-            const rect = mainTitle.getBoundingClientRect();
-            titleEndPosition = window.scrollY + rect.bottom + 50;
-        } else {
-            titleEndPosition = 200;
-        }
-    }
-
-    function handleScroll() {
-        const currentScrollY = window.scrollY;
-
-        header.classList.toggle('scrolled', currentScrollY > 0);
-
-        if (currentScrollY > lastScrollY && currentScrollY > titleEndPosition && !isCollapsed) {
-            header.classList.add('collapsed');
-            isCollapsed = true;
-        } else if (currentScrollY <= 0 && isCollapsed) {
-            header.classList.remove('collapsed');
-            isCollapsed = false;
-        }
-
-        lastScrollY = currentScrollY;
-    }
-
-    function throttle(func, delay) {
-        let timeoutId;
-        let lastExecTime = 0;
-        return function (...args) {
-            const currentTime = Date.now();
-
-            if (currentTime - lastExecTime > delay) {
-                func.apply(this, args);
-                lastExecTime = currentTime;
-            } else {
-                clearTimeout(timeoutId);
-                timeoutId = setTimeout(() => {
-                    func.apply(this, args);
-                    lastExecTime = Date.now();
-                }, delay - (currentTime - lastExecTime));
-            }
-        };
-    }
-
-    calculateTitleEndPosition();
-    window.addEventListener('scroll', throttle(handleScroll, 16), { passive: true });
-    window.addEventListener('resize', throttle(calculateTitleEndPosition, 250), { passive: true });
-
     themeToggle?.addEventListener('click', () => {
-        const isDark = document.body.classList.toggle('dark-mode');
-
-        sunIcon.style.display = isDark ? 'none' : 'block';
-        moonIcon.style.display = isDark ? 'block' : 'none';
-
-        localStorage.setItem('theme', isDark ? 'dark' : 'light');
+        document.body.classList.toggle('dark-mode');
+        const isDark = document.body.classList.contains('dark-mode');
+        localStorage.theme = isDark ? 'dark' : 'light';
     });
 
-    // Initialize theme
-    if (localStorage.getItem('theme') === 'dark') {
+    // 初始化主题
+    if (localStorage.theme === 'dark') {
         document.body.classList.add('dark-mode');
-        sunIcon.style.display = 'none';
-        moonIcon.style.display = 'block';
     }
 </script>

@@ -16,6 +16,19 @@
 
 <body>
     <site-header></site-header>
+
+    <!-- 左侧固定导航栏 (Desktop) -->
+    <aside class="sidebar-nav">
+        <site-title></site-title>
+        <nav class="sidebar-links">
+            <ul class="nav-links">
+                <li><a href="/">Home</a></li>
+                <li><a href="/posts/">Posts</a></li>
+                <li><a href="/about/">About</a></li>
+            </ul>
+        </nav>
+    </aside>
+
     <main>
         <slot>Main</slot>
     </main>
@@ -42,29 +55,93 @@
         line-height: 1.6;
         color: #333;
         background-color: #f8f9fa;
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 0 20px;
         overflow-y: auto;
+        /* 移除固定宽度，让响应式布局生效 */
+    }
+
+    /* 左侧固定导航栏样式 */
+    .sidebar-nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: auto;
+        height: 100vh;
+        background: #f8fafc;
+        border-right: 1px solid rgba(0, 0, 0, 0.1);
+        padding: 0 1.5rem;
+        display: none;
+        /* 默认隐藏 */
+        flex-direction: column;
+        z-index: 900;
+    }
+
+    .sidebar-nav site-title {
+        margin: 0;
+        padding: 0;
+    }
+
+    .sidebar-nav .sidebar-links {
+        margin-top: 1.5rem;
+    }
+
+    .sidebar-nav .nav-links {
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        gap: 0.25rem;
+        margin: 0;
+        padding: 0;
+    }
+
+    .sidebar-nav .nav-links a {
+        color: #4a5568;
+        text-decoration: none;
+        font-weight: 500;
+        padding: 0.75rem 1rem;
+        border-radius: 8px;
+        font-size: 0.9rem;
+        transition: all 0.2s ease;
+        display: block;
+    }
+
+    .sidebar-nav .nav-links a:hover {
+        background: rgba(0, 0, 0, 0.05);
+        color: #2d3748;
+    }
+
+    /* 响应式布局 */
+    @media (min-width: 1200px) {
+        .sidebar-nav {
+            display: flex;
+            /* 大屏幕显示左侧导航 */
+        }
+
+        body {
+            margin-left: 280px;
+            padding-left: 2rem;
+        }
+    }
+
+    /* 深色模式 */
+    .dark-mode .sidebar-nav {
+        background: #1a202c;
+        border-right-color: rgba(255, 255, 255, 0.1);
+    }
+
+    .dark-mode .sidebar-nav .nav-links a {
+        color: #a0aec0;
+    }
+
+    .dark-mode .sidebar-nav .nav-links a:hover {
+        background: rgba(255, 255, 255, 0.1);
+        color: #f7fafc;
     }
 
     /* Main content */
     main {
         background: transparent;
         padding: 2rem;
-        margin-top: 100px;
         margin-bottom: 2rem;
         min-height: 400px;
-    }
-
-    /* Responsive design */
-    @media (max-width: 768px) {
-        body {
-            padding: 0 15px;
-        }
-
-        main {
-            padding: 1.5rem;
-        }
     }
 </style>
