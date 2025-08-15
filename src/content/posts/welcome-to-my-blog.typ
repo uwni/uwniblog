@@ -10,6 +10,9 @@ Hello and welcome to my personal blog! I'm Uwni, and this is where I'll be shari
 == What You'll Find Here
 
 In this space, you can expect to find:
+#figure(
+  rect(fill: red, width: 5cm, height: 5cm),
+)
 
 - *Technical adventures*: My journey through coding, hacking, and exploring new technologies
 - *Digital life reflections*: Thoughts on what it means to exist in cyberspace
@@ -25,10 +28,14 @@ I'm fascinated by the intersection of technology and humanity. When I'm not divi
 - Reading sci-fi novels about AI and consciousness
 - Contemplating the nature of digital identity
 
+#figure(
+  rect(fill: red, width: 5cm, height: 5cm),
+)
+
 == Let's Connect
 
 This blog is more than just a one-way communication channel. I'd love to hear your thoughts, feedback, and stories too. Feel free to reach out through the various channels you'll find around here.
 
-Thanks for stopping by, and I hope you enjoy your stay in my little corner of cyberspace! 
+Thanks for stopping by, and I hope you enjoy your stay in my little corner of cyberspace!
 
 _— Uwni ✨_

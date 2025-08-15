@@ -8,6 +8,7 @@
 }
 
 #let _as-html-output(body) = {
+  show figure.where(kind: image): html.frame
   body
 }
 

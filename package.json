@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "build": "bunx @11ty/eleventy",
-    "start": "bunx @11ty/eleventy --serve --incremental",
+    "start": "bunx @11ty/eleventy --serve",
     "debug": "DEBUG=Eleventy* bunx @11ty/eleventy",
     "benchmark": "DEBUG=Eleventy:Benchmark* bunx @11ty/eleventy"
   },
