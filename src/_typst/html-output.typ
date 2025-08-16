@@ -63,14 +63,16 @@
     html.span(" tags: " + tag-links)
   }
 
-  // 处理 body 内容，将其按标题分组为 sections
+  // 处理 body 
   let sectioned-content = build-tree(body, func: (level: 0, id: (), heading: none, body) => {
     let id = id.map(str).join("-")
-    html.section(id: "section-" + id, data-toc-id: "toc-link-" + id, heading + body)
+    let aria-labelledby = if heading != none {
+      (aria-labelledby: "heading-" + id)
+    }
+    html.section(..aria-labelledby, heading + body)
   })
 
   // let sectioned-content = body
-  // 生成完整的post布局HTML
   [
     #html.div(class: "post-layout")[
       #html.div(class: "mobile-toc")[
