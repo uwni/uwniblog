@@ -1,4 +1,4 @@
-#import "/_typst/helper.typ": post-template
+#import "/_typst/template.typ": post-template
 
 #show: post-template.with(
   title: "Exploring Typst: A Modern Alternative to LaTeX",
@@ -6,6 +6,8 @@
 )
 
 Recently, I've been diving into #link("https://typst.app/")[Typst], a new markup-based typesetting system that promises to be a modern alternative to LaTeX. As someone who's wrestled with LaTeX's quirks for years, I was immediately intrigued.
+= Heading1
+content 
 
 == What Makes Typst Special?
 

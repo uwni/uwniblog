@@ -1,4 +1,4 @@
-#import "/_typst/helper.typ": post-template
+#import "/_typst/template.typ": post-template
 
 #show: post-template.with(
   title: "Welcome to Uwni'Space",

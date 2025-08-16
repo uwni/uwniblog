@@ -116,6 +116,7 @@ export default async function (eleventyConfig) {
 		workspace: "src",
 		collection: "posts"
 	});
+
 };
 
 export const config = {

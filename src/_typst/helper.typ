@@ -1,113 +1,152 @@
-#let _parse-datetime(s) = datetime(..json(bytes(s)))
+#let end-sect = metadata("_tree_end_sect")
 
-#let _11ty_ref_by_path(path, body) = {
-  import "html.typ"
-  div(
-    a(href: path, body),
+#let build-tree(
+  body,
+  func: none,
+  counters: (
+    math.equation,
+    figure.where(kind: image),
+    figure.where(kind: table),
+    figure.where(kind: raw),
+  ),
+  numberings: (
+    (math.equation, "(1.1)"),
+    (figure, "1.1"),
+  ),
+) = {
+  let stack = ()
+  let nodes = ()
+
+  // fold a node into stack or nodes
+  let fold(stack, nodes, node) = {
+    if stack.len() > 0 {
+      stack.last().children.push(node)
+    } else {
+      nodes.push(node)
+    }
+    (stack, nodes)
+  }
+
+  // traverse body(supposed to be a sequnce) and build tree
+  for c in body.children {
+    if c.func() == heading {
+      while stack.len() > 0 and stack.last().heading.depth >= c.depth {
+        let node = stack.pop()
+        (stack, nodes) = fold(stack, nodes, node)
+      }
+
+      stack.push((
+        heading: c,
+        children: (),
+      ))
+    } else if c.func() == metadata and c.value == end-sect.value {
+      let node = stack.pop()
+      (stack, nodes) = fold(stack, nodes, node)
+    } else {
+      (stack, nodes) = fold(stack, nodes, c)
+    }
+  }
+
+  // process remaining nodes in stack
+  while stack.len() > 0 {
+    let node = stack.pop()
+    (stack, nodes) = fold(stack, nodes, node)
+  }
+
+  // merge continuous content to reduce show-rule depth consumed
+  let func-seq = [].func()
+  let merge-contents(nodes) = {
+    let result = ()
+    let current-contents = ()
+
+    for node in nodes {
+      if type(node) == dictionary {
+        if current-contents.len() > 0 {
+          result.push(func-seq(current-contents))
+          current-contents = ()
+        }
+        node.children = merge-contents(node.children)
+        result.push(node)
+      } else {
+        current-contents.push(node)
+      }
+    }
+    if current-contents.len() > 0 {
+      result.push(func-seq(current-contents))
+    }
+    result
+  }
+  nodes = merge-contents(nodes)
+
+  // convert the tree to content with given func
+  let display-func(node, level: 0, wrapping-func: func, id: ()) = {
+    let body = context {
+      // store and restore counter values for counters "interrupted" by subsections
+      let f(counter-ckpt, children, child-index: 0) = {
+        // base case
+        if children.len() == 0 {
+          return
+        }
+        // process children one by one
+        let c = children.first()
+        let others = children.slice(1)
+        // content -> store counter value after displayed
+        if type(c) == content {
+          c
+          context f(counters.map(x => counter(x)).map(x => x.get().first()), others, child-index: child-index)
+        } // dict(subsection) -> restore counter value after displayed
+        else if type(c) == dictionary {
+          let current-child-index = child-index + 1
+          counters.map(x => counter(x).update(0)).join()
+          display-func(level: level + 1, wrapping-func: wrapping-func, c, id: id + (current-child-index,))
+          counters.zip(counter-ckpt).map(x => counter(x.first()).update(x.last())).join()
+          f(counter-ckpt, others, child-index: current-child-index)
+        } else {
+          panic("unexpected node in document tree")
+        }
+      }
+      // all counters begin with 0
+      f((0,) * counters.len(), node.children)
+    }
+
+    // call given wrapping-func to finally create contents
+    wrapping-func(
+      level: level,
+      heading: node.heading,
+      id: id,
+      context {
+        // get heading counter state
+        let h-count = if node.heading == none {
+          ()
+        } else {
+          counter(heading).get()
+        }
+
+        // util func for build heading-prefixed numbering
+        let f-numbering(numbering: "1.1", x) = {
+          std.numbering(numbering, ..h-count + (x,))
+        }
+
+        // set numberings
+        show: x => numberings.fold(
+          x,
+          (it, config) => {
+            let f = config.first()
+            set f(numbering: f-numbering.with(numbering: config.last()))
+            it
+          },
+        )
+        body
+      },
+    )
+  }
+  display-func(
+    wrapping-func: func,
+    level: 0,
+    (
+      heading: none,
+      children: nodes,
+    ),
+    id: (),
   )
 }
-
-#let _as-html-output(title, tags: (), date: none, body) = {
-  show figure.where(kind: image): html.frame
-  import "html.typ"
-  let date-str = date.display()
-
-  // 构建标签HTML
-  let tags-html = if tags.len() > 0 {
-    let tag-links = tags.map(tag => html.a(href: "/tags/" + tag + "/", "#" + tag)).join(" ")
-    html.span(" tags: " + tag-links)
-  }
-
-  // 生成完整的post布局HTML
-  [
-    #html.div(class: "post-layout")[
-      #html.div(class: "mobile-toc")[
-        #html.details[
-          #html.summary[📖 目录]
-          #html.nav(
-            class: "mobile-toc-nav",
-            id: "mobile-table-of-contents",
-            "<!-- 移动端目录 -->",
-          )
-        ]]
-
-      #html.div(
-        class: "post-main",
-        html.article(
-          class: "post",
-          [
-            #html.div(
-              class: "post-title-section",
-              [
-                #html.h1(class: "post-title", title)
-                #html.div(
-                  class: "post-meta",
-                  [
-                    #html.time(date-str)
-                    #tags-html
-                  ],
-                )
-              ],
-            )
-            #html.div(
-              class: "post-content",
-              body,
-            )
-          ],
-        ),
-      )
-
-      #html.aside(
-        class: "post-toc",
-        html.div(
-          class: "toc-container",
-          [
-            #html.h3("目录")
-            #html.nav(
-              class: "toc-nav",
-              id: "table-of-contents",
-              "<!-- 目录将通过JavaScript生成 -->",
-            )
-          ],
-        ),
-      )
-    ]
-  ]
-}
-
-#let _as-pdf-output(title, body) = {
-  heading(level: 1, title)
-  body
-}
-
-//! A specified targets arg can override that controlled by genBoth
-#let post-template(
-  genHtml: true,
-  genPdf: true,
-  creationDate: datetime.today(),
-  title: "untitled post",
-  ..args,
-  body,
-) = {
-  let targets = ("html",) * int(genHtml) + ("pdf",) * int(genPdf)
-  assert("target" in sys.inputs)
-  let target = sys.inputs.target
-
-  show: if target == "query" {
-    [#metadata((
-      title: title,
-      creationDate: creationDate.display(),
-      targets: targets,
-      ..args.named(),
-    ))<frontmatter>]
-  } else if target == "html" {
-    let tags = args.named().at("tags", default: ())
-    _as-html-output(title, tags: tags, date: creationDate, body)
-  } else if target == "pdf" {
-    _as-pdf-output(title, body)
-  } else {
-    panic("Unknown target: " + target)
-  }
-}
-
-

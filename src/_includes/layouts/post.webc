@@ -33,6 +33,11 @@
         .post-toc {
             display: none;
         }
+
+        /* Hide desktop meta on mobile */
+        .post-meta.desktop-meta {
+            display: none;
+        }
     }
 
     /* 中等屏幕：两列布局 */
@@ -55,6 +60,15 @@
 
         .post-toc {
             grid-area: toc;
+        }
+
+        /* Show desktop meta in sidebar on medium screens too */
+        .post-meta.mobile-meta {
+            display: none;
+        }
+
+        .post-meta.desktop-meta {
+            margin-bottom: 1.5rem;
         }
     }
 
@@ -80,6 +94,16 @@
         .post-toc {
             grid-area: toc;
         }
+
+        /* Hide mobile meta on desktop */
+        .post-meta.mobile-meta {
+            display: none;
+        }
+
+        /* Desktop meta positioning in sidebar */
+        .post-meta.desktop-meta {
+            margin-bottom: 1.5rem;
+        }
     }
 
     /* 文章主体样式 */
@@ -87,7 +111,7 @@
         margin-bottom: 3rem;
     }
 
-    .post-title-section {
+    .post-title-container {
         margin-bottom: 2rem;
         padding-bottom: 1rem;
         border-bottom: 2px solid #f1f3f4;
@@ -132,10 +156,7 @@
     }
 
     .toc-container {
-        background: #f8fafc;
-        border: 1px solid #e2e8f0;
-        border-radius: 12px;
-        padding: 1.5rem;
+        padding: 0;
     }
 
     .toc-container h3 {
@@ -145,35 +166,44 @@
         color: #2d3748;
     }
 
-    .toc-nav ul {
+    .toc-nav ul,
+    .toc-nav .toc-list {
         list-style: none;
         margin: 0;
         padding: 0;
     }
 
-    .toc-nav li {
+    .toc-nav li,
+    .toc-nav .toc-item {
         margin: 0.25rem 0;
+    }
+
+    .toc-nav .toc-item {
+        padding-left: calc(1rem * var(--depth, 0));
     }
 
     .toc-nav a {
         display: block;
-        padding: 0.375rem 0.75rem;
+        padding: 0.25rem 0.75rem;
         color: #4a5568;
         text-decoration: none;
-        border-radius: 6px;
         font-size: 0.9rem;
         line-height: 1.4;
         transition: all 0.2s ease;
+        border-left: 3px solid transparent;
+        position: relative;
     }
 
     .toc-nav a:hover {
-        background: #e2e8f0;
-        color: #2d3748;
+        color: #667eea;
+        background-color: rgba(102, 126, 234, 0.1);
     }
 
-    .toc-nav a.active {
-        background: #667eea;
-        color: white;
+    .toc-nav li[aria-current="true"] a {
+        color: #667eea;
+        font-weight: 500;
+        border-left-color: #667eea;
+        background-color: rgba(102, 126, 234, 0.15);
     }
 
     /* 嵌套目录缩进 */
@@ -192,10 +222,7 @@
     }
 
     .mobile-toc details {
-        background: #f8fafc;
-        border: 1px solid #e2e8f0;
-        border-radius: 12px;
-        padding: 1rem;
+        padding: 0;
     }
 
     .mobile-toc summary {
@@ -212,18 +239,22 @@
 
     .mobile-toc-nav {
         margin-top: 1rem;
-        padding-top: 1rem;
-        border-top: 1px solid #e2e8f0;
     }
 
-    .mobile-toc-nav ul {
+    .mobile-toc-nav ul,
+    .mobile-toc-nav .toc-list {
         list-style: none;
         margin: 0;
         padding: 0;
     }
 
-    .mobile-toc-nav li {
+    .mobile-toc-nav li,
+    .mobile-toc-nav .toc-item {
         margin: 0.5rem 0;
+    }
+
+    .mobile-toc-nav .toc-item {
+        padding-left: calc(1rem * var(--depth, 0));
     }
 
     .mobile-toc-nav a {
@@ -336,3 +367,71 @@
         }
     }
 </style>
+
+<script>
+    // TOC 滚动指示功能
+    document.addEventListener('DOMContentLoaded', function () {
+        const headingElements = document.querySelectorAll('.post-heading');
+        // 创建 Intersection Observer with optimized configuration
+        const observer = new IntersectionObserver((entries) => {
+            // 收集所有在视口上方的元素
+            const aboveViewportElements = [];
+
+            for (const entry of entries) {
+                const navId = entry.target.getAttribute('data-toc-id');
+                const tocElement = document.querySelector(`.toc-nav .${navId}`);
+                const tocListItem = tocElement ? tocElement.closest('li') : null;
+
+                if (entry.boundingClientRect.top <= 0) {
+                    // 在视口上方的元素
+                    aboveViewportElements.push({
+                        element: entry.target,
+                        tocElement: tocElement,
+                        tocListItem: tocListItem,
+                        top: entry.boundingClientRect.top
+                    });
+                }
+            }
+
+            // 清除所有 aria-current 属性
+            document.querySelectorAll('.toc-nav li[aria-current="true"]').forEach(el => {
+                el.removeAttribute('aria-current');
+            });
+
+            // 如果有在视口上方的元素，找到最下面的那个（离视口顶部最近的）
+            if (aboveViewportElements.length > 0) {
+                const lastAboveElement = aboveViewportElements.reduce((prev, current) => {
+                    return (current.top > prev.top) ? current : prev;
+                });
+
+                if (lastAboveElement.tocListItem) {
+                    lastAboveElement.tocListItem.setAttribute('aria-current', 'true');
+                }
+            }
+
+        }, { threshold: 0 })
+
+        // 观察所有标题元素
+        headingElements.forEach(heading => {
+            observer.observe(heading);
+        });
+
+        // // 平滑滚动
+        // tocLinkMap.forEach(links => {
+        //     links.forEach(link => {
+        //         link.addEventListener('click', function (e) {
+        //             e.preventDefault();
+        //             const targetId = this.getAttribute('href').substring(1);
+        //             const targetElement = document.getElementById(targetId);
+
+        //             if (targetElement) {
+        //                 targetElement.scrollIntoView({
+        //                     behavior: 'smooth',
+        //                     block: 'start'
+        //                 });
+        //             }
+        //         });
+        //     });
+        // });
+    });
+</script>

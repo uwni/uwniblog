@@ -1,10 +1,11 @@
 #import html: elem
 
+#let frame = html.frame
 // Main root
 #let html(..args) = elem("html", attrs: args.named(), ..args.pos())
 
 // Document metadata
-#let base(..artoggle_panelgs) = elem("base", attrs: args.named(), ..args.pos())
+#let base(..args) = elem("base", attrs: args.named(), ..args.pos())
 #let head(..args) = elem("head", attrs: args.named(), ..args.pos())
 #let link(..args) = elem("link", attrs: args.named(), ..args.pos())
 #let meta(..args) = elem("meta", attrs: args.named(), ..args.pos())
