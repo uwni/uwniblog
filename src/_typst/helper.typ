@@ -16,6 +16,7 @@
 ) = {
   let stack = ()
   let nodes = ()
+  let level-counters = () // 动态维护各层级计数器
 
   // fold a node into stack or nodes
   let fold(stack, nodes, node) = {
@@ -30,6 +31,17 @@
   // traverse body(supposed to be a sequnce) and build tree
   for c in body.children {
     if c.func() == heading {
+      // 确保数组长度足够
+      while level-counters.len() < c.depth {
+        level-counters.push(0)
+      }
+
+      // 截断到当前深度，重置更深层计数
+      level-counters = level-counters.slice(0, c.depth)
+
+      // 递增当前层级计数
+      level-counters.at(c.depth - 1) += 1
+
       while stack.len() > 0 and stack.last().heading.depth >= c.depth {
         let node = stack.pop()
         (stack, nodes) = fold(stack, nodes, node)
@@ -37,6 +49,7 @@
 
       stack.push((
         heading: c,
+        index: level-counters, // 直接存储层级计数器数组
         children: (),
       ))
     } else if c.func() == metadata and c.value == end-sect.value {
@@ -79,10 +92,10 @@
   nodes = merge-contents(nodes)
 
   // convert the tree to content with given func
-  let display-func(node, level: 0, wrapping-func: func, id: ()) = {
+  let display-func(node, level: 0, wrapping-func: func) = {
     let body = context {
       // store and restore counter values for counters "interrupted" by subsections
-      let f(counter-ckpt, children, child-index: 0) = {
+      let f(counter-ckpt, children) = {
         // base case
         if children.len() == 0 {
           return
@@ -93,14 +106,13 @@
         // content -> store counter value after displayed
         if type(c) == content {
           c
-          context f(counters.map(x => counter(x)).map(x => x.get().first()), others, child-index: child-index)
+          context f(counters.map(x => counter(x)).map(x => x.get().first()), others)
         } // dict(subsection) -> restore counter value after displayed
         else if type(c) == dictionary {
-          let current-child-index = child-index + 1
           counters.map(x => counter(x).update(0)).join()
-          display-func(level: level + 1, wrapping-func: wrapping-func, c, id: id + (current-child-index,))
+          display-func(level: level + 1, wrapping-func: wrapping-func, c)
           counters.zip(counter-ckpt).map(x => counter(x.first()).update(x.last())).join()
-          f(counter-ckpt, others, child-index: current-child-index)
+          f(counter-ckpt, others)
         } else {
           panic("unexpected node in document tree")
         }
@@ -113,7 +125,7 @@
     wrapping-func(
       level: level,
       heading: node.heading,
-      id: id,
+      id: node.at("index", default: ()).map(str).join("-"), // 转换为字符串格式
       context {
         // get heading counter state
         let h-count = if node.heading == none {
@@ -147,6 +159,5 @@
       heading: none,
       children: nodes,
     ),
-    id: (),
   )
 }

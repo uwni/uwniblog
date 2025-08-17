@@ -63,13 +63,18 @@
     html.span(" tags: " + tag-links)
   }
 
-  // 处理 body 
-  let sectioned-content = build-tree(body, func: (level: 0, id: (), heading: none, body) => {
-    let id = id.map(str).join("-")
-    let aria-labelledby = if heading != none {
-      (aria-labelledby: "heading-" + id)
+  // 处理 body - 统一使用 Typst 标题编号
+  let sectioned-content = build-tree(body, func: (level: 0, heading: none, id: "", body) => {
+    if heading != none {
+      html.section(
+        aria-labelledby: "heading-" + id,
+        data-assoc: id,
+        class: "post-section",
+        heading + body,
+      )
+    } else {
+      html.section(class: "post-section", body)
     }
-    html.section(..aria-labelledby, heading + body)
   })
 
   // let sectioned-content = body

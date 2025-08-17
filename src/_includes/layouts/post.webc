@@ -199,6 +199,7 @@
         background-color: rgba(102, 126, 234, 0.1);
     }
 
+    /* 子节点激活状态：显示竖条和背景 */
     .toc-nav li[aria-current="true"] a {
         color: #667eea;
         font-weight: 500;
@@ -369,69 +370,44 @@
 </style>
 
 <script>
-    // TOC 滚动指示功能
-    document.addEventListener('DOMContentLoaded', function () {
-        const headingElements = document.querySelectorAll('.post-heading');
-        // 创建 Intersection Observer with optimized configuration
-        const observer = new IntersectionObserver((entries) => {
-            // 收集所有在视口上方的元素
-            const aboveViewportElements = [];
+    // 初始化目录导航功能
+    const sections = document.querySelectorAll('.post-section[aria-labelledby]');
+    const tocItems = document.querySelectorAll('.toc-nav .toc-item'); // 只选择桌面版目录
 
-            for (const entry of entries) {
-                const navId = entry.target.getAttribute('data-toc-id');
-                const tocElement = document.querySelector(`.toc-nav .${navId}`);
-                const tocListItem = tocElement ? tocElement.closest('li') : null;
+    // 处理目录激活状态
+    const updateTocStates = (activeLi, isActive) => {
+        activeLi.setAttribute('aria-current', isActive);
 
-                if (entry.boundingClientRect.top <= 0) {
-                    // 在视口上方的元素
-                    aboveViewportElements.push({
-                        element: entry.target,
-                        tocElement: tocElement,
-                        tocListItem: tocListItem,
-                        top: entry.boundingClientRect.top
-                    });
+        // 如果是激活状态，标记父节点
+        if (isActive) {
+            const currentDepth = parseInt(activeLi.style.getPropertyValue('--depth') || '0');
+            const currentIndex = Array.from(tocItems).indexOf(activeLi);
+            for (let i = currentIndex - 1; i >= 0; i--) {
+                const itemDepth = parseInt(tocItems[i].style.getPropertyValue('--depth') || '0');
+                if (itemDepth < currentDepth) {
+                    tocItems[i].removeAttribute('aria-current');
                 }
             }
+        }
+    };
 
-            // 清除所有 aria-current 属性
-            document.querySelectorAll('.toc-nav li[aria-current="true"]').forEach(el => {
-                el.removeAttribute('aria-current');
-            });
+    // 观察器
+    const observer = new IntersectionObserver((entries) => {
+        for (const entry of entries) {
+            const targetHeading = entry.target.getAttribute('aria-labelledby');
+            const activeLi = document.querySelector(`.toc-nav a[href="#${targetHeading}"]`)?.parentElement;
+            if (activeLi) updateTocStates(activeLi, entry.isIntersecting);
+        }
+    }, {
+        threshold: 0,
+    });
 
-            // 如果有在视口上方的元素，找到最下面的那个（离视口顶部最近的）
-            if (aboveViewportElements.length > 0) {
-                const lastAboveElement = aboveViewportElements.reduce((prev, current) => {
-                    return (current.top > prev.top) ? current : prev;
-                });
-
-                if (lastAboveElement.tocListItem) {
-                    lastAboveElement.tocListItem.setAttribute('aria-current', 'true');
-                }
-            }
-
-        }, { threshold: 0 })
-
-        // 观察所有标题元素
-        headingElements.forEach(heading => {
-            observer.observe(heading);
+    // 启动
+    sections.forEach(section => observer.observe(section));
+    document.querySelectorAll('.toc-nav a').forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            document.getElementById(link.href.split('#')[1])?.scrollIntoView({ behavior: 'smooth' });
         });
-
-        // // 平滑滚动
-        // tocLinkMap.forEach(links => {
-        //     links.forEach(link => {
-        //         link.addEventListener('click', function (e) {
-        //             e.preventDefault();
-        //             const targetId = this.getAttribute('href').substring(1);
-        //             const targetElement = document.getElementById(targetId);
-
-        //             if (targetElement) {
-        //                 targetElement.scrollIntoView({
-        //                     behavior: 'smooth',
-        //                     block: 'start'
-        //                 });
-        //             }
-        //         });
-        //     });
-        // });
     });
 </script>
