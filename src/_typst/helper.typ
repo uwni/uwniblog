@@ -1,5 +1,6 @@
-#let end-sect = metadata("_tree_end_sect")
+#import "html.typ"
 
+#let end-sect = metadata("_tree_end_sect")
 #let build-tree(
   body,
   func: none,
@@ -160,4 +161,13 @@
       children: nodes,
     ),
   )
+}
+
+#let inline-css(path: none, raw: none) = {
+  let css = if path != none {
+    read(path)
+  } else {
+    raw
+  }
+  html.style(css)
 }

@@ -1,5 +1,6 @@
 #import "html.typ"
-#import "helper.typ": build-tree
+#import "html-math.typ": handle-math
+#import "helper.typ": build-tree, inline-css
 
 #let _get_heading_id(heading: none) = {
   let h-counter = if heading == none {
@@ -43,6 +44,11 @@
 // HTML输出主函数
 #let as-html-output(title, tags: (), date: none, body) = {
   show figure.where(kind: image): html.frame
+  show math.equation: handle-math
+
+  show ref: it => {
+    it.element
+  }
 
   show heading: it => {
     let id = _get_heading_id()
@@ -127,5 +133,6 @@
         ),
       )
     ]
+    #inline-css(path: "mathyml.css")
   ]
 }

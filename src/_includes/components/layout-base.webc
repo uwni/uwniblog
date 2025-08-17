@@ -48,6 +48,7 @@
 
     html {
         scrollbar-gutter: stable both-edges;
+        font-size: 16px;
     }
 
     body {

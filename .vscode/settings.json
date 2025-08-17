@@ -1,4 +1,5 @@
 {
     "tinymist.preview.cursorIndicator": false,
     // "tinymist.exportTarget": "html"
+    "tinymist.rootPath": "/"
 }
