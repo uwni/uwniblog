@@ -1,7 +1,14 @@
 #import "html.typ"
 #import "helper.typ": build-tree
 
-// HTML输出相关功能
+#let _get_heading_id(heading: none) = {
+  let h-counter = if heading == none {
+    counter(std.heading).get()
+  } else {
+    counter(std.heading).at(heading.location())
+  }
+  h-counter.map(str).join("-")
+}
 
 // 生成目录HTML
 #let _generate-toc() = {
@@ -9,15 +16,13 @@
   show outline.entry: it => {
     context {
       // 获取标题计数器值并构建层次化ID
-      let h-counter = counter(heading).at(it.element.location())
-      let id = h-counter.map(str).join("-")
+      let id = _get_heading_id(heading: it.element)
       let href = "#heading-" + id
       let depth = it.level - 1
 
       html.li(
         class: "toc-item",
         style: "--depth: " + str(depth),
-        data-section-id: "section-" + id,
         html.a(
           class: "toc-link",
           href: href,
@@ -40,7 +45,7 @@
   show figure.where(kind: image): html.frame
 
   show heading: it => {
-    let id = counter(heading).at(here()).map(str).join("-")
+    let id = _get_heading_id()
     // 生成HTML元素，但保持编号功能
     if it.level == 1 {
       html.h2
@@ -68,7 +73,6 @@
     if heading != none {
       html.section(
         aria-labelledby: "heading-" + id,
-        data-assoc: id,
         class: "post-section",
         heading + body,
       )
