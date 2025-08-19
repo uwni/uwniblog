@@ -8,14 +8,22 @@
   body,
 ) = {
   let targets = ("html",) * int(genHtml) + ("pdf",) * int(genPdf)
-  assert("target" in sys.inputs)
-  let target = sys.inputs.target
+  let target = if "target" in sys.inputs {
+    sys.inputs.target
+  } else {
+    panic("target is required for post-template")
+  }
+
+  let date = if "date" in sys.inputs {
+    sys.inputs.date
+  }
+
   set heading(numbering: "1.1")
 
   show: if target == "query" {
     [#metadata((
       title: title,
-      date: "git Last Modified",
+      date: "1997-10-14",
       created: creationDate.display(),
       targets: targets,
       ..args.named(),
@@ -24,7 +32,7 @@
     import "html-output.typ": as-html-output
 
     let tags = args.named().at("tags", default: ())
-    as-html-output(title, tags: tags, date: creationDate, body)
+    as-html-output(title, tags: tags, date: date, body)
   } else if target == "pdf" {
     import "pdf-output.typ": as-pdf-output
     as-pdf-output(title, body)

@@ -78,19 +78,16 @@ export default function eleventyPluginTypst(eleventyConfig, options = {}) {
     }
   });
 
-  function toInputArgs(data) {
-    return {
-      url: data?.metadata?.url,
-      target: data?.target,
-      buildDate: buildDate
-    };
-  }
-
   // Register the .typ extension
   eleventyConfig.addExtension("typ", {
     compile: function (contents, inputPath) {
       return async (data) => {
-        let inputArgs = toInputArgs(data);
+        let inputArgs = {
+          url: data?.metadata?.url,
+          target: data?.target,
+          buildDate: buildDate,
+          date: data.page.date.toString()
+        };
         return data.target === "pdf" ? pdfRender(compiler, inputArgs, inputPath)
           : htmlRender(compiler, inputArgs, inputPath);
       }

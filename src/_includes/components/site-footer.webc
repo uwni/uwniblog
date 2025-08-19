@@ -5,16 +5,16 @@
 
 <style webc:scoped>
     footer {
-        background: #2c3e50;
-        color: white;
+        background: var(--color-bg-white);
+        color: var(--color-text-primary);
         text-align: center;
-        padding: 2rem;
-        border-radius: 8px;
-        margin-top: 2rem;
+        padding: var(--spacing-xl);
+        border-radius: var(--radius-medium);
+        margin-top: var(--spacing-2xl);
     }
 
     p {
-        margin-bottom: 0.5rem;
+        margin-bottom: var(--spacing-sm);
     }
 
     p:last-child {

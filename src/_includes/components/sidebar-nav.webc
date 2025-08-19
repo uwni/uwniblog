@@ -1,0 +1,119 @@
+<!-- 左侧固定导航栏 (Desktop) -->
+<aside webc:root="override">
+    <site-title></site-title>
+    <nav class="sidebar-links">
+        <ul class="nav-links">
+            <li><a href="/">Home</a></li>
+            <li><a href="/posts/">Posts</a></li>
+            <li><a href="/about/">About</a></li>
+        </ul>
+    </nav>
+    <div class="sidebar-actions">
+        <button class="desktop-theme-toggle" aria-label="切换主题">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle class="sun" cx="12" cy="12" r="5"></circle>
+                <path class="sun"
+                    d="M12 1v2m0 18v2M4.22 4.22l1.42 1.42m12.72 12.72l1.42 1.42M1 12h2m18 0h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42">
+                </path>
+                <path class="moon" d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" style="display: none;">
+                </path>
+            </svg>
+        </button>
+    </div>
+</aside>
+
+<style webc:scoped>
+    /* 左侧固定导航栏样式 */
+    :host {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: auto;
+        height: 100vh;
+        padding: 0 1.5rem;
+        display: none;
+        /* 默认隐藏 */
+        flex-direction: column;
+        z-index: 900;
+    }
+
+    :host site-title {
+        margin: 0;
+        padding: 0;
+    }
+
+    .sidebar-links {
+        margin-top: 1.5rem;
+    }
+
+    .nav-links {
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        gap: 0.25rem;
+        margin: 0;
+        padding: 0;
+    }
+
+    .nav-links a {
+        color: var(--color-nav-text);
+        text-decoration: none;
+        font-weight: 500;
+        padding: var(--spacing-sm) 0;
+        font-size: var(--font-size-md);
+        transition: var(--transition-fast);
+        display: block;
+    }
+
+    .nav-links a:hover {
+        color: var(--color-primary);
+    }
+
+    /* 侧边栏操作区域 */
+    .sidebar-actions {
+        margin-top: auto;
+        padding: var(--spacing-lg) 0;
+        border-top: 1px solid var(--color-border-light);
+    }
+
+    .desktop-theme-toggle {
+        background: var(--color-bg-white);
+        border: 1px solid var(--color-border-light);
+        padding: var(--spacing-sm);
+        border-radius: var(--radius-medium);
+        cursor: pointer;
+        color: var(--color-nav-text);
+        transition: var(--transition-fast);
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .desktop-theme-toggle:hover {
+        border-color: var(--color-primary);
+        color: var(--color-primary);
+        background: var(--color-primary-light);
+    }
+
+    .desktop-theme-toggle .moon {
+        display: none;
+    }
+
+    /* 深色模式下的主题切换按钮 */
+    .dark .desktop-theme-toggle .sun {
+        display: none;
+    }
+
+    .dark .desktop-theme-toggle .moon {
+        display: block;
+    }
+
+    /* 响应式布局 */
+    @media (min-width: 1200px) {
+        :host {
+            display: flex;
+            /* 大屏幕显示左侧导航 */
+        }
+    }
+</style>

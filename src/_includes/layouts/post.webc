@@ -108,33 +108,33 @@
 
     /* 文章主体样式 */
     .post {
-        margin-bottom: 3rem;
+        margin-bottom: var(--spacing-2xl);
     }
 
     .post-title-container {
-        margin-bottom: 2rem;
-        padding-bottom: 1rem;
-        border-bottom: 2px solid #f1f3f4;
+        margin-bottom: var(--spacing-xl);
+        padding-bottom: var(--spacing-md);
+        border-bottom: 2px solid var(--color-border-light);
     }
 
     .post-title {
-        color: #2c3e50;
-        font-size: 2.5rem;
-        margin-bottom: 1rem;
+        color: var(--color-text-primary);
+        font-size: var(--font-size-4xl);
+        margin-bottom: var(--spacing-md);
         font-weight: 400;
         line-height: 1.2;
     }
 
     .post-meta {
-        color: #6c757d;
-        font-size: 0.95rem;
+        color: var(--color-text-muted);
+        font-size: var(--font-size-md);
         font-style: italic;
     }
 
     .post-meta a {
-        color: #667eea;
+        color: var(--color-primary);
         text-decoration: none;
-        margin-right: 0.5rem;
+        margin-right: var(--spacing-sm);
     }
 
     .post-meta a:hover {
@@ -160,10 +160,10 @@
     }
 
     .toc-container h3 {
-        margin: 0 0 1rem 0;
-        font-size: 1.1rem;
+        margin: 0 0 var(--spacing-md) 0;
+        font-size: var(--font-size-lg);
         font-weight: 600;
-        color: #2d3748;
+        color: var(--color-text-primary);
     }
 
     .toc-nav ul,
@@ -184,27 +184,26 @@
 
     .toc-nav a {
         display: block;
-        padding: 0.25rem 0.75rem;
-        color: #4a5568;
+        padding: var(--spacing-xs) var(--spacing-md);
+        color: var(--color-text-muted);
         text-decoration: none;
-        font-size: 0.9rem;
+        font-size: var(--font-size-md);
         line-height: 1.4;
-        transition: all 0.2s ease;
+        transition: var(--transition-fast);
         border-left: 3px solid transparent;
         position: relative;
     }
 
     .toc-nav a:hover {
-        color: #667eea;
-        background-color: rgba(102, 126, 234, 0.1);
+        color: var(--color-primary);
+        background-color: var(--color-primary-light);
     }
 
-    /* 子节点激活状态：显示竖条和背景 */
+    /* 激活状态：只显示左侧条和文字颜色变化，增加粗体 */
     .toc-nav li[aria-current="true"] a {
-        color: #667eea;
-        font-weight: 500;
-        border-left-color: #667eea;
-        background-color: rgba(102, 126, 234, 0.15);
+        color: var(--color-primary);
+        font-weight: 600;
+        border-left-color: var(--color-primary);
     }
 
     /* 嵌套目录缩进 */
@@ -228,7 +227,7 @@
 
     .mobile-toc summary {
         font-weight: 600;
-        color: #2d3748;
+        color: var(--color-text-primary);
         cursor: pointer;
         user-select: none;
         list-style: none;
@@ -259,65 +258,65 @@
     }
 
     .mobile-toc-nav a {
-        color: #4a5568;
+        color: var(--color-text-muted);
         text-decoration: none;
-        font-size: 0.95rem;
+        font-size: var(--font-size-md);
         line-height: 1.4;
     }
 
     .mobile-toc-nav a:hover {
-        color: #667eea;
+        color: var(--color-primary);
         text-decoration: underline;
     }
 
     /* 保持原有的内容样式 */
 
     .post-content h2 {
-        color: #2c3e50;
-        margin: 2rem 0 1rem 0;
-        font-size: 1.8rem;
+        color: var(--color-text-primary);
+        margin: var(--spacing-xl) 0 var(--spacing-md) 0;
+        font-size: var(--font-size-2xl);
         font-weight: 500;
     }
 
     .post-content h3 {
-        color: #34495e;
-        margin: 1.5rem 0 0.75rem 0;
-        font-size: 1.4rem;
+        color: var(--color-text-secondary);
+        margin: var(--spacing-lg) 0 var(--spacing-md) 0;
+        font-size: var(--font-size-xl);
         font-weight: 500;
     }
 
     .post-content p {
-        margin-bottom: 1.2rem;
+        margin-bottom: var(--spacing-md);
     }
 
     .post-content a {
-        color: #667eea;
+        color: var(--color-primary);
         text-decoration: underline;
     }
 
     .post-content a:hover {
-        color: #764ba2;
+        color: var(--color-primary-hover);
     }
 
     .post-content code {
-        background-color: white;
-        padding: 0.2rem 0.4rem;
-        border-radius: 4px;
+        background-color: var(--color-bg-white);
+        padding: var(--spacing-xs) var(--spacing-sm);
+        border-radius: var(--radius-small);
         font-family: 'Monaco', 'Consolas', monospace;
-        font-size: 0.9rem;
-        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-        border: 1px solid #e1e8ed;
+        font-size: var(--font-size-md);
+        box-shadow: var(--shadow-light);
+        border: 1px solid var(--color-border-light);
     }
 
     .post-content pre {
-        background-color: white;
-        padding: 1.5rem;
-        border-radius: 8px;
+        background-color: var(--color-bg-white);
+        padding: var(--spacing-lg);
+        border-radius: var(--radius-medium);
         overflow-x: auto;
-        margin: 1.5rem 0;
-        border-left: 4px solid #667eea;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        border: 1px solid #e1e8ed;
+        margin: var(--spacing-lg) 0;
+        border-left: 4px solid var(--color-primary);
+        box-shadow: var(--shadow-light);
+        border: 1px solid var(--color-border-light);
     }
 
     .post-content pre code {
@@ -328,125 +327,47 @@
     }
 
     .post-content blockquote {
-        border-left: 4px solid #667eea;
-        margin: 1.5rem 0;
+        border-left: 4px solid var(--color-primary);
+        margin: var(--spacing-lg) 0;
         font-style: italic;
-        color: #555;
-        background: white;
-        padding: 1.5rem 1.5rem 1.5rem 2rem;
-        border-radius: 8px;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        border: 1px solid #e1e8ed;
-        border-left: 4px solid #667eea;
+        color: var(--color-text-subtle);
+        background: var(--color-bg-white);
+        padding: var(--spacing-lg) var(--spacing-lg) var(--spacing-lg) var(--spacing-xl);
+        border-radius: var(--radius-medium);
+        box-shadow: var(--shadow-light);
+        border: 1px solid var(--color-border-light);
+        border-left: 4px solid var(--color-primary);
     }
 
     .post-content ul,
     .post-content ol {
-        margin-left: 2rem;
-        margin-bottom: 1rem;
+        margin-left: var(--spacing-xl);
+        margin-bottom: var(--spacing-md);
     }
 
     .post-content li {
-        margin-bottom: 0.5rem;
+        margin-bottom: var(--spacing-sm);
     }
 
     @media (max-width: 768px) {
         .post-title {
-            font-size: 2rem;
+            font-size: var(--font-size-3xl);
         }
 
         .post-content {
-            font-size: 1rem;
+            font-size: var(--font-size-base);
         }
 
         .post-content h2 {
-            font-size: 1.5rem;
+            font-size: var(--font-size-lg);
         }
 
         .post-content h3 {
-            font-size: 1.3rem;
+            font-size: var(--font-size-xl);
         }
     }
 
-    /* 深色模式样式 */
-    .dark .post-title-container {
-        border-bottom-color: #2d3748;
-    }
 
-    .dark .post-title {
-        color: #f7fafc;
-    }
-
-    .dark .post-meta {
-        color: #a0aec0;
-    }
-
-    .dark .post-meta a {
-        color: var(--color-primary);
-    }
-
-    .dark .post-content h2,
-    .dark .post-content h3 {
-        color: var(--color-text-primary);
-    }
-
-    .dark .post-content a {
-        color: var(--color-primary);
-    }
-
-    .dark .post-content a:hover {
-        color: var(--color-primary-hover);
-    }
-
-    .dark .post-content code {
-        background-color: var(--color-bg-white);
-        color: var(--color-text-secondary);
-        border-color: var(--color-border-light);
-    }
-
-    .dark .post-content pre {
-        background-color: var(--color-bg-white);
-        border-color: var(--color-border-light);
-        border-left-color: var(--color-primary);
-    }
-
-    .dark .post-content blockquote {
-        background-color: var(--color-bg-white);
-        color: var(--color-text-secondary);
-        border-color: var(--color-border-light);
-        border-left-color: var(--color-primary);
-    }
-
-    .dark .toc-container h3 {
-        color: var(--color-text-primary);
-    }
-
-    .dark .toc-nav a {
-        color: var(--color-text-muted);
-    }
-
-    .dark .toc-nav a:hover {
-        color: var(--color-primary);
-        background-color: var(--color-primary-light);
-    }
-
-    .dark .toc-nav li[aria-current="true"] a {
-        color: var(--color-primary);
-        border-left-color: var(--color-primary);
-        background-color: var(--color-primary-medium);
-    }
-
-    .dark .mobile-toc summary {
-        color: var(--color-text-primary);
-    }
-
-    .dark .mobile-toc-nav a {
-        color: var(--color-text-muted);
-    }
-
-    .dark .mobile-toc-nav a:hover {
-        color: var(--color-primary);
-    }
 
     /* 深色模式下 SVG 反色 */
     .dark .typst-doc {

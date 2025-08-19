@@ -1,26 +1,27 @@
 /* 全局 CSS 变量定义 */
 :root {
-  /* 浅色模式颜色 */
-  --color-primary: #667eea;
-  --color-primary-hover: #5a6fd8;
-  --color-primary-light: rgba(102, 126, 234, 0.1);
-  --color-primary-medium: rgba(102, 126, 234, 0.15);
+  /* 浅色模式颜色 - 低饱和度、粉色、可爱风格 */
+  --color-primary: #d6a7c7;
+  --color-primary-hover: #c994b8;
+  --color-primary-light: rgba(214, 167, 199, 0.12);
+  --color-primary-medium: rgba(214, 167, 199, 0.18);
   
-  --color-text-primary: #2c3e50;
-  --color-text-secondary: #34495e;
-  --color-text-muted: #6c757d;
-  --color-text-subtle: #4a5568;
+  --color-text-primary: #5a5a5a;
+  --color-text-secondary: #6b6b6b;
+  --color-text-muted: #9d9d9d;
+  --color-text-subtle: #8a8a8a;
   
-  --color-bg-primary: #f8f9fa;
+  --color-bg-primary: #fefefe;
   --color-bg-white: #ffffff;
   
-  --color-border-light: #e2e8f0;
-  --color-border-medium: #cbd5e0;
+  --color-border-light: #f0eeee;
+  --color-border-medium: #e6e2e2;
   
-  --color-nav-text: #4a5568;
-  --color-nav-hover: rgba(0, 0, 0, 0.05);
+  --color-nav-text: #7a7a7a;
+  --color-nav-hover: rgba(180, 167, 214, 0.08);
   
-  --color-hover-opacity: 0.8;
+  --color-hover-opacity: 0.85;
+  --color-hover-border: var(--color-primary);
   
   --shadow-light: 0 2px 4px rgba(0, 0, 0, 0.1);
   --shadow-medium: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -46,6 +47,7 @@
   --font-size-2xl: 1.6rem;
   --font-size-3xl: 2rem;
   --font-size-4xl: 2.5rem;
+  --font-size-title: 1.6rem;
   
   /* 间距 */
   --spacing-xs: 0.25rem;
@@ -57,27 +59,28 @@
 }
 
 .dark {
-  /* 深色模式颜色 */
-  --color-primary: #81e6d9;
-  --color-primary-hover: #4fd1c7;
-  --color-primary-light: rgba(129, 230, 217, 0.1);
-  --color-primary-medium: rgba(129, 230, 217, 0.15);
+  /* 深色模式颜色 - 低饱和度、粉色、可爱风格 */
+  --color-primary: #d8b8c8;
+  --color-primary-hover: #e3c6d4;
+  --color-primary-light: rgba(216, 184, 200, 0.15);
+  --color-primary-medium: rgba(216, 184, 200, 0.22);
   
-  --color-text-primary: #f7fafc;
-  --color-text-secondary: #e2e8f0;
-  --color-text-muted: #a0aec0;
-  --color-text-subtle: #e2e8f0;
+  --color-text-primary: #e8e8e8;
+  --color-text-secondary: #d0d0d0;
+  --color-text-muted: #b0b0b0;
+  --color-text-subtle: #c4c4c4;
   
-  --color-bg-primary: #1a202c;
-  --color-bg-white: #2d3748;
+  --color-bg-primary: #2a2a2a;
+  --color-bg-white: #353535;
   
-  --color-border-light: #4a5568;
-  --color-border-medium: #718096;
+  --color-border-light: #404040;
+  --color-border-medium: #505050;
   
-  --color-nav-text: #a0aec0;
-  --color-nav-hover: rgba(255, 255, 255, 0.1);
+  --color-nav-text: #b8b8b8;
+  --color-nav-hover: rgba(200, 184, 216, 0.12);
   
-  --color-hover-opacity: 0.7;
+  --color-hover-opacity: 0.75;
+  --color-hover-border: var(--color-primary);
   
-  --shadow-heavy: 0 8px 25px rgba(0, 0, 0, 0.3);
+  --shadow-heavy: 0 8px 25px rgba(0, 0, 0, 0.4);
 }

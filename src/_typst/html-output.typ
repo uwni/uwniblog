@@ -66,7 +66,6 @@
     }(class: "post-heading", id: "heading-" + id, it.body)
   }
 
-  let date-str = date.display()
 
   // 构建标签HTML
   let tags-html = if tags.len() > 0 {
@@ -97,7 +96,7 @@
         #html.div(class: "post-title-container", [
           #html.h1(class: "post-title", title)
           #html.div(class: "post-meta mobile-meta", [
-            #html.time(date-str)
+            #html.time(date)
             #tags-html
           ])
         ])
@@ -121,7 +120,7 @@
             #html.div(
               class: "post-meta desktop-meta",
               [
-                #html.time(date-str)
+                #html.time(date)
                 #tags-html
               ],
             )

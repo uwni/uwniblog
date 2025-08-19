@@ -6,22 +6,17 @@
 <style>
     .site-title {
         display: block;
-        margin: 2rem 0;
+        margin: var(--spacing-xl) 0;
         padding: 0;
     }
 
     .site-title h1 {
-        font-size: 1.5rem;
+        font-size: var(--font-size-title);
         margin: 0;
         font-weight: 600;
-        color: #1a202c;
+        color: var(--color-text-primary);
         line-height: 1.2;
         padding: 0;
         border: 0;
-    }
-
-    /* 深色模式 */
-    .dark .site-title h1 {
-        color: #f7fafc;
     }
 </style>
