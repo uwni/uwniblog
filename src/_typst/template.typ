@@ -15,7 +15,8 @@
   show: if target == "query" {
     [#metadata((
       title: title,
-      creationDate: creationDate.display(),
+      date: "git Last Modified",
+      created: creationDate.display(),
       targets: targets,
       ..args.named(),
     ))<frontmatter>]

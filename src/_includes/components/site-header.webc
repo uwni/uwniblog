@@ -147,26 +147,34 @@
     }
 
     /* 深色模式 */
-    .dark-mode .theme-toggle .sun {
+    .dark .theme-toggle .sun {
         display: none;
     }
 
-    .dark-mode .theme-toggle .moon {
+    .dark .theme-toggle .moon {
         display: block;
     }
 
-    .dark-mode :host {
+    .dark :host {
         background: rgba(0, 0, 0, 0.95);
         border-bottom-color: rgba(255, 255, 255, 0.1);
     }
 
-    .dark-mode .nav-links a {
+    .dark .nav-links a {
         color: #a0aec0;
     }
 
-    .dark-mode .nav-links a:hover {
+    .dark .nav-links a:hover {
         background: rgba(255, 255, 255, 0.1);
         color: #f7fafc;
+    }
+
+    .dark .theme-toggle {
+        color: #a0aec0;
+    }
+
+    .dark .theme-toggle:hover {
+        background: rgba(255, 255, 255, 0.1);
     }
 </style>
 
@@ -174,13 +182,14 @@
     // 主题切换功能
     const themeToggle = document.querySelector('.theme-toggle');
     themeToggle?.addEventListener('click', () => {
-        document.body.classList.toggle('dark-mode');
-        const isDark = document.body.classList.contains('dark-mode');
-        localStorage.theme = isDark ? 'dark' : 'light';
+        document.body.classList.toggle('dark');
+        const isDark = document.body.classList.contains('dark');
+        localStorage.setItem('theme', isDark ? 'dark' : 'light');
     });
 
     // 初始化主题
-    if (localStorage.theme === 'dark') {
-        document.body.classList.add('dark-mode');
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.body.classList.add('dark');
     }
 </script>

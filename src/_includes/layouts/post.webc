@@ -367,9 +367,94 @@
             font-size: 1.3rem;
         }
     }
+
+    /* 深色模式样式 */
+    .dark .post-title-container {
+        border-bottom-color: #2d3748;
+    }
+
+    .dark .post-title {
+        color: #f7fafc;
+    }
+
+    .dark .post-meta {
+        color: #a0aec0;
+    }
+
+    .dark .post-meta a {
+        color: var(--color-primary);
+    }
+
+    .dark .post-content h2,
+    .dark .post-content h3 {
+        color: var(--color-text-primary);
+    }
+
+    .dark .post-content a {
+        color: var(--color-primary);
+    }
+
+    .dark .post-content a:hover {
+        color: var(--color-primary-hover);
+    }
+
+    .dark .post-content code {
+        background-color: var(--color-bg-white);
+        color: var(--color-text-secondary);
+        border-color: var(--color-border-light);
+    }
+
+    .dark .post-content pre {
+        background-color: var(--color-bg-white);
+        border-color: var(--color-border-light);
+        border-left-color: var(--color-primary);
+    }
+
+    .dark .post-content blockquote {
+        background-color: var(--color-bg-white);
+        color: var(--color-text-secondary);
+        border-color: var(--color-border-light);
+        border-left-color: var(--color-primary);
+    }
+
+    .dark .toc-container h3 {
+        color: var(--color-text-primary);
+    }
+
+    .dark .toc-nav a {
+        color: var(--color-text-muted);
+    }
+
+    .dark .toc-nav a:hover {
+        color: var(--color-primary);
+        background-color: var(--color-primary-light);
+    }
+
+    .dark .toc-nav li[aria-current="true"] a {
+        color: var(--color-primary);
+        border-left-color: var(--color-primary);
+        background-color: var(--color-primary-medium);
+    }
+
+    .dark .mobile-toc summary {
+        color: var(--color-text-primary);
+    }
+
+    .dark .mobile-toc-nav a {
+        color: var(--color-text-muted);
+    }
+
+    .dark .mobile-toc-nav a:hover {
+        color: var(--color-primary);
+    }
+
+    /* 深色模式下 SVG 反色 */
+    .dark .typst-doc {
+        filter: invert(1) hue-rotate(180deg);
+    }
 </style>
 
-<script>
+<script webc:bucket="defer">
     // 初始化目录导航功能
     const sections = document.querySelectorAll('.post-section[aria-labelledby]');
     const tocItems = document.querySelectorAll('.toc-nav .toc-item'); // 只选择桌面版目录

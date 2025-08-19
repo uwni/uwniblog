@@ -1,0 +1,393 @@
+<layout-base webc:nokeep>
+  <div class="posts-page">
+    <div class="posts-header">
+      <h1>All Posts</h1>
+      <p>Explore my digital adventures, technical thoughts, and creative musings.</p>
+    </div>
+
+    <!-- 过滤和排序控件 -->
+    <div class="posts-controls">
+      <div class="filter-controls">
+        <label for="tag-filter">Filter by tag:</label>
+        <select id="tag-filter">
+          <option value="">All tags</option>
+        </select>
+      </div>
+
+      <div class="sort-controls">
+        <label for="sort-order">Sort by:</label>
+        <select id="sort-order">
+          <option value="newest">Newest first</option>
+          <option value="oldest">Oldest first</option>
+          <option value="title">Title A-Z</option>
+          <option value="title-desc">Title Z-A</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- 文章列表 -->
+    <div class="posts-list">
+      <article webc:for="post of collections.posts.reverse()" class="post-item"
+        :data-tags="post.data.tags?.join(' ') || ''" :data-date="post.date">
+        <div class="post-item-content">
+          <h2 class="post-item-title">
+            <a :href="post.url" @text="post.data.title"></a>
+          </h2>
+
+          <div class="post-item-meta">
+            <time :datetime="post.date"
+              @text="new Date(post.date).toLocaleDateString('zh-CN', { year: 'numeric', month: 'long', day: 'numeric' })"></time>
+
+            <div class="post-item-tags" webc:if="post.data.tags && post.data.tags.length > 0">
+              <span webc:for="tag of post.data.tags" class="tag">
+                <a :href="`/posts/?tag=${tag}`" @text="`#${tag}`"></a>
+              </span>
+            </div>
+          </div>
+
+          <div class="post-item-excerpt">
+            <p
+              @text="(post.data.description || post.data.title || '').substring(0, 150) + (post.data.description && post.data.description.length > 150 ? '...' : '')">
+            </p>
+          </div>
+
+          <div class="post-item-link">
+            <a :href="post.url" class="read-more">Read more →</a>
+          </div>
+        </div>
+      </article>
+    </div>
+
+    <!-- 无结果提示 -->
+    <div class="no-results" style="display: none;">
+      <p>No posts found matching the current filters.</p>
+      <button onclick="clearFilters()" class="clear-filters-btn">Clear filters</button>
+    </div>
+  </div>
+</layout-base>
+
+<style>
+  .posts-page {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 2rem;
+  }
+
+  .posts-header {
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+
+  .posts-header h1 {
+    font-size: var(--font-size-4xl);
+    color: var(--color-text-primary);
+    margin-bottom: var(--spacing-md);
+    font-weight: 400;
+  }
+
+  .posts-header p {
+    font-size: var(--font-size-lg);
+    color: var(--color-text-muted);
+    font-style: italic;
+  }
+
+  /* 控件样式 */
+  .posts-controls {
+    display: flex;
+    gap: var(--spacing-xl);
+    margin-bottom: var(--spacing-xl);
+    padding: var(--spacing-lg);
+    background: var(--color-bg-primary);
+    border-radius: var(--radius-medium);
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+  .filter-controls,
+  .sort-controls {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+  }
+
+  .posts-controls label {
+    font-weight: 500;
+    color: var(--color-text-primary);
+    white-space: nowrap;
+  }
+
+  .posts-controls select {
+    padding: var(--spacing-sm) var(--spacing-md);
+    border: 1px solid var(--color-border-medium);
+    border-radius: var(--radius-small);
+    background: var(--color-bg-white);
+    color: var(--color-text-primary);
+    font-size: var(--font-size-md);
+    min-width: 120px;
+  }
+
+  .posts-controls select:focus {
+    outline: none;
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 2px var(--color-primary-light);
+  }
+
+  /* 文章列表样式 */
+  .posts-list {
+    display: grid;
+    gap: var(--spacing-lg);
+  }
+
+  .post-item {
+    background: transparent;
+    padding: 0;
+    transition: var(--transition-fast);
+    border-bottom: 1px solid var(--color-border-light);
+    padding-bottom: var(--spacing-lg);
+  }
+
+  .post-item:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+
+  .post-item:hover {
+    opacity: var(--color-hover-opacity);
+  }
+
+  .post-item-content {
+    display: grid;
+    gap: var(--spacing-sm);
+  }
+
+  .post-item-title {
+    font-size: var(--font-size-xl);
+    margin: 0;
+    font-weight: 500;
+    line-height: 1.3;
+  }
+
+  .post-item-title a {
+    color: var(--color-text-primary);
+    text-decoration: none;
+    transition: var(--transition-fast);
+  }
+
+  .post-item-title a:hover {
+    color: var(--color-primary);
+    text-decoration: underline;
+  }
+
+  .post-item-meta {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    flex-wrap: wrap;
+    font-size: var(--font-size-sm);
+  }
+
+  .post-item-meta time {
+    color: var(--color-text-muted);
+    font-style: italic;
+  }
+
+  .post-item-tags {
+    display: flex;
+    gap: var(--spacing-sm);
+    flex-wrap: wrap;
+  }
+
+  .tag {
+    display: inline-block;
+  }
+
+  .tag a {
+    background: transparent;
+    color: var(--color-primary);
+    padding: 0;
+    border-radius: 0;
+    text-decoration: none;
+    font-size: var(--font-size-xs);
+    transition: var(--transition-fast);
+  }
+
+  .tag a:hover {
+    color: var(--color-primary-hover);
+    text-decoration: underline;
+  }
+
+  .post-item-excerpt {
+    display: none;
+  }
+
+  .post-item-link {
+    display: none;
+  }
+
+  /* 无结果样式 */
+  .no-results {
+    text-align: center;
+    padding: var(--spacing-2xl);
+    color: var(--color-text-muted);
+  }
+
+  .clear-filters-btn {
+    background: var(--color-primary);
+    color: white;
+    border: none;
+    padding: var(--spacing-sm) var(--spacing-lg);
+    border-radius: var(--radius-small);
+    cursor: pointer;
+    font-size: var(--font-size-md);
+    margin-top: var(--spacing-md);
+    transition: var(--transition-fast);
+  }
+
+  .clear-filters-btn:hover {
+    background: var(--color-primary-hover);
+  }
+
+  /* 响应式设计 */
+  @media (max-width: 768px) {
+    .posts-page {
+      padding: var(--spacing-md);
+    }
+
+    .posts-header h1 {
+      font-size: var(--font-size-3xl);
+    }
+
+    .posts-controls {
+      flex-direction: column;
+      align-items: stretch;
+      gap: var(--spacing-md);
+    }
+
+    .filter-controls,
+    .sort-controls {
+      flex-direction: column;
+      align-items: stretch;
+    }
+
+    .posts-controls select {
+      min-width: auto;
+    }
+
+    .post-item {
+      padding-bottom: var(--spacing-md);
+    }
+
+    .post-item-title {
+      font-size: var(--font-size-lg);
+    }
+
+    .post-item-meta {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
+
+  /* 深色模式样式现在通过 CSS 变量自动处理 */
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const tagFilter = document.getElementById('tag-filter');
+    const sortOrder = document.getElementById('sort-order');
+    const postItems = document.querySelectorAll('.post-item');
+    const noResults = document.querySelector('.no-results');
+    const postsList = document.querySelector('.posts-list');
+
+    // 收集所有标签并填充过滤器
+    const allTags = new Set();
+    postItems.forEach(item => {
+      const tags = item.dataset.tags.split(' ').filter(tag => tag.trim());
+      tags.forEach(tag => allTags.add(tag));
+    });
+
+    // 按字母顺序排序标签并添加到选择器
+    Array.from(allTags).sort().forEach(tag => {
+      const option = document.createElement('option');
+      option.value = tag;
+      option.textContent = `#${tag}`;
+      tagFilter.appendChild(option);
+    });
+
+    // 从URL参数中读取初始过滤器
+    const urlParams = new URLSearchParams(window.location.search);
+    const initialTag = urlParams.get('tag');
+    if (initialTag && allTags.has(initialTag)) {
+      tagFilter.value = initialTag;
+    }
+
+    function filterAndSort() {
+      const selectedTag = tagFilter.value;
+      const selectedSort = sortOrder.value;
+
+      // 过滤文章
+      let visibleItems = Array.from(postItems).filter(item => {
+        if (!selectedTag) return true;
+        const tags = item.dataset.tags.split(' ').filter(tag => tag.trim());
+        return tags.includes(selectedTag);
+      });
+
+      // 排序文章
+      visibleItems.sort((a, b) => {
+        switch (selectedSort) {
+          case 'oldest':
+            return new Date(a.dataset.date) - new Date(b.dataset.date);
+          case 'title':
+            return a.querySelector('.post-item-title a').textContent.toLowerCase()
+              .localeCompare(b.querySelector('.post-item-title a').textContent.toLowerCase());
+          case 'title-desc':
+            return b.querySelector('.post-item-title a').textContent.toLowerCase()
+              .localeCompare(a.querySelector('.post-item-title a').textContent.toLowerCase());
+          case 'newest':
+          default:
+            return new Date(b.dataset.date) - new Date(a.dataset.date);
+        }
+      });
+
+      // 隐藏所有文章
+      postItems.forEach(item => {
+        item.style.display = 'none';
+      });
+
+      // 显示过滤和排序后的文章
+      visibleItems.forEach((item, index) => {
+        item.style.display = 'block';
+        postsList.appendChild(item); // 重新排序DOM
+      });
+
+      // 显示/隐藏无结果提示
+      if (visibleItems.length === 0) {
+        noResults.style.display = 'block';
+      } else {
+        noResults.style.display = 'none';
+      }
+
+      // 更新URL参数
+      if (selectedTag) {
+        urlParams.set('tag', selectedTag);
+      } else {
+        urlParams.delete('tag');
+      }
+      const newUrl = window.location.pathname + (urlParams.toString() ? '?' + urlParams.toString() : '');
+      window.history.replaceState({}, '', newUrl);
+    }
+
+    // 清除过滤器
+    window.clearFilters = function () {
+      tagFilter.value = '';
+      sortOrder.value = 'newest';
+      filterAndSort();
+    };
+
+    // 事件监听器
+    tagFilter.addEventListener('change', filterAndSort);
+    sortOrder.addEventListener('change', filterAndSort);
+
+    // 初始过滤和排序
+    filterAndSort();
+  });
+</script>

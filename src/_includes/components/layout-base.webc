@@ -7,8 +7,12 @@
     <title id="page-title" @text="$data.metadata.title"></title>
     <meta name="description" content="" id="page-description">
 
+    <!-- 全局 CSS 变量 -->
+    <link rel="stylesheet" href="/css/variables.css" webc:keep>
+
     <!-- inline bundles -->
     <style @raw="getBundle('css')" webc:keep></style>
+    <script @raw="getBundle('js')" webc:keep></script>
 
     <!-- Favicon -->
     <!-- <link rel="icon" type="image/x-icon" href="/favicon.ico"> -->
@@ -33,10 +37,20 @@
         <slot>Main</slot>
     </main>
     <site-footer></site-footer>
+    <script @raw="getBundle('js', 'defer')" webc:keep></script>
 </body>
-<script @raw="getBundle('js')" webc:keep></script>
 
 </html>
+
+<!-- 防止深色模式闪烁 -->
+<script webc:bucket="defer">
+    (function () {
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.body.classList.add('dark');
+        }
+    })();
+</script>
 
 <style>
     /* Reset and base styles */
@@ -54,10 +68,9 @@
     body {
         font-family: 'Georgia', 'Times New Roman', serif;
         line-height: 1.6;
-        color: #333;
-        background-color: #f8f9fa;
+        color: var(--color-text-primary);
+        background-color: var(--color-bg-primary);
         overflow-y: auto;
-        /* 移除固定宽度，让响应式布局生效 */
     }
 
     /* 左侧固定导航栏样式 */
@@ -93,17 +106,17 @@
     }
 
     .sidebar-nav .nav-links a {
-        color: #4a5568;
+        color: var(--color-nav-text);
         text-decoration: none;
         font-weight: 500;
-        padding: 0.5rem 0;
-        font-size: 0.9rem;
-        transition: all 0.2s ease;
+        padding: var(--spacing-sm) 0;
+        font-size: var(--font-size-md);
+        transition: var(--transition-fast);
         display: block;
     }
 
     .sidebar-nav .nav-links a:hover {
-        color: #667eea;
+        color: var(--color-primary);
     }
 
     /* 响应式布局 */
@@ -115,24 +128,15 @@
 
         body {
             margin-left: 280px;
-            padding-left: 2rem;
+            padding-left: var(--spacing-xl);
         }
-    }
-
-    /* 深色模式 */
-    .dark-mode .sidebar-nav .nav-links a {
-        color: #a0aec0;
-    }
-
-    .dark-mode .sidebar-nav .nav-links a:hover {
-        color: #667eea;
     }
 
     /* Main content */
     main {
         background: transparent;
-        padding: 2rem;
-        margin-bottom: 2rem;
+        padding: var(--spacing-xl);
+        margin-bottom: var(--spacing-xl);
         min-height: 400px;
     }
 </style>

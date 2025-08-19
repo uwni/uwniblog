@@ -5,7 +5,7 @@
   <h2>Recent Posts</h2>
 
   <div class="post-list">
-    <article webc:for="post of collections.posts.reverse()" class="post-list-item">
+    <article webc:for="post of collections.posts.toReversed()" class="post-list-item">
       <h3 class="post-list-title">
         <a :href="post.url" @text="post.data.title"></a>
       </h3>
@@ -32,52 +32,63 @@
   }
 
   .post-list-item {
-    margin-bottom: 2rem;
-    padding: 1.5rem;
-    background: #f8f9fa;
-    border-radius: 8px;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    margin-bottom: var(--spacing-lg);
+    padding: 0;
+    padding-bottom: var(--spacing-lg);
+    background: transparent;
+    border-bottom: 1px solid var(--color-border-light);
+    transition: var(--transition-fast);
+  }
+
+  .post-list-item:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
   }
 
   .post-list-item:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    opacity: var(--color-hover-opacity);
   }
 
   .post-list-title {
-    font-size: 1.5rem;
-    margin-bottom: 0.5rem;
+    font-size: var(--font-size-xl);
+    margin-bottom: var(--spacing-sm);
     font-weight: 500;
   }
 
   .post-list-title a {
-    color: #2c3e50;
+    color: var(--color-text-primary);
     text-decoration: none;
+    transition: var(--transition-fast);
   }
 
   .post-list-title a:hover {
-    color: #667eea;
+    color: var(--color-primary);
+    text-decoration: underline;
   }
 
   .post-list-meta {
-    color: #6c757d;
-    font-size: 0.9rem;
-    margin-bottom: 0.75rem;
+    color: var(--color-text-muted);
+    font-size: var(--font-size-sm);
+    margin-bottom: var(--spacing-sm);
     font-style: italic;
   }
 
   .post-list-meta a {
-    color: #667eea;
+    color: var(--color-primary);
     text-decoration: none;
-    margin-right: 0.5rem;
+    margin-right: var(--spacing-sm);
+    transition: var(--transition-fast);
   }
 
   .post-list-meta a:hover {
+    color: var(--color-primary-hover);
     text-decoration: underline;
   }
 
   .post-list-excerpt {
-    color: #555;
+    color: var(--color-text-subtle);
     line-height: 1.6;
   }
+
+  /* 深色模式样式现在通过 CSS 变量自动处理 */
 </style>

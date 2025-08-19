@@ -22,7 +22,7 @@
     }
 
     a {
-        color: #667eea;
+        color: var(--color-primary);
         text-decoration: none;
     }
 

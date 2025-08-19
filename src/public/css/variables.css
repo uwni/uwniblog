@@ -1,0 +1,83 @@
+/* 全局 CSS 变量定义 */
+:root {
+  /* 浅色模式颜色 */
+  --color-primary: #667eea;
+  --color-primary-hover: #5a6fd8;
+  --color-primary-light: rgba(102, 126, 234, 0.1);
+  --color-primary-medium: rgba(102, 126, 234, 0.15);
+  
+  --color-text-primary: #2c3e50;
+  --color-text-secondary: #34495e;
+  --color-text-muted: #6c757d;
+  --color-text-subtle: #4a5568;
+  
+  --color-bg-primary: #f8f9fa;
+  --color-bg-white: #ffffff;
+  
+  --color-border-light: #e2e8f0;
+  --color-border-medium: #cbd5e0;
+  
+  --color-nav-text: #4a5568;
+  --color-nav-hover: rgba(0, 0, 0, 0.05);
+  
+  --color-hover-opacity: 0.8;
+  
+  --shadow-light: 0 2px 4px rgba(0, 0, 0, 0.1);
+  --shadow-medium: 0 4px 8px rgba(0, 0, 0, 0.1);
+  --shadow-heavy: 0 8px 25px rgba(0, 0, 0, 0.1);
+  
+  /* 过渡动画 */
+  --transition-fast: all 0.2s ease;
+  --transition-medium: all 0.3s ease;
+  
+  /* 圆角 */
+  --radius-small: 6px;
+  --radius-medium: 8px;
+  --radius-large: 12px;
+  --radius-pill: 20px;
+  
+  /* 字体大小 */
+  --font-size-xs: 0.8rem;
+  --font-size-sm: 0.85rem;
+  --font-size-md: 0.9rem;
+  --font-size-base: 1rem;
+  --font-size-lg: 1.1rem;
+  --font-size-xl: 1.3rem;
+  --font-size-2xl: 1.6rem;
+  --font-size-3xl: 2rem;
+  --font-size-4xl: 2.5rem;
+  
+  /* 间距 */
+  --spacing-xs: 0.25rem;
+  --spacing-sm: 0.5rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 1.5rem;
+  --spacing-xl: 2rem;
+  --spacing-2xl: 3rem;
+}
+
+.dark {
+  /* 深色模式颜色 */
+  --color-primary: #81e6d9;
+  --color-primary-hover: #4fd1c7;
+  --color-primary-light: rgba(129, 230, 217, 0.1);
+  --color-primary-medium: rgba(129, 230, 217, 0.15);
+  
+  --color-text-primary: #f7fafc;
+  --color-text-secondary: #e2e8f0;
+  --color-text-muted: #a0aec0;
+  --color-text-subtle: #e2e8f0;
+  
+  --color-bg-primary: #1a202c;
+  --color-bg-white: #2d3748;
+  
+  --color-border-light: #4a5568;
+  --color-border-medium: #718096;
+  
+  --color-nav-text: #a0aec0;
+  --color-nav-hover: rgba(255, 255, 255, 0.1);
+  
+  --color-hover-opacity: 0.7;
+  
+  --shadow-heavy: 0 8px 25px rgba(0, 0, 0, 0.3);
+}

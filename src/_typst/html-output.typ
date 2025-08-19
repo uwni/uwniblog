@@ -90,14 +90,7 @@
   // let sectioned-content = body
   [
     #html.div(class: "post-layout")[
-      #html.div(class: "mobile-toc")[
-        #html.details[
-          #html.summary[📖 目录]
-          #html.nav(
-            class: "mobile-toc-nav",
-            _generate-toc(),
-          )
-        ]]
+
 
 
       #html.article(class: "post post-main")[
@@ -108,6 +101,14 @@
             #tags-html
           ])
         ])
+        #html.div(class: "mobile-toc")[
+          #html.details[
+            #html.summary[目录]
+            #html.nav(
+              class: "mobile-toc-nav",
+              _generate-toc(),
+            )
+          ]]
         #html.div(class: "post-content", sectioned-content)
       ]
 

@@ -21,7 +21,7 @@
     }
 
     /* 深色模式 */
-    .dark-mode .site-title h1 {
+    .dark .site-title h1 {
         color: #f7fafc;
     }
 </style>
