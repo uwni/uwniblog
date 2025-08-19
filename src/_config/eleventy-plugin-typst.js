@@ -1,4 +1,6 @@
 import { NodeCompiler } from '@myriaddreamin/typst-ts-node-compiler';
+import { readableDate } from './helper.js';
+
 let date = new Date();
 let buildDate = JSON.stringify({
   year: date.getUTCFullYear(),
@@ -86,7 +88,7 @@ export default function eleventyPluginTypst(eleventyConfig, options = {}) {
           url: data?.metadata?.url,
           target: data?.target,
           buildDate: buildDate,
-          date: data.page.date.toString()
+          date: data?.page.date.toISOString(),
         };
         return data.target === "pdf" ? pdfRender(compiler, inputArgs, inputPath)
           : htmlRender(compiler, inputArgs, inputPath);

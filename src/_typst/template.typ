@@ -23,7 +23,7 @@
   show: if target == "query" {
     [#metadata((
       title: title,
-      date: "1997-10-14",
+      date: "git Last Modified",
       created: creationDate.display(),
       targets: targets,
       ..args.named(),

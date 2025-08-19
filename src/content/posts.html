@@ -35,7 +35,7 @@
           </h2>
 
           <div class="post-item-meta">
-            <time :datetime="htmlDateString(post.date)" @text="readableDate(post.date)"></time>
+            <time :datetime="htmlDateString(post.date)" :data-utc="utcTimestamp(post.date)" class="local-time">Loading...</time>
 
             <div class="post-item-tags" webc:if="post.data.tags && post.data.tags.length > 0">
               <span webc:for="tag of post.data.tags" class="tag">

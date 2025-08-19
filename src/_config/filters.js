@@ -14,6 +14,11 @@ export default function (eleventyConfig) {
 		return DateTime.fromJSDate(dateObj, { zone: "utc" }).toFormat('yyyy-LL-dd');
 	});
 
+	eleventyConfig.addFilter("utcTimestamp", (dateObj) => {
+		// Return UTC timestamp for client-side timezone conversion
+		return DateTime.fromJSDate(dateObj, { zone: "utc" }).toISO();
+	});
+
 	// Get the first `n` elements of a collection.
 	eleventyConfig.addFilter("head", (array, n) => {
 		if (!Array.isArray(array) || array.length === 0) {

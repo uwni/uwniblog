@@ -96,7 +96,7 @@
         #html.div(class: "post-title-container", [
           #html.h1(class: "post-title", title)
           #html.div(class: "post-meta mobile-meta", [
-            #html.time(date)
+            #html.time(class: "local-time", data-utc: date, [Loading...])
             #tags-html
           ])
         ])
@@ -120,7 +120,7 @@
             #html.div(
               class: "post-meta desktop-meta",
               [
-                #html.time(date)
+                #html.time(class: "local-time", data-utc: date, [Loading...])
                 #tags-html
               ],
             )
