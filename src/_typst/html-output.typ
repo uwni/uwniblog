@@ -89,9 +89,6 @@
   // let sectioned-content = body
   [
     #html.div(class: "post-layout")[
-
-
-
       #html.article(class: "post post-main")[
         #html.div(class: "post-title-container", [
           #html.h1(class: "post-title", title)

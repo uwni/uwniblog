@@ -199,11 +199,15 @@
         background-color: var(--color-primary-light);
     }
 
-    /* 激活状态：只显示左侧条和文字颜色变化，增加粗体 */
-    .toc-nav li[aria-current="true"] a {
+    /* 激活状态：添加右位移动画效果 */
+    .toc-nav [data-active="current"] a {
         color: var(--color-primary);
-        font-weight: 600;
         border-left-color: var(--color-primary);
+        padding-left: calc(var(--spacing-md) + var(--spacing-sm));
+    }
+
+    .toc-nav [data-active="parent"] a {
+        color: var(--color-primary);
     }
 
     /* 嵌套目录缩进 */
@@ -379,19 +383,26 @@
     // 初始化目录导航功能
     const sections = document.querySelectorAll('.post-section[aria-labelledby]');
     const tocItems = document.querySelectorAll('.toc-nav .toc-item'); // 只选择桌面版目录
+    const visibleSections = new Set();
 
     // 处理目录激活状态
-    const updateTocStates = (activeLi, isActive) => {
-        activeLi.setAttribute('aria-current', isActive);
-
-        // 如果是激活状态，标记父节点
-        if (isActive) {
-            const currentDepth = parseInt(activeLi.style.getPropertyValue('--depth') || '0');
-            const currentIndex = Array.from(tocItems).indexOf(activeLi);
-            for (let i = currentIndex - 1; i >= 0; i--) {
-                const itemDepth = parseInt(tocItems[i].style.getPropertyValue('--depth') || '0');
-                if (itemDepth < currentDepth) {
-                    tocItems[i].removeAttribute('aria-current');
+    const updateTocStates = () => {
+        for (let i = 0; i < tocItems.length; i++) {
+            const item = tocItems[i];
+            item.removeAttribute('data-active');
+            const id = item.children[0].getAttribute('href').substring(1);
+            console.log('Visible sections:', visibleSections);
+            if (visibleSections.has(id)) {
+                item.setAttribute('data-active', 'current');
+                // 如果是激活状态，标记父节点
+                const currentDepth = parseInt(item.style.getPropertyValue('--depth') || '0');
+                let lastDepth = currentDepth;
+                for (let j = i - 1; j >= 0; j--) {
+                    const itemDepth = parseInt(tocItems[j].style.getPropertyValue('--depth') || '0');
+                    if (itemDepth < lastDepth) {
+                        tocItems[j].setAttribute('data-active', 'parent');
+                        lastDepth = itemDepth;
+                    }
                 }
             }
         }
@@ -400,12 +411,12 @@
     // 观察器
     const observer = new IntersectionObserver((entries) => {
         for (const entry of entries) {
-            const targetHeading = entry.target.getAttribute('aria-labelledby');
-            const activeLi = document.querySelector(`.toc-nav a[href="#${targetHeading}"]`)?.parentElement;
-            if (activeLi) updateTocStates(activeLi, entry.isIntersecting);
+            const headingId = entry.target.getAttribute('aria-labelledby');
+            entry.isIntersecting ? visibleSections.add(headingId) : visibleSections.delete(headingId);
         }
+        updateTocStates();
     }, {
-        threshold: 0,
+        threshold: [0, 1],
     });
 
     // 启动

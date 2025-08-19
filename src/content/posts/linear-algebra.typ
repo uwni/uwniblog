@@ -5,7 +5,7 @@
   title: "Linear Algebra",
 )
 
-== Introduction
+= Introduction
 
 We have learned about linear algebra in a concrete way, such as solving linear equations, matrix operations, etc. In this chapter, we will learn about the abstract concept of linear spaces, which is a generalization of vectors and matrices. First of all, you may ask, why do we need to learn such abstract concepts? check the following example.
 We have learned about vectors at least in high school, like displacement, velocity, force, etc.
@@ -19,7 +19,7 @@ let us recall the process of the abstraction from $RR^3$ to $RR^n$, here, I will
 Recall that if given a structure like $(a,b,c,d)$, is this a vector? No, definitily not. actually, it it just a tuple, which is a orderd finite sequence or list of elemenets. btw you can construct it with ordered pairs, anyway. Althogh we usually by default treat it as a vector, that because we can define a addition and scalar multiplication on it, in a very natural way. but with the structure of a tuple only, we cannot do any operation on it, unless you define some in advance. for example, if you try to run
 `(1, 2, 3) + (1, 2, 3)` in Python, it will return `(1, 2, 3, 1, 2, 3)`, and if you try to write $(1,2,3) + (4,5,6)$ on your paper, the reader will think it is $(1+4, 2+5, 3+6)$ by default. that because for the programming languages, the `+` operator is overloaded to concatenate two tuples. but for the math, especially in the Euclid space, the `+` operator is defined to add their elements one by one. so you will understand that it is important to delcare or at least to know what a symbol exactly means before using it, otherwise you will get confused. so, the tuple is not a vector, but we can define a vector structure on it, and then it becomes a vector.
 
-=== Application of Vectors
+== Application of Vectors
 Then, let's return back to the topic of vectors. for example, we know that force can be decomposed into two orthogonal components, and we use this to analyze mechanics problems. Why can we do that? because the force is a vector. but similarly, a sine signal
 
 $
@@ -32,7 +32,7 @@ From these two examples above, looking like a list is neither a sufficient condi
 
 Here we will first introduce the concept of field, which are the basic algebraic structures that we will use to define linear spaces.
 
-== Introduction to Field
+= Introduction to Field
 
 Before we start talking about the vector itself, let's begin from a more basic concept. Our story will starts with a set, the fundamental building block of mathematics. Suppose there is a set $S$. it is too trivial(boring) just like the tuple we mentioned above. with a set only we can seldom do anything.
 
@@ -88,7 +88,7 @@ Meanwhile, the integers are _not_ a field, because they do not have multiplicati
 
 
 
-== Vector Space
+= Vector Space
 
 Now we're ready to define what a vector space is.
 #definition(title: [Vector Space])[
@@ -225,7 +225,7 @@ By the uniqueness of the additive identity, the notation $-bold(v)$ is well-defi
   This equation says that $(-1)bold(v)$, when added to $bold(v)$, gives $bold(0)$. Thus $(-1)bold(v)$ is the additive inverse of $bold(v)$, as desired.
 ]
 
-== Subspaces
+= Subspaces
 
 Now that we understand vector spaces, let's talk about subspaces. A subspace is essentially a "vector space within a vector space."
 
@@ -281,7 +281,7 @@ Similarly, any plane or line through the origin in $RR^3$ is a subspace. but not
   - If $y$ is a solution and $c in RR$, then $(c y)(x) = c y(x)$ is also a solution.
 ]
 
-== Sum of Subspaces
+= Sum of Subspaces
 Now let's talk about the sum of two subspaces. Given two subspaces $U$ and $W$ of a vector space $V$, their sum, denoted $U + W$, is defined as:
 #definition(title: [Sum of Subspaces])[
   The sum of two subspaces $U$ and $W$ of a vector space $V$ is the set:
