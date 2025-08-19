@@ -184,7 +184,7 @@
 
     .toc-nav a {
         display: block;
-        padding: var(--spacing-xs) var(--spacing-md);
+        padding: var(--spacing-xs) var(--spacing-sm);
         color: var(--color-text-muted);
         text-decoration: none;
         font-size: var(--font-size-md);
@@ -203,7 +203,7 @@
     .toc-nav [data-active="current"] a {
         color: var(--color-primary);
         border-left-color: var(--color-primary);
-        padding-left: calc(var(--spacing-md) + var(--spacing-sm));
+        padding-left: calc(var(--spacing-sm) + 3px);
     }
 
     .toc-nav [data-active="parent"] a {
@@ -417,6 +417,7 @@
         updateTocStates();
     }, {
         threshold: [0, 1],
+        rootMargin: '0px 0px -99% 0px' // 当元素进入视口时触发
     });
 
     // 启动
