@@ -27,7 +27,7 @@
 
     <!-- 文章列表 -->
     <div class="posts-list">
-      <article webc:for="post of collections.posts.reverse()" class="post-item"
+      <article webc:for="post of collections.posts.toReversed()" class="post-item"
         :data-tags="post.data.tags?.join(' ') || ''" :data-date="post.date">
         <div class="post-item-content">
           <h2 class="post-item-title">
