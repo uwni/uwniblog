@@ -8,6 +8,7 @@ import eleventyPluginTypst from "./src/_config/eleventy-plugin-typst.js";
 import { RenderPlugin } from "@11ty/eleventy";
 import pluginWebc from "@11ty/eleventy-plugin-webc";
 import metadata from "./src/_data/metadata.js";
+import { DateTime } from "luxon";
 
 /** @param {import("@11ty/eleventy").UserConfig} eleventyConfig */
 export default async function (eleventyConfig) {

@@ -10,8 +10,8 @@
         <a :href="post.url" @text="post.data.title"></a>
       </h3>
       <div class="post-list-meta">
-        <time @text="post.data.date"></time>
-          <span  webc:for="tag of post.data.tags">
+        <time :datetime="htmlDateString(post.date)" @text="readableDate(post.date)"></time>
+          <span webc:for="tag of post.data.tags">
             <a :href="`/tags/${tag}/`" @text=`#${tag}`></a>
           </span>
       </div>

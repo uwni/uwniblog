@@ -35,8 +35,7 @@
           </h2>
 
           <div class="post-item-meta">
-            <time :datetime="post.date"
-              @text="new Date(post.date).toLocaleDateString('zh-CN', { year: 'numeric', month: 'long', day: 'numeric' })"></time>
+            <time :datetime="htmlDateString(post.date)" @text="readableDate(post.date)"></time>
 
             <div class="post-item-tags" webc:if="post.data.tags && post.data.tags.length > 0">
               <span webc:for="tag of post.data.tags" class="tag">
