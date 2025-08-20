@@ -7,7 +7,7 @@
 
 Hello and welcome to my personal blog! I'm Uwni, and this is where I'll be sharing my thoughts, experiences, and discoveries as a cyber little girl navigating the digital world.
 
-== What You'll Find Here
+= What You'll Find Here
 
 In this space, you can expect to find:
 #figure(
@@ -19,7 +19,7 @@ In this space, you can expect to find:
 - *Creative projects*: Things I'm building, breaking, and rebuilding
 - *Random musings*: Because sometimes the most interesting thoughts come at 3 AM
 
-== A Bit About Me
+= A Bit About Me
 
 I'm fascinated by the intersection of technology and humanity. When I'm not diving deep into code, you might find me:
 
@@ -32,7 +32,7 @@ I'm fascinated by the intersection of technology and humanity. When I'm not divi
   rect(fill: red, width: 5cm, height: 5cm),
 )
 
-== Let's Connect
+= Let's Connect
 
 This blog is more than just a one-way communication channel. I'd love to hear your thoughts, feedback, and stories too. Feel free to reach out through the various channels you'll find around here.
 

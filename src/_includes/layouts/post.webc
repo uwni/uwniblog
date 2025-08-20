@@ -190,7 +190,6 @@
         font-size: var(--font-size-md);
         line-height: 1.4;
         transition: var(--transition-fast);
-        border-left: 3px solid transparent;
         position: relative;
     }
 
@@ -202,8 +201,7 @@
     /* 激活状态：添加右位移动画效果 */
     .toc-nav [data-active="current"] a {
         color: var(--color-primary);
-        border-left-color: var(--color-primary);
-        padding-left: calc(var(--spacing-sm) + 3px);
+        border-left: 3px solid var(--color-primary);
     }
 
     .toc-nav [data-active="parent"] a {
@@ -274,7 +272,6 @@
     }
 
     /* 保持原有的内容样式 */
-
     .post-content h2 {
         color: var(--color-text-primary);
         margin: var(--spacing-xl) 0 var(--spacing-md) 0;
