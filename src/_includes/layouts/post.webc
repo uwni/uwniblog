@@ -142,8 +142,8 @@
     }
 
     .post-content {
-        font-size: 1.1rem;
-        line-height: 1.8;
+        font-size: var(--font-size-base);
+        line-height: 1.75;
         text-align: justify;
     }
 
@@ -343,7 +343,7 @@
 
     .post-content ul,
     .post-content ol {
-        margin-left: var(--spacing-xl);
+        margin-left: 1em;
         margin-bottom: var(--spacing-md);
     }
 
