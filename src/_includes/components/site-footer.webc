@@ -1,6 +1,8 @@
 <footer webc:root="override">
-    <p @text="`&copy; ${new Date().getFullYear()} ${$data.metadata.title}. All rights reserved.`"></p>
-    <p>Made with <a href="https://typst.app/">Typst</a> and <a href="https://www.11ty.dev/">Eleventy</a></p>
+    <p>
+    <span @text="`&copy; ${new Date().getFullYear()} ${$data.metadata.title}`" webc:nokeep></span>, All rights reserved. Built with <a href="https://typst.app/">Typst</a> and <a href="https://www.11ty.dev/">Eleventy</a>.
+    Ver <code @text="$data.metadata.commitSha?.substring(0, 6)">unknown</code>.
+    </p>
 </footer>
 
 <style webc:scoped>

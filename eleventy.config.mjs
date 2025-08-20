@@ -12,9 +12,6 @@ import { DateTime } from "luxon";
 
 /** @param {import("@11ty/eleventy").UserConfig} eleventyConfig */
 export default async function (eleventyConfig) {
-	// Log commit SHA from metadata for testing
-	console.log('env', process.env);
-
 	// Drafts, see also _data/eleventyDataSchema.js
 	eleventyConfig.addPreprocessor("drafts", "*", (data, content) => {
 		if (data.draft) {
