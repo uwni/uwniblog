@@ -369,8 +369,6 @@
         }
     }
 
-
-
     /* Environment 环境样式 */
     .environment {
         margin: var(--spacing-lg) 0;
@@ -393,6 +391,15 @@
 
     .environment-body p:last-child {
         margin-bottom: 0;
+    }
+
+    /* Typst element 样式 */
+    .typst-image {
+        display: block;
+        margin: 0 auto;
+        max-width: 100%;
+        height: auto;
+        text-align: center;
     }
 
     /* 深色模式下 SVG 反色 */

@@ -14,7 +14,7 @@
         font-size: var(--font-size-title);
         margin: 0;
         font-weight: 600;
-        color: var(--color-text-primary);
+        color: var(--color-text-muted);
         line-height: 1.2;
         padding: 0;
         border: 0;

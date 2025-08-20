@@ -144,6 +144,7 @@
   } else if type(i18n) == str {
     (i18n, i18n)
   } else { panic("Invalid i18n entry for kind: " + kind) }
+  #show h: it => html.span(html.div(style: "display: inline-block; width:" + repr(it.amount)))
 
   #context {
     let num = _env_state.get().at(kind)
@@ -233,7 +234,7 @@
         columns: (1fr, auto, 1fr),
         none, last, align(right + horizon, qed_symbol),
       )
-      // let with_qed = last + place(right + bottom, text(config._color_palette.accent, config._qed_symbol))
+     
       children.push(with_qed)
       _body = [].func()(title + children)
     }

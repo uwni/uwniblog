@@ -43,7 +43,10 @@
 
 // HTML输出主函数
 #let as-html-output(title, tags: (), date: none, body) = {
-  show figure.where(kind: image): html.frame
+  show figure.where(kind: image): it => html.div(
+    class: "typst-image",
+    html.frame(it),
+  )
   show math.equation: handle-math
 
   show ref: it => {
