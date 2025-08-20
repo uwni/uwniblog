@@ -1,43 +1,43 @@
 /* 全局 CSS 变量定义 */
 :root {
-  /* 浅色模式颜色 - 优雅粉色系 */
-  --color-primary: #be185d;
-  --color-primary-hover: #9d174d;
-  --color-primary-light: rgba(190, 24, 93, 0.08);
-  --color-primary-medium: rgba(190, 24, 93, 0.12);
-  
-  --color-text-primary: #1f2937;
-  --color-text-secondary: #374151;
-  --color-text-muted: #6b7280;
-  --color-text-subtle: #9ca3af;
-  
-  --color-bg-primary: #ffffff;
-  --color-bg-white: #f9fafb;
-  --color-bg-environment: #f3f4f6;
-  
-  --color-border-light: #e5e7eb;
-  --color-border-medium: #d1d5db;
-  
-  --color-nav-text: #6b7280;
-  --color-nav-hover: rgba(190, 24, 93, 0.05);
-  
+  /* 浅色模式颜色 - 可爱橙粉色系 */
+  --color-primary: #e65100;
+  --color-primary-hover: #bf360c;
+  --color-primary-light: rgba(230, 81, 0, 0.08);
+  --color-primary-medium: rgba(230, 81, 0, 0.12);
+
+  --color-text-primary: #2d1b17;
+  --color-text-secondary: #4a2c23;
+  --color-text-muted: #7c5a4f;
+  --color-text-subtle: #a68a7f;
+
+  --color-bg-primary: #fff9f7;
+  --color-bg-white: #fef4f1;
+  --color-bg-environment: #fcebe6;
+
+  --color-border-light: #f4d5cc;
+  --color-border-medium: #e8b5a6;
+
+  --color-nav-text: #7c5a4f;
+  --color-nav-hover: rgba(230, 81, 0, 0.06);
+
   --color-hover-opacity: 0.85;
   --color-hover-border: var(--color-primary);
-  
+
   --shadow-light: 0 2px 4px rgba(0, 0, 0, 0.1);
   --shadow-medium: 0 4px 8px rgba(0, 0, 0, 0.1);
   --shadow-heavy: 0 8px 25px rgba(0, 0, 0, 0.1);
-  
+
   /* 过渡动画 */
   --transition-fast: all 0.2s ease;
   --transition-medium: all 0.3s ease;
-  
+
   /* 圆角 */
   --radius-small: 6px;
   --radius-medium: 8px;
   --radius-large: 12px;
   --radius-pill: 20px;
-  
+
   /* 字体大小 */
   --font-size-xs: 0.8rem;
   --font-size-sm: 0.85rem;
@@ -49,7 +49,7 @@
   --font-size-3xl: 2rem;
   --font-size-4xl: 2.5rem;
   --font-size-title: 1.6rem;
-  
+
   /* 间距 */
   --spacing-xs: 0.25rem;
   --spacing-sm: 0.5rem;
@@ -60,29 +60,29 @@
 }
 
 .dark {
-  /* 深色模式颜色 - 优雅粉色系 */
-  --color-primary: #f472b6;
-  --color-primary-hover: #f9a8d4;
-  --color-primary-light: rgba(244, 114, 182, 0.15);
-  --color-primary-medium: rgba(244, 114, 182, 0.22);
-  
-  --color-text-primary: #f9fafb;
-  --color-text-secondary: #e5e7eb;
-  --color-text-muted: #9ca3af;
-  --color-text-subtle: #6b7280;
-  
-  --color-bg-primary: #111827;
-  --color-bg-white: #1f2937;
-  --color-bg-environment: #374151;
-  
-  --color-border-light: #374151;
-  --color-border-medium: #4b5563;
-  
-  --color-nav-text: #9ca3af;
-  --color-nav-hover: rgba(244, 114, 182, 0.12);
-  
+  /* 深色模式颜色 - 可爱橙粉色系 */
+  --color-primary: #ff8a65;
+  --color-primary-hover: #ffab91;
+  --color-primary-light: rgba(255, 138, 101, 0.15);
+  --color-primary-medium: rgba(255, 138, 101, 0.22);
+
+  --color-text-primary: #ffffff;
+  --color-text-secondary: #e0e0e0;
+  --color-text-muted: #b0b0b0;
+  --color-text-subtle: #808080;
+
+  --color-bg-primary: #2e2e2e;
+  --color-bg-white: #383838;
+  --color-bg-environment: #424242;
+
+  --color-border-light: #424242;
+  --color-border-medium: #4c4c4c;
+
+  --color-nav-text: #b0b0b0;
+  --color-nav-hover: rgba(255, 138, 101, 0.12);
+
   --color-hover-opacity: 0.75;
   --color-hover-border: var(--color-primary);
-  
+
   --shadow-heavy: 0 8px 25px rgba(0, 0, 0, 0.4);
 }
