@@ -13,7 +13,7 @@
     }
 
     /* 移动端：单列布局 */
-    @media (max-width: 767px) {
+    @media (max-width: 768px) {
         .post-layout {
             grid-template-columns: 1fr;
             grid-template-areas:
@@ -41,7 +41,7 @@
     }
 
     /* 中等屏幕：两列布局 */
-    @media (min-width: 768px) and (max-width: 1199px) {
+    @media (min-width: 768px) and (max-width: 1200px) {
         .post-layout {
             grid-template-columns: 1fr 280px;
             grid-template-areas: "content toc";
@@ -144,6 +144,7 @@
     .post-content {
         font-size: 1.1rem;
         line-height: 1.8;
+        text-align: justify;
     }
 
     /* 目录样式 */
@@ -412,7 +413,7 @@
             const item = tocItems[i];
             item.removeAttribute('data-active');
             const id = item.children[0].getAttribute('href').substring(1);
-            console.log('Visible sections:', visibleSections);
+
             if (visibleSections.has(id)) {
                 item.setAttribute('data-active', 'current');
                 // 如果是激活状态，标记父节点
