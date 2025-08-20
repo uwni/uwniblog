@@ -6,3 +6,6 @@ directory = "./dist"
 
 [observability.logs]
 enabled = true
+
+[vars]
+ELEVENTY_RUN_MODE = "build"
