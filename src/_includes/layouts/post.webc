@@ -416,8 +416,7 @@
         }
         updateTocStates();
     }, {
-        threshold: [0, 1],
-        rootMargin: '0px 0px -99% 0px' // 当元素进入视口时触发
+        threshold: 0,
     });
 
     // 启动
