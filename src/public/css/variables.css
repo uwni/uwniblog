@@ -64,6 +64,7 @@
 
   /* 内容宽度 */
   --content-max-width: 75rem;
+  --sidebar-width: 280px;
 }
 
 .dark {

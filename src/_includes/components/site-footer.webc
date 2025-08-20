@@ -9,9 +9,8 @@
 </footer>
 
 <style webc:scoped>
-    footer {
-        background: var(--color-bg-white);
-        color: var(--color-text-primary);
+    :host {
+        color: var(--color-text-muted);
         text-align: center;
         padding: var(--spacing-xl);
         border-radius: var(--radius-medium);

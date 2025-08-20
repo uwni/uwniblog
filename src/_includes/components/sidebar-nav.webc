@@ -28,13 +28,14 @@
         position: fixed;
         top: 0;
         left: 0;
-        width: auto;
+        width: var(--sidebar-width);
         height: 100vh;
         padding: 0 1.5rem;
         display: none;
         /* 默认隐藏 */
         flex-direction: column;
         z-index: 900;
+        background: var(--color-bg-white);
     }
 
     :host site-title {

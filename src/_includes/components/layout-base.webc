@@ -126,8 +126,7 @@
     /* 响应式布局 */
     @media (min-width: 1200px) {
         body {
-            margin-left: 280px;
-            padding-left: var(--spacing-xl);
+            margin-left: var(--sidebar-width);
         }
     }
 
@@ -152,6 +151,5 @@
     .material-symbols-outlined {
         vertical-align: middle;
         /* 或 middle，看效果 */
-
     }
 </style>

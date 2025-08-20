@@ -32,7 +32,6 @@
 </header>
 
 <style webc:scoped>
-
     /* Header 基础样式 */
     :host {
         margin: 0;
@@ -40,7 +39,7 @@
     }
 
     .header-inner {
-        padding: 0 1rem;
+        padding: 0 var(--spacing-lg);
         display: grid;
         grid-template-columns: auto 1fr auto;
         align-items: center;
@@ -117,12 +116,14 @@
 
     /* 响应式布局 */
     /* 移动端：显示导航 */
-    @media (max-width: 768px) { /* var(--breakpoint-md) */
+    @media (max-width: 768px) {
+
+        /* var(--breakpoint-md) */
         .header-inner {
             padding: 0 0.5rem;
             column-gap: 0.5rem;
         }
-        
+
         .header-nav {
             display: flex;
         }
@@ -131,7 +132,7 @@
             display: flex;
             gap: 0.125rem;
         }
-        
+
         .nav-links a {
             padding: var(--spacing-xs) var(--spacing-sm);
             font-size: var(--font-size-sm);
@@ -139,7 +140,9 @@
     }
 
     /* 中等屏幕：显示完整的头部导航 */
-    @media (min-width: 768px) and (max-width: 1200px) { /* var(--breakpoint-md) to var(--breakpoint-lg) */
+    @media (min-width: 768px) and (max-width: 1200px) {
+
+        /* var(--breakpoint-md) to var(--breakpoint-lg) */
         .header-nav {
             display: flex;
         }
@@ -150,7 +153,9 @@
     }
 
     /* 大屏幕：隐藏header，使用layout-base中的sidebar */
-    @media (min-width: 1200px) { /* var(--breakpoint-lg) */
+    @media (min-width: 1200px) {
+
+        /* var(--breakpoint-lg) */
         :host {
             display: none;
         }
@@ -164,6 +169,4 @@
     .dark .theme-toggle .moon {
         display: block;
     }
-
 </style>
-

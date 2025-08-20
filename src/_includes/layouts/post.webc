@@ -43,7 +43,7 @@
     /* 中等屏幕：两列布局 */
     @media (min-width: 768px) and (max-width: 1200px) {
         .post-layout {
-            grid-template-columns: 1fr 280px;
+            grid-template-columns: 1fr var(--sidebar-width);
             grid-template-areas: "content toc";
             max-width: 1200px;
             margin: 0 auto;
@@ -75,7 +75,7 @@
     /* 大屏幕：三列布局（左侧导航 + 中间内容 + 右侧目录）*/
     @media (min-width: 1200px) {
         .post-layout {
-            grid-template-columns: 1fr 280px;
+            grid-template-columns: 1fr var(--sidebar-width);
             grid-template-areas: "content toc";
             padding: 2rem 0;
             padding-top: 0;
