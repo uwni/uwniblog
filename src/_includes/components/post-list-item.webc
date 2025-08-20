@@ -1,10 +1,10 @@
-<article webc:root="override">
+<article webc:root="override" :class="compact ? 'compact' : ''">
   <h3 class="post-list-title">
     <a :href="post.url" @text="post.data.title"></a>
   </h3>
   <div class="post-list-meta">
     <time :datetime="htmlDateString(post.date)" :data-utc="utcTimestamp(post.date)" class="local-time">Loading...</time>
-    <div class="post-list-tags" webc:if="post.data.tags && post.data.tags.length > 0">
+    <div class="post-list-tags" webc:if="post.data.tags && post.data.tags.length > 0 && !compact">
       <span webc:for="tag of post.data.tags" class="tag">
         <a :href="tagLinkPrefix ? `${tagLinkPrefix}${tag}` : `/tags/${tag}/`" @text="`#${tag}`"></a>
       </span>
@@ -28,6 +28,23 @@
     opacity: var(--color-hover-opacity);
     border-left: 4px solid var(--color-hover-border);
     padding-left: var(--spacing-md);
+  }
+
+  /* Compact mode single-line layout */
+  :host(.compact) {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  :host(.compact) .post-list-title {
+    margin: 0;
+    flex: 1;
+  }
+
+  :host(.compact) .post-list-meta {
+    margin: 0;
+    flex-shrink: 0;
   }
 
   .post-list-title {

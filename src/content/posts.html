@@ -30,7 +30,7 @@
     <div class="posts-list">
       <post-list-item webc:for="post of collections.posts.toReversed()" :@post="post" 
         :data-tags="post.data.tags?.join(' ') || ''" :data-date="post.date"
-        @tag-link-prefix="/posts/?tag="></post-list-item>
+        @tag-link-prefix="/posts/?tag=" @compact="true"></post-list-item>
     </div>
 
     <!-- 无结果提示 -->
@@ -110,7 +110,7 @@
   /* 文章列表样式 */
   .posts-list {
     display: grid;
-    gap: var(--spacing-lg);
+    gap: var(--spacing-sm);
   }
 
   /* 无结果样式 */
@@ -231,7 +231,7 @@
 
       // 显示过滤和排序后的文章
       visibleItems.forEach((item, index) => {
-        item.style.display = 'block';
+        item.style.display = ''; // 清除display样式，让CSS控制
         postsList.appendChild(item); // 重新排序DOM
       });
 
