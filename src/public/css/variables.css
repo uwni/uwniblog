@@ -1,24 +1,25 @@
 /* 全局 CSS 变量定义 */
 :root {
-  /* 浅色模式颜色 - 低饱和度、粉色、可爱风格 */
-  --color-primary: #d6a7c7;
-  --color-primary-hover: #c994b8;
-  --color-primary-light: rgba(214, 167, 199, 0.12);
-  --color-primary-medium: rgba(214, 167, 199, 0.18);
+  /* 浅色模式颜色 - 优雅粉色系 */
+  --color-primary: #be185d;
+  --color-primary-hover: #9d174d;
+  --color-primary-light: rgba(190, 24, 93, 0.08);
+  --color-primary-medium: rgba(190, 24, 93, 0.12);
   
-  --color-text-primary: #5a5a5a;
-  --color-text-secondary: #6b6b6b;
-  --color-text-muted: #9d9d9d;
-  --color-text-subtle: #8a8a8a;
+  --color-text-primary: #1f2937;
+  --color-text-secondary: #374151;
+  --color-text-muted: #6b7280;
+  --color-text-subtle: #9ca3af;
   
-  --color-bg-primary: #fefefe;
-  --color-bg-white: #ffffff;
+  --color-bg-primary: #ffffff;
+  --color-bg-white: #f9fafb;
+  --color-bg-environment: #f3f4f6;
   
-  --color-border-light: #f0eeee;
-  --color-border-medium: #e6e2e2;
+  --color-border-light: #e5e7eb;
+  --color-border-medium: #d1d5db;
   
-  --color-nav-text: #7a7a7a;
-  --color-nav-hover: rgba(180, 167, 214, 0.08);
+  --color-nav-text: #6b7280;
+  --color-nav-hover: rgba(190, 24, 93, 0.05);
   
   --color-hover-opacity: 0.85;
   --color-hover-border: var(--color-primary);
@@ -59,25 +60,26 @@
 }
 
 .dark {
-  /* 深色模式颜色 - 低饱和度、粉色、可爱风格 */
-  --color-primary: #d8b8c8;
-  --color-primary-hover: #e3c6d4;
-  --color-primary-light: rgba(216, 184, 200, 0.15);
-  --color-primary-medium: rgba(216, 184, 200, 0.22);
+  /* 深色模式颜色 - 优雅粉色系 */
+  --color-primary: #f472b6;
+  --color-primary-hover: #f9a8d4;
+  --color-primary-light: rgba(244, 114, 182, 0.15);
+  --color-primary-medium: rgba(244, 114, 182, 0.22);
   
-  --color-text-primary: #e8e8e8;
-  --color-text-secondary: #d0d0d0;
-  --color-text-muted: #b0b0b0;
-  --color-text-subtle: #c4c4c4;
+  --color-text-primary: #f9fafb;
+  --color-text-secondary: #e5e7eb;
+  --color-text-muted: #9ca3af;
+  --color-text-subtle: #6b7280;
   
-  --color-bg-primary: #2a2a2a;
-  --color-bg-white: #353535;
+  --color-bg-primary: #111827;
+  --color-bg-white: #1f2937;
+  --color-bg-environment: #374151;
   
-  --color-border-light: #404040;
-  --color-border-medium: #505050;
+  --color-border-light: #374151;
+  --color-border-medium: #4b5563;
   
-  --color-nav-text: #b8b8b8;
-  --color-nav-hover: rgba(200, 184, 216, 0.12);
+  --color-nav-text: #9ca3af;
+  --color-nav-hover: rgba(244, 114, 182, 0.12);
   
   --color-hover-opacity: 0.75;
   --color-hover-border: var(--color-primary);
