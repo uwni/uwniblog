@@ -1,5 +1,4 @@
 import { NodeCompiler } from '@myriaddreamin/typst-ts-node-compiler';
-import { readableDate } from './helper.js';
 
 let date = new Date();
 let buildDate = JSON.stringify({
@@ -17,29 +16,33 @@ async function htmlRender(compiler, inputArgs, inputPath) {
     inputs: inputArgs
   });
 
+  output.printDiagnostics();
   if (!output.result) {
-    console.error("Typst compilation failed:");
-    output.printDiagnostics();
-    process.exit(1);
+    console.error("Typst compilation failed, no HTML generated.");
+    if (process.env.ELEVENTY_RUN_MOD === "build") {
+      process.exit(1);
+    }
+    return;
   }
-  return output.result?.body();
+  return output.result.body();
 }
 
 async function pdfRender(compiler, inputArgs, inputPath) {
-  let output = compiler.pdf({
+  let compileResult = compiler.compile({
     mainFilePath: inputPath,
     inputs: inputArgs
   });
 
-  if (!output || output.length === 0) {
-    console.error("Typst PDF compilation failed:");
-    if (output && output.printDiagnostics) {
-      output.printDiagnostics();
+  compileResult.printDiagnostics();
+  const result = compileResult.result;
+  if (!result) {
+    console.error("Typst compilation failed, no PDF generated.");
+    if (process.env.ELEVENTY_RUN_MOD === "build") {
+      process.exit(1);
     }
-    process.exit(1);
+    return;
   }
-
-  return output;
+  return compiler.pdf(result);
 }
 
 async function getFrontmatter(compiler, inputPath) {
@@ -71,10 +74,14 @@ export default function eleventyPluginTypst(eleventyConfig, options = {}) {
     workspace = ".",
     targets = ["html", "pdf"],
     collection = "posts",
+    fontPath = "fonts"
   } = options;
 
   const compiler = NodeCompiler.create({
     workspace: workspace,
+    fontArgs: [{
+      fontPaths: [fontPath],
+    }],
     inputs: {
       buildDate: buildDate,
     }
