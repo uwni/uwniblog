@@ -373,7 +373,6 @@
     /* Environment 环境样式 */
     .environment {
         margin: var(--spacing-lg) 0;
-        background: var(--color-bg-environment);
         border-left: 4px solid var(--color-text-muted);
         padding: 0;
     }
