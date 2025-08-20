@@ -47,7 +47,7 @@
     class: "typst-image",
     html.frame(it),
   )
-  show math.equation: handle-math
+   show math.equation: handle-math
 
   show ref: it => {
     it.element
