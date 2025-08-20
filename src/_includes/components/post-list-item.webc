@@ -6,7 +6,7 @@
     <time :datetime="htmlDateString(post.date)" :data-utc="utcTimestamp(post.date)" class="local-time">Loading...</time>
     <div class="post-list-tags" webc:if="post.data.tags && post.data.tags.length > 0 && !compact">
       <span webc:for="tag of post.data.tags" class="tag">
-        <a :href="tagLinkPrefix ? `${tagLinkPrefix}${tag}` : `/tags/${tag}/`" @text="`#${tag}`"></a>
+        <a :href="`/posts/?tag=${tag}`" @text="`#${tag}`"></a>
       </span>
     </div>
   </div>
