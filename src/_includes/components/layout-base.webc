@@ -14,6 +14,10 @@
     <style @raw="getBundle('css')" webc:keep></style>
     <script @raw="getBundle('js')" webc:keep></script>
 
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined&icon_names=commit&display=block"
+        rel="stylesheet" webc:keep />
+
     <!-- Favicon -->
     <!-- <link rel="icon" type="image/x-icon" href="/favicon.ico"> -->
 </head>
@@ -132,5 +136,11 @@
         padding: var(--spacing-xl);
         min-height: 400px;
         flex: 1;
+    }
+
+    .material-symbols-outlined {
+        vertical-align: middle;
+        /* 或 middle，看效果 */
+
     }
 </style>
