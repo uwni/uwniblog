@@ -106,9 +106,22 @@
         box-sizing: border-box;
     }
 
+    [hidden] {
+        display: none !important;
+    }
+
+    a {
+        color: var(--color-primary);
+    }
+
     html {
         scrollbar-gutter: stable both-edges;
         font-size: 16px;
+    }
+
+    button {
+        color: inherit;
+        cursor: pointer;
     }
 
     body {
@@ -148,8 +161,6 @@
         box-sizing: border-box;
         width: 100%;
     }
-
-
 
     .material-symbols-outlined {
         vertical-align: middle;

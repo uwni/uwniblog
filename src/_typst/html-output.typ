@@ -66,7 +66,11 @@
       html.h5
     } else {
       html.h6
-    }(class: "post-heading", id: "heading-" + id, it.body)
+    }(class: "post-heading", id: "heading-" + id, html.a(
+      class: "heading-anchor",
+      href: "#heading-" + id,
+      it.body
+    ))
   }
 
 

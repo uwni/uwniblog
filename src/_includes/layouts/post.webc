@@ -289,7 +289,6 @@
     }
 
     .post-content a {
-        color: var(--color-primary);
         text-decoration: underline;
     }
 
@@ -402,6 +401,24 @@
     /* 深色模式下 SVG 反色 */
     .dark .typst-doc {
         filter: invert(1) hue-rotate(180deg);
+    }
+
+    .heading-anchor {
+        color: var(--color-text-primary);
+        text-decoration: none !important;
+    }
+
+    .heading-anchor:hover {
+        color: var(--color-text-primary) !important;
+        text-decoration: underline !important;
+    }
+
+    .heading-anchor:hover::before {
+        content: '#';
+        margin-left: -.8em;
+        padding-right: .8em;
+        color: var(--color-text-muted);
+        position: absolute;
     }
 </style>
 
