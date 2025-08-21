@@ -27,7 +27,7 @@
     :host {
         max-width: var(--sidebar-max-width);
         height: 100vh;
-        padding: 0 1.5rem;
+        padding: 0 var(--spacing-xl);
         display: none;
         /* 默认隐藏 */
         flex-direction: column;

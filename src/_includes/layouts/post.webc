@@ -7,15 +7,19 @@
     /* 响应式布局容器 */
     .post-container {
         display: flex;
-        gap: 2rem;
         min-height: 100vh;
+    }
+
+    .post-main {
+        flex: 1;
+        padding: 0 var(--spacing-md);
+        box-sizing: border-box;
     }
 
     /* 移动端：单列布局 */
     @media (max-width: 768px) {
         .post-container {
             flex-direction: column;
-            padding: 1rem;
         }
 
         .post-main {
@@ -43,7 +47,6 @@
             flex-direction: row;
             max-width: 1200px;
             margin: 0 auto;
-            padding: 2rem;
         }
 
         .mobile-toc {
@@ -75,8 +78,6 @@
             flex-direction: row;
             padding: 2rem 0;
             padding-top: 0;
-            /* 大屏幕无固定header */
-            gap: 2rem;
         }
 
         .mobile-toc {
@@ -151,6 +152,7 @@
         top: 2rem;
         height: fit-content;
         max-height: calc(100vh - 4rem);
+        padding: 0 var(--spacing-xl);
         overflow-y: auto;
     }
 
