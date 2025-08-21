@@ -8,7 +8,7 @@ import eleventyPluginTypst from "./src/_config/eleventy-plugin-typst.js";
 import { RenderPlugin } from "@11ty/eleventy";
 import pluginWebc from "@11ty/eleventy-plugin-webc";
 import metadata from "./src/_data/metadata.js";
-import { DateTime } from "luxon";
+import { htmlminTransform } from "./src/_config/transforms.js";
 
 /** @param {import("@11ty/eleventy").UserConfig} eleventyConfig */
 export default async function (eleventyConfig) {
@@ -49,6 +49,9 @@ export default async function (eleventyConfig) {
 	eleventyConfig.addPlugin(HtmlBasePlugin);
 	eleventyConfig.addPlugin(InputPathToUrlTransformPlugin);
 	eleventyConfig.addPlugin(RenderPlugin);
+
+	// Add HTML minification
+	process.env.ELEVENTY_RUN_MODE === "build" && eleventyConfig.addTransform("htmlmin", htmlminTransform);
 
 	eleventyConfig.addPlugin(feedPlugin, {
 		type: "atom", // or "rss", "json"
