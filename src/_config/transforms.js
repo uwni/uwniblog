@@ -10,7 +10,6 @@ export function htmlminTransform(content) {
             minifyJS: true,
             sortClassName: true
         });
-        console.log("HTML minification applied");
         return minified;
     }
 
