@@ -47,7 +47,7 @@
     class: "typst-image",
     html.frame(it),
   )
-   show math.equation: handle-math
+  show math.equation: handle-math
 
   show ref: it => {
     it.element
@@ -91,7 +91,7 @@
 
   // let sectioned-content = body
   [
-    #html.div(class: "post-layout")[
+    #html.div(class: "post-container")[
       #html.article(class: "post post-main")[
         #html.div(class: "post-title-container", [
           #html.h1(class: "post-title", title)

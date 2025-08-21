@@ -25,17 +25,16 @@
 <style webc:scoped>
     /* 左侧固定导航栏样式 */
     :host {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: var(--sidebar-width);
+        max-width: var(--sidebar-max-width);
         height: 100vh;
         padding: 0 1.5rem;
         display: none;
         /* 默认隐藏 */
         flex-direction: column;
-        z-index: 900;
-        background: var(--color-bg-white);
+        flex-shrink: 0;
+        position: sticky;
+        top: 0;
+        overflow-y: auto;
     }
 
     :host site-title {

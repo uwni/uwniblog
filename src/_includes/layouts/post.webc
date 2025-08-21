@@ -5,29 +5,26 @@
 
 <style>
     /* 响应式布局容器 */
-    .post-layout {
-        display: grid;
+    .post-container {
+        display: flex;
         gap: 2rem;
         min-height: 100vh;
-        /* 为固定header留空间 */
     }
 
     /* 移动端：单列布局 */
     @media (max-width: 768px) {
-        .post-layout {
-            grid-template-columns: 1fr;
-            grid-template-areas:
-                "mobile-toc"
-                "content";
+        .post-container {
+            flex-direction: column;
             padding: 1rem;
         }
 
-        .mobile-toc {
-            grid-area: mobile-toc;
+        .post-main {
+            flex: 1;
+            order: 2;
         }
 
-        .post-main {
-            grid-area: content;
+        .mobile-toc {
+            order: 1;
         }
 
         .post-toc {
@@ -42,9 +39,8 @@
 
     /* 中等屏幕：两列布局 */
     @media (min-width: 768px) and (max-width: 1200px) {
-        .post-layout {
-            grid-template-columns: 1fr var(--sidebar-width);
-            grid-template-areas: "content toc";
+        .post-container {
+            flex-direction: row;
             max-width: 1200px;
             margin: 0 auto;
             padding: 2rem;
@@ -55,11 +51,12 @@
         }
 
         .post-main {
-            grid-area: content;
+            flex: 1;
         }
 
         .post-toc {
-            grid-area: toc;
+            max-width: var(--sidebar-max-width);
+            flex-shrink: 0;
         }
 
         /* Show desktop meta in sidebar on medium screens too */
@@ -74,9 +71,8 @@
 
     /* 大屏幕：三列布局（左侧导航 + 中间内容 + 右侧目录）*/
     @media (min-width: 1200px) {
-        .post-layout {
-            grid-template-columns: 1fr var(--sidebar-width);
-            grid-template-areas: "content toc";
+        .post-container {
+            flex-direction: row;
             padding: 2rem 0;
             padding-top: 0;
             /* 大屏幕无固定header */
@@ -88,11 +84,13 @@
         }
 
         .post-main {
-            grid-area: content;
+            flex: 1;
         }
 
         .post-toc {
-            grid-area: toc;
+            width: var(--sidebar-width);
+            max-width: var(--sidebar-max-width);
+            flex-shrink: 0;
         }
 
         /* Hide mobile meta on desktop */
@@ -119,9 +117,9 @@
 
     .post-title {
         color: var(--color-text-primary);
-        font-size: var(--font-size-4xl);
+        font-size: var(--font-size-3xl);
         margin-bottom: var(--spacing-md);
-        font-weight: 400;
+        font-weight: bold;
         line-height: 1.2;
     }
 
@@ -144,6 +142,7 @@
     .post-content {
         font-size: var(--font-size-base);
         line-height: 1.75;
+        font-family: var(--font-family-serif);
         text-align: justify;
     }
 
@@ -275,16 +274,18 @@
     /* 保持原有的内容样式 */
     .post-content h2 {
         color: var(--color-text-primary);
-        margin: var(--spacing-xl) 0 var(--spacing-md) 0;
-        font-size: var(--font-size-2xl);
-        font-weight: 500;
+        margin: var(--spacing-md) 0 var(--spacing-md) 0;
+        font-size: var(--font-size-lg);
+        font-family: var(--font-family-sans);
+        font-weight: 700;
     }
 
     .post-content h3 {
         color: var(--color-text-secondary);
-        margin: var(--spacing-lg) 0 var(--spacing-md) 0;
-        font-size: var(--font-size-xl);
-        font-weight: 500;
+        margin: var(--spacing-md) 0 var(--spacing-sm) 0;
+        font-size: var(--font-size-base);
+        font-family: var(--font-family-sans);
+        font-weight: 600;
     }
 
     .post-content p {

@@ -13,7 +13,7 @@
     .site-title h1 {
         font-size: var(--font-size-title);
         margin: 0;
-        font-weight: 600;
+        font-weight: bold;
         color: var(--color-text-muted);
         line-height: 1.2;
         padding: 0;
