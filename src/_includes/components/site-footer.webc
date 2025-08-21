@@ -11,13 +11,10 @@
 <style webc:scoped>
     :host {
         color: var(--color-text-muted);
-        padding: var(--spacing-xl);
+        padding: var(--spacing-md) 0;
         border-radius: var(--radius-medium);
         margin-top: var(--spacing-2xl);
-    }
-
-    p {
-        margin-bottom: var(--spacing-sm);
+        font-size: var(--font-size-md);
     }
 
     p:last-child {

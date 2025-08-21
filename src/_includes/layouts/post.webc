@@ -8,11 +8,11 @@
     .post-container {
         display: flex;
         min-height: 100vh;
+        column-gap: calc(2 * var(--spacing-xl));
     }
 
     .post-container article {
         flex: 1;
-        padding: 0 var(--spacing-lg);
         box-sizing: border-box;
         margin-bottom: var(--spacing-2xl);
     }
@@ -148,7 +148,6 @@
         top: 2rem;
         height: fit-content;
         max-height: calc(100vh - 4rem);
-        padding: 0 var(--spacing-xl);
         overflow-y: auto;
     }
 

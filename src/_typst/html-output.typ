@@ -133,6 +133,5 @@
         ),
       )
     ]
-    #inline-css(path: "mathyml.css")
   ]
 }
