@@ -88,7 +88,6 @@
         }
 
         .post-toc {
-            width: var(--sidebar-width);
             max-width: var(--sidebar-max-width);
             flex-shrink: 0;
         }
