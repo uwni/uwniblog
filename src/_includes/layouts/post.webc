@@ -10,10 +10,11 @@
         min-height: 100vh;
     }
 
-    .post-main {
+    .post-container article {
         flex: 1;
-        padding: 0 var(--spacing-md);
+        padding: 0 var(--spacing-lg);
         box-sizing: border-box;
+        margin-bottom: var(--spacing-2xl);
     }
 
     /* 移动端：单列布局 */
@@ -102,11 +103,6 @@
         .post-meta.desktop-meta {
             margin-bottom: 1.5rem;
         }
-    }
-
-    /* 文章主体样式 */
-    .post {
-        margin-bottom: var(--spacing-2xl);
     }
 
     .post-title-container {

@@ -66,8 +66,8 @@
   --breakpoint-lg: 1200px;
 
   /* 内容宽度 */
-  --body-max-width: 85rem;
-  --sidebar-max-width: 280px;
+  --body-max-width: 89rem;
+  --sidebar-max-width: 23%;
 }
 
 .dark {

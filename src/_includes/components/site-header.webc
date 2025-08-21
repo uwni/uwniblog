@@ -120,7 +120,7 @@
 
         /* var(--breakpoint-md) */
         .header-inner {
-            padding: 0 0.5rem;
+            padding: 0px var(--spacing-lg);
             column-gap: 0.5rem;
         }
 
