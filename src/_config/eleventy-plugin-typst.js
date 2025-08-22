@@ -121,15 +121,18 @@ export default function eleventyPluginTypst(eleventyConfig, options = {}) {
         permalink: function (data) {
           switch (data.target) {
             case "pdf":
-              return `${data.page.filePathStem}/archive.pdf`;
+              return `/archive/${data.page.fileSlug}.pdf`;
             case "html":
-              return `${data.page.filePathStem}/index.html`;
+              return;
           }
           return;
         },
         eleventyComputed: {
           layout: ({ target, layout }) => {
             return target === "pdf" ? false : layout;
+          },
+          outputFileExtension: ({ target }) => {
+            return target === "pdf" ? "pdf" : "html";
           }
         }
       };

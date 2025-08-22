@@ -43,13 +43,23 @@
 
 // HTML输出主函数
 #let as-html-output(title, tags: (), date: none, body) = {
+  show image: it => {
+    if (it.format != "svg") {
+      let alt = if it.alt != none { (alt: it.alt) } else { (alt: "ALT") }
+      html.img(src: it.source, ..alt)
+    } else {
+      it
+    }
+  }
+
   show figure.where(kind: image): it => html.figure(
     class: "typst-figure",
     [
-      #html.frame(it.body)
+      #it.body
       #it.caption
     ],
   )
+
   set math.equation(numbering: it => html.div(
     class: "equation-numbering",
     [(#it)],

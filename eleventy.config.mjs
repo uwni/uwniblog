@@ -30,7 +30,6 @@ export default async function (eleventyConfig) {
 			"./src/public/": "/",
 		})
 		.addPassthroughCopy("./src/content/feed/pretty-atom-feed.xsl");
-
 	// Run Eleventy when these files change:
 	// https://www.11ty.dev/docs/watch-serve/#add-your-own-watch-targets
 
@@ -82,7 +81,7 @@ export default async function (eleventyConfig) {
 
 		// widths: ["auto"],
 
-		failOnError: false,
+		failOnError: true,
 		htmlOptions: {
 			imgAttributes: {
 				// e.g. <img loading decoding> assigned on the HTML tag will override these values.
@@ -90,7 +89,6 @@ export default async function (eleventyConfig) {
 				decoding: "async",
 			}
 		},
-
 		sharpOptions: {
 			animated: true,
 		},

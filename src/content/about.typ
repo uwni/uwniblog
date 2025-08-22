@@ -2,7 +2,8 @@
 
 #show: post-template.with(
   title: "About",
-  layout: "layouts/post.webc"
+  layout: "layouts/post.webc",
+  genPdf: false,
 )
 
 

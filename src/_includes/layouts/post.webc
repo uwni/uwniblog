@@ -410,8 +410,14 @@
     }
 
     /* 深色模式下 SVG 反色 */
-    .dark .typst-doc {
+    [data-theme="dark"] .typst-equation svg {
         filter: invert(1) hue-rotate(180deg);
+    }
+
+    @media (prefers-color-scheme: dark) {
+        .typst-equation svg {
+            filter: invert(1) hue-rotate(180deg);
+        }
     }
 
     .heading-anchor {
