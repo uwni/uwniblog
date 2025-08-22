@@ -102,7 +102,7 @@
 
   // 构建标签HTML
   let tags-html = if tags.len() > 0 {
-    let tag-links = tags.map(tag => html.a(href: "/tags/" + tag + "/", "#" + tag)).join(" ")
+    let tag-links = tags.map(tag => html.a(href: "/collections/?tag=" + tag, "#" + tag)).join(" ")
     html.span(" tags: " + tag-links)
   }
 

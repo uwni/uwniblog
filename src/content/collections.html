@@ -11,7 +11,8 @@
         <label for="tag-filter">Filter by tag:</label>
         <select id="tag-filter">
           <option value="">All tags</option>
-          <option webc:for="tag of [...new Set(collections.posts.flatMap(post => post.data.tags || []))].sort()" :value="tag" @text="`#${tag}`"></option>
+          <option webc:for="tag of [...new Set(collections.posts.flatMap(post => post.data.tags || []))].sort()"
+            :value="tag" @text="`#${tag}`"></option>
         </select>
       </div>
 
@@ -28,9 +29,8 @@
 
     <!-- 文章列表 -->
     <div class="posts-list">
-      <post-list-item webc:for="post of collections.posts.toReversed()" :@post="post" 
-        :data-tags="post.data.tags?.join(' ') || ''" :data-date="post.date"
-        @tag-link-prefix="/posts/?tag=" @compact="true"></post-list-item>
+      <post-list-item webc:for="post of collections.posts.toReversed()" :@post="post"
+        :data-tags="post.data.tags?.join(' ') || ''" :data-date="post.date" @compact="true"></post-list-item>
     </div>
 
     <!-- 无结果提示 -->

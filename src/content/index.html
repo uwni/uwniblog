@@ -6,7 +6,7 @@
   <h2>Recent Posts</h2>
 
   <div class="post-list">
-    <post-list-item webc:for="post of collections.posts.toReversed()" :@post="post" @show-excerpt="true"></post-list-item>
+    <post-list-item webc:for="post of collections.posts.toReversed()" :@post="post" @show-excerpt="true" @tag-link-prefix="/collections/?tag="></post-list-item>
   </div>
 
   <p>Feel free to explore, and don't hesitate to reach out if something resonates with you!</p>
