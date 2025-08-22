@@ -1,5 +1,4 @@
 #import "html.typ"
-#import "html-math.typ": handle-math
 #import "helper.typ": build-tree, inline-css
 
 #let _get_heading_id(heading: none) = {
@@ -40,13 +39,25 @@
   )
 }
 
+#let handle-math(it) = {
+  import "html.typ"
+  set text(size: 12pt, font: ("STIX Two Math", "尙古明體SC"))
+
+  if it.block {
+    let count = counter(math.equation).display()
+    html.div(class: "typst-equation math-block", style: "text-align: center;", html.frame(it) + count)
+  } else {
+    html.span(class: "typst-equation math-inline", html.frame(it))
+  }
+}
+
 
 // HTML输出主函数
 #let as-html-output(title, tags: (), date: none, body) = {
   show image: it => {
     if (it.format != "svg") {
-      let alt = if it.alt != none { (alt: it.alt) } else { (alt: "ALT") }
-      html.img(src: it.source, ..alt)
+      let alt = if it.alt != none { it.alt } else { "ALT" }
+      html.img(src: it.source, alt: alt)
     } else {
       it
     }
