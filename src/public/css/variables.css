@@ -1,5 +1,6 @@
 /* 全局 CSS 变量定义 */
 :root {
+  color-scheme: light dark;
   /* 浅色模式颜色 - 橙粉胭脂混合色系 */
   --color-primary: #e8806b;
   --color-primary-hover: #d46850;
@@ -68,32 +69,77 @@
   /* 内容宽度 */
   --body-max-width: 89rem;
   --sidebar-max-width: 23%;
+
+  /* 深色模式变量定义 */
+
+  --dark-color-primary: #ff8a65;
+  --dark-color-primary-hover: #ffab91;
+  --dark-color-primary-light: rgba(255, 138, 101, 0.15);
+  --dark-color-primary-medium: rgba(255, 138, 101, 0.22);
+
+  --dark-color-text-primary: #ffffff;
+  --dark-color-text-secondary: #e0e0e0;
+  --dark-color-text-muted: #b0b0b0;
+  --dark-color-text-subtle: #808080;
+
+  --dark-color-bg-primary: #2e2e2e;
+  --dark-color-bg-white: #383838;
+  --dark-color-bg-environment: #424242;
+
+  --dark-color-border-light: #424242;
+  --dark-color-border-medium: #4c4c4c;
+
+  --dark-color-nav-text: #b0b0b0;
+  --dark-color-nav-hover: rgba(255, 138, 101, 0.12);
+
+  --dark-color-hover-opacity: 0.75;
+  --dark-shadow-heavy: 0 8px 25px rgba(0, 0, 0, 0.4);
 }
 
-.dark {
-  /* 深色模式颜色 - 可爱橙粉色系 */
-  --color-primary: #ff8a65;
-  --color-primary-hover: #ffab91;
-  --color-primary-light: rgba(255, 138, 101, 0.15);
-  --color-primary-medium: rgba(255, 138, 101, 0.22);
+/* 深色模式 - 系统偏好（用户未强制浅色） */
+@media (prefers-color-scheme: dark) {
+  [data-theme="auto"] {
+    color-scheme: dark;
+    --color-primary: var(--dark-color-primary);
+    --color-primary-hover: var(--dark-color-primary-hover);
+    --color-primary-light: var(--dark-color-primary-light);
+    --color-primary-medium: var(--dark-color-primary-medium);
+    --color-text-primary: var(--dark-color-text-primary);
+    --color-text-secondary: var(--dark-color-text-secondary);
+    --color-text-muted: var(--dark-color-text-muted);
+    --color-text-subtle: var(--dark-color-text-subtle);
+    --color-bg-primary: var(--dark-color-bg-primary);
+    --color-bg-white: var(--dark-color-bg-white);
+    --color-bg-environment: var(--dark-color-bg-environment);
+    --color-border-light: var(--dark-color-border-light);
+    --color-border-medium: var(--dark-color-border-medium);
+    --color-nav-text: var(--dark-color-nav-text);
+    --color-nav-hover: var(--dark-color-nav-hover);
+    --color-hover-opacity: var(--dark-color-hover-opacity);
+    --color-hover-border: var(--color-primary);
+    --shadow-heavy: var(--dark-shadow-heavy);
+  }
+}
 
-  --color-text-primary: #ffffff;
-  --color-text-secondary: #e0e0e0;
-  --color-text-muted: #b0b0b0;
-  --color-text-subtle: #808080;
-
-  --color-bg-primary: #2e2e2e;
-  --color-bg-white: #383838;
-  --color-bg-environment: #424242;
-
-  --color-border-light: #424242;
-  --color-border-medium: #4c4c4c;
-
-  --color-nav-text: #b0b0b0;
-  --color-nav-hover: rgba(255, 138, 101, 0.12);
-
-  --color-hover-opacity: 0.75;
+/* 深色模式 - 用户手动选择 */
+[data-theme="dark"] {
+  color-scheme: dark;
+  --color-primary: var(--dark-color-primary);
+  --color-primary-hover: var(--dark-color-primary-hover);
+  --color-primary-light: var(--dark-color-primary-light);
+  --color-primary-medium: var(--dark-color-primary-medium);
+  --color-text-primary: var(--dark-color-text-primary);
+  --color-text-secondary: var(--dark-color-text-secondary);
+  --color-text-muted: var(--dark-color-text-muted);
+  --color-text-subtle: var(--dark-color-text-subtle);
+  --color-bg-primary: var(--dark-color-bg-primary);
+  --color-bg-white: var(--dark-color-bg-white);
+  --color-bg-environment: var(--dark-color-bg-environment);
+  --color-border-light: var(--dark-color-border-light);
+  --color-border-medium: var(--dark-color-border-medium);
+  --color-nav-text: var(--dark-color-nav-text);
+  --color-nav-hover: var(--dark-color-nav-hover);
+  --color-hover-opacity: var(--dark-color-hover-opacity);
   --color-hover-border: var(--color-primary);
-
-  --shadow-heavy: 0 8px 25px rgba(0, 0, 0, 0.4);
+  --shadow-heavy: var(--dark-shadow-heavy);
 }

@@ -17,14 +17,9 @@
         <div class="header-actions">
             <!-- 主题切换 -->
             <button class="theme-toggle" aria-label="切换主题">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <circle class="sun" cx="12" cy="12" r="5"></circle>
-                    <path class="sun"
-                        d="M12 1v2m0 18v2M4.22 4.22l1.42 1.42m12.72 12.72l1.42 1.42M1 12h2m18 0h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42">
-                    </path>
-                    <path class="moon" d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" style="display: none;">
-                    </path>
-                </svg>
+                <span class="material-symbols-outlined theme-icon light-mode">light_mode</span>
+                <span class="material-symbols-outlined theme-icon dark-mode">dark_mode</span>
+                <span class="material-symbols-outlined theme-icon auto-mode">routine</span>
             </button>
         </div>
     </div>
@@ -110,8 +105,13 @@
         background: var(--color-primary-light);
     }
 
-    .theme-toggle .moon {
+    .theme-toggle .theme-icon {
         display: none;
+    }
+
+    /* 默认显示浅色模式图标 */
+    .theme-toggle .light-mode {
+        display: block;
     }
 
     /* 响应式布局 */
@@ -161,12 +161,28 @@
         }
     }
 
-    /* 深色模式 */
-    .dark .theme-toggle .sun {
-        display: none;
-    }
+</style>
 
-    .dark .theme-toggle .moon {
-        display: block;
-    }
+<style>
+/* 全局主题状态显示 - 不使用 scoped */
+[data-theme="light"] .theme-toggle .theme-icon {
+    display: none;
+}
+[data-theme="light"] .theme-toggle .light-mode {
+    display: block;
+}
+
+[data-theme="dark"] .theme-toggle .theme-icon {
+    display: none;
+}
+[data-theme="dark"] .theme-toggle .dark-mode {
+    display: block;
+}
+
+[data-theme="auto"] .theme-toggle .theme-icon {
+    display: none;
+}
+[data-theme="auto"] .theme-toggle .auto-mode {
+    display: block;
+}
 </style>

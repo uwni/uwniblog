@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="color-scheme" content="light dark">
     <title id="page-title" @text="$data.metadata.title"></title>
     <meta name="description" content="" id="page-description">
 
@@ -15,7 +16,7 @@
     <script @raw="getBundle('js')" webc:keep></script>
 
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined&icon_names=commit&display=block"
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined&icon_names=commit,dark_mode,light_mode,routine&display=block"
         rel="stylesheet" webc:keep />
 
     <!-- Favicon -->
@@ -36,23 +37,52 @@
 
 </html>
 
-<!-- 防止深色模式闪烁 -->
-<script webc:bucket="defer">
-    (function () {
-        const savedTheme = localStorage.getItem('theme');
-        if (savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-            document.body.classList.add('dark');
-        }
-    })();
+<!-- 防止深色模式闪烁 - 内联在 head 中 -->
+<script>
+    // Apply theme immediately to avoid FOUC
+    const currentTheme = localStorage.getItem('theme') || 'auto'; // 默认主题为浅色
+    document.documentElement.dataset.theme = currentTheme;
+</script>
 
-    // 统一的主题切换功能 - 支持所有主题切换按钮
+<script webc:bucket="defer">
+    // 统一的主题切换功能 - 支持三态切换：light -> dark -> auto -> light
     document.addEventListener('DOMContentLoaded', function () {
-        // 主题切换处理函数
-        function toggleTheme() {
-            document.body.classList.toggle('dark');
-            const isDark = document.body.classList.contains('dark');
-            localStorage.setItem('theme', isDark ? 'dark' : 'light');
+        // 应用主题的函数
+        function applyTheme(theme) {
+            // Remove all theme state classes
+            document.documentElement.dataset.theme = theme;
         }
+
+        // 三态主题切换处理函数
+        function toggleTheme() {
+            const currentTheme = localStorage.getItem('theme');
+            let nextTheme;
+            
+            switch (currentTheme) {
+                case 'light':
+                    nextTheme = 'dark';
+                    localStorage.setItem('theme', 'dark');
+                    break;
+                case 'dark':
+                    nextTheme = 'auto';
+                    localStorage.removeItem('theme'); // 移除表示跟随系统
+                    break;
+                default: // auto or null
+                    nextTheme = 'light';
+                    localStorage.setItem('theme', 'light');
+                    break;
+            }
+            
+            applyTheme(nextTheme);
+        }
+
+        // 监听系统颜色模式变化
+        window.matchMedia("(prefers-color-scheme: dark)").addEventListener('change', function(e) {
+            // 只有在没有设置主题偏好时才跟随系统变化
+            if (!localStorage.getItem('theme')) {
+                applyTheme('auto');
+            }
+        });
 
         // 为所有主题切换按钮添加事件监听
         const themeToggleButtons = document.querySelectorAll('.theme-toggle, .desktop-theme-toggle');
