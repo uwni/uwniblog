@@ -40,9 +40,6 @@
 }
 
 #let handle-math(it) = {
-  import "html.typ"
-  set text(size: 12pt, font: ("STIX Two Math", "尙古明體SC"))
-
   if it.block {
     let count = counter(math.equation).display()
     html.div(class: "typst-equation math-block", style: "text-align: center;", html.frame(it) + count)
@@ -76,6 +73,7 @@
     [(#it)],
   ))
   show math.equation: handle-math
+  show math.equation: set text(size: 12pt, font: ("STIX Two Math", "尙古明體SC"))
 
   show ref: it => {
     it.element

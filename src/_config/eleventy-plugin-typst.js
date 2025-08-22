@@ -121,7 +121,7 @@ export default function eleventyPluginTypst(eleventyConfig, options = {}) {
         permalink: function (data) {
           switch (data.target) {
             case "pdf":
-              return `/archive/${data.page.fileSlug}.pdf`;
+              return `/archives/${data.page.fileSlug}.pdf`;
             case "html":
               return;
           }
