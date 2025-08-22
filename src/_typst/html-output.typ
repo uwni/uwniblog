@@ -73,7 +73,7 @@
     [(#it)],
   ))
   show math.equation: handle-math
-  show math.equation: set text(size: 12pt, font: ("STIX Two Math", "尙古明體SC"))
+  show math.equation: set text(size: 12pt, font: ("STIX Two Math"))
 
   show ref: it => {
     it.element
