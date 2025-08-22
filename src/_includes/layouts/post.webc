@@ -390,12 +390,23 @@
     }
 
     /* Typst element 样式 */
-    .typst-image {
+    .typst-figure {
         display: block;
         margin: 0 auto;
         max-width: 100%;
         height: auto;
         text-align: center;
+    }
+
+    .typst-figure figcaption {
+        font-size: var(--font-size-sm);
+        color: var(--color-text-muted);
+        margin-top: var(--spacing-xs);
+    }
+
+    .equation-numbering {
+        display: inline;
+        float: right;
     }
 
     /* 深色模式下 SVG 反色 */
