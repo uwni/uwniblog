@@ -214,6 +214,19 @@
         opacity: 0.9;
     }
 
+    /* 折叠功能样式 */
+    .toc-nav .toc-item {
+        transition: all 0.3s ease;
+        max-height: var(--toc-item-expanded-height);
+        overflow: hidden;
+    }
+
+    .toc-nav .toc-item.collapsed {
+        max-height: 0;
+        opacity: 0;
+        margin: 0;
+    }
+
     /* 移动端目录 */
     .mobile-toc {
         margin-bottom: 2rem;
@@ -445,24 +458,47 @@
     const tocItems = document.querySelectorAll('.toc-nav .toc-item'); // 只选择桌面版目录
     const visibleSections = new Set();
 
-    // 处理目录激活状态
+    // 获取项目的深度
+    const getDepth = (item) => parseInt(item.style.getPropertyValue('--depth') || '0');
+
+    // 处理目录激活状态和折叠状态
     const updateTocStates = () => {
+        const activeItems = []; // 收集有 data-active 属性的项目
+        
+        // 重置状态并设置激活状态
         for (let i = 0; i < tocItems.length; i++) {
             const item = tocItems[i];
+            item.classList.toggle('collapsed', getDepth(item) > 0);
             item.removeAttribute('data-active');
+            
             const id = item.children[0].getAttribute('href').substring(1);
-
             if (visibleSections.has(id)) {
                 item.setAttribute('data-active', 'current');
-                // 如果是激活状态，标记父节点
-                const currentDepth = parseInt(item.style.getPropertyValue('--depth') || '0');
+                activeItems.push({ item, index: i });
+                const currentDepth = getDepth(item);
+                
+                // 标记父节点
                 let lastDepth = currentDepth;
                 for (let j = i - 1; j >= 0; j--) {
-                    const itemDepth = parseInt(tocItems[j].style.getPropertyValue('--depth') || '0');
+                    const itemDepth = getDepth(tocItems[j]);
                     if (itemDepth < lastDepth) {
                         tocItems[j].setAttribute('data-active', 'parent');
+                        activeItems.push({ item: tocItems[j], index: j });
                         lastDepth = itemDepth;
                     }
+                }
+            }
+        }
+        
+        // 展开收集到的活跃项目的直接子级
+        for (const { item, index } of activeItems) {
+            const currentDepth = getDepth(item);
+            for (let j = index + 1; j < tocItems.length; j++) {
+                const nextItem = tocItems[j];
+                const nextDepth = getDepth(nextItem);
+                if (nextDepth <= currentDepth) break;
+                if (nextDepth === currentDepth + 1) {
+                    nextItem.classList.remove('collapsed');
                 }
             }
         }
@@ -487,4 +523,7 @@
             document.getElementById(link.href.split('#')[1])?.scrollIntoView({ behavior: 'smooth' });
         });
     });
+
+    // 初始化折叠状态
+    updateTocStates();
 </script>

@@ -69,6 +69,7 @@
   /* 内容宽度 */
   --body-max-width: 89rem;
   --sidebar-max-width: 23%;
+  --toc-item-expanded-height: 50vh; /* 视窗高度的50% */
 
   /* 深色模式变量定义 */
 

@@ -21,7 +21,7 @@
       let depth = it.level - 1
 
       html.li(
-        class: "toc-item",
+        class: "toc-item" + (if depth > 0 { " collapsed" } else { "" }),
         style: "--depth: " + str(depth),
         html.a(
           class: "toc-link",
