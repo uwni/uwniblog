@@ -511,7 +511,4 @@
             document.getElementById(link.href.split('#')[1])?.scrollIntoView({ behavior: 'smooth' });
         });
     });
-
-    // 初始化折叠状态
-    updateTocStates();
 </script>
