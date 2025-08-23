@@ -1,7 +1,7 @@
 <footer webc:root="override">
     <p>
         <span @text="`&copy; ${new Date().getFullYear()} ${$data.metadata.title}`" webc:nokeep></span>, All rights
-        reserved. Built with <a href="https://typst.app/">Typst</a> and <a href="https://www.11ty.dev/">Eleventy</a>.
+        reserved.
         <span class="material-symbols-outlined">
             commit
         </span> <code @text="$data.metadata.commitSha?.substring(0, 7)">unknown</code>.
