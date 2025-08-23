@@ -382,20 +382,16 @@
     .environment {
         margin: var(--spacing-lg) 0;
         border-left: 4px solid var(--color-text-muted);
-        padding: 0;
+        padding: var(--spacing-sm) var(--spacing-md);
     }
 
     .environment-header {
-        padding: var(--spacing-sm) var(--spacing-md);
+        margin-bottom: var(--spacing-md);
         font-weight: 600;
         color: var(--color-text-muted);
         font-size: var(--font-size-sm);
         text-transform: uppercase;
         letter-spacing: 0.5px;
-    }
-
-    .environment-body {
-        padding: var(--spacing-md);
     }
 
     .environment-body p:last-child {
@@ -423,14 +419,8 @@
     }
 
     /* 深色模式下 SVG 反色 */
-    [data-theme="dark"] .typst-equation svg {
-        filter: invert(1) hue-rotate(180deg);
-    }
-
-    @media (prefers-color-scheme: dark) {
-        .typst-equation svg {
-            filter: invert(1) hue-rotate(180deg);
-        }
+    .typst-equation svg path {
+        fill: currentColor;
     }
 
     .heading-anchor {
@@ -464,19 +454,19 @@
     // 处理目录激活状态和折叠状态
     const updateTocStates = () => {
         const activeItems = []; // 收集有 data-active 属性的项目
-        
+
         // 重置状态并设置激活状态
         for (let i = 0; i < tocItems.length; i++) {
             const item = tocItems[i];
             item.classList.toggle('collapsed', getDepth(item) > 0);
             item.removeAttribute('data-active');
-            
+
             const id = item.children[0].getAttribute('href').substring(1);
             if (visibleSections.has(id)) {
                 item.setAttribute('data-active', 'current');
                 activeItems.push({ item, index: i });
                 const currentDepth = getDepth(item);
-                
+
                 // 标记父节点
                 let lastDepth = currentDepth;
                 for (let j = i - 1; j >= 0; j--) {
@@ -489,7 +479,7 @@
                 }
             }
         }
-        
+
         // 展开收集到的活跃项目的直接子级
         for (const { item, index } of activeItems) {
             const currentDepth = getDepth(item);
