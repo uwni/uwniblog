@@ -23,14 +23,14 @@ $
 // == 商集
 
 == 勢
-集 $S$ 其元之數，名曰*勢*，記曰 $abs(S)$。例如 $abs({1, 2, 3}) = 3$。若 $(exists n in NN^*)abs(S) = n$，則稱 $S$ 爲*有限集*，否則爲*無限集*，如分數集，實數集等。無限集中，$abs(NN) = alef_0$ 若勢與自然數集之勢等，則名之*可數集*，否則曰*不可數集*。例如分數集爲可數集，實數集爲不可數集。有限集之勢皆自然數，且 $abs(emptyset) = 0$。何言其勢等？
+集 $S$ 其元之數曰*勢*，記 $abs(S)$。例如 $abs({1, 2, 3}) = 3$。若 $(exists n in NN^*)abs(S) = n$，則稱 $S$ 爲*有限集*，否則爲*無限集*，如分數集，實數集云云。無限集中，$abs(NN) = alef_0$ 若勢與自然數集之勢等，則名之*可數集*，否則曰*不可數集*。例如分數集爲可數集，實數集爲不可數集。有限集之勢皆自然數，且 $abs(emptyset) = 0$。何言其勢等？
 $
   S tilde.equiv T <=> (exists f: S -> T) f "對射也"
 $
 此計數之抽象也，若有 $S = {suit.club.stroked, suit.diamond.stroked, suit.heart.stroked, suit.spade.stroked}$ 集，數以一二三四而知其勢乃 $4$ 也。編號計數法實乃一雙射: $S -> NN^*_(<=4)$ 也。無限集也，雖數不盡其元，猶可較也。若有集可令其元一一對應於自然數者，正如數盡自然數之勢也。
 
 == 幂集
-集 $S$ 全子之所聚也，名曰冪集，記曰 $2^S := {x | x subset S }$。例如 $2^{1, 2} = {{}, {1}, {2}, {1, 2}}$。$S$ 冪集之勢 $abs(2^S) = 2^abs(S)$ 也，請以歸納法證明之:
+集 $S$ 全子之所聚也，曰冪集，記 $2^S := {x | x subset S }$。例如 $2^{1, 2} = {{}, {1}, {2}, {1, 2}}$。$S$ 冪集之勢 $abs(2^S) = 2^abs(S)$ 也，請以歸納法證明之:
 $abs(2^emptyset) = abs({emptyset}) = 1$
 ,令
 $abs(2^S) = 2^abs(S)$,
@@ -45,8 +45,8 @@ $
 
 // == 界
 == 最大與最小
-論以偏序集之構 $(T, prec.eq)$，若 $forall t exists m (m prec.eq t)$，則稱 $T$ 有*最小元* $m$，記曰 $min T = m$。若 $forall t exists M(t prec.eq M)$，則謂之有*最大元* $M$，記曰 $max T = M$。
-設 $cal(S) := { S | S subset.eq T }$ 爲 $T$ 的子集族
+論以偏序集之構 $(T, prec.eq)$，若 $forall t exists m (m prec.eq t)$，則稱 $T$ 有*最小元* $m$，記 $min T = m$。若 $forall t exists M(t prec.eq M)$，則謂之有*最大元* $M$也，記 $max T = M$。
+設 $cal(S) := { S | S subset.eq T }$ 爲 $T$ 子集族
 $ max (union.big_(S in cal(S)) S) = max {max S | S in cal(S)} $
 $
   (forall t_1 in T_1)(forall t_2 in T_2)\ t_1 <= max T_1 <= max{max T_1, max T_2} and t_2 <= max T_2 <= max{max T_1, max T_2}
@@ -64,7 +64,7 @@ $
   + 察 $abs(S) = N+1$，令 $S' = S without {s}$。
     由前款知 $S'$ 有最大元 $M'$ 與最小元 $m'$。然則 $max S = max{M', s}$, $min S = min{m', s}$ 也。即 $S$ 有最大最小元也。
 
-集之界，不逾之境也。凡集 $S subset.eq T$ 之元 $s$，其或 $s <= M$ 者，則名 $M$ 爲 $S$ 一*上界*。反之，若 $M <= s$ 則喚作*下界*。若上下界並存，則謂之*有界*。界不必屬於集也。上界之最小者，號曰*上確界*，或曰最小上界，記曰 $sup S$。下界之最大者，號曰*下確界*，或曰最大下界，記曰 $inf S$。
+集之界，不逾之境也。凡集 $S subset.eq T$ 之元 $s$，其或 $s <= M$ 者，則名 $M$ 爲 $S$ 一*上界*。反之，若 $M <= s$ 則喚作*下界*。上下界並存，則謂之*有界*。界不必含於集也。上界之最小者，曰*上確界*，或曰最小上界，記 $sup S$。下界之最大者，曰*下確界*，或曰最大下界，記 $inf S$。
 
 $
   sup S = min{ t in T | s in S, s <= t}
@@ -109,6 +109,23 @@ $
   因此，任意 $a_i$ 皆為序列 ${b_n}$ 之上界，任意 $b_j$ 皆為序列 ${a_n}$ 之下界。
 ]
 
+#proposition[
+  設 $(X, prec.eq)$ 為全序集。下列命題等價也。
+
+  (1) 凡 $X$ 之非空子集有上界者有上確界\
+  (2) 凡 $X$ 之非空子集有下界者有下確界\
+  (3) $A$, $B$ 皆 $X$ 之非空子集也。 凡 $A$ 中之 $a$ 與 $B$ 中之 $b$ 使 $a prec.eq b$ 者。$exists c in X$，而 $a prec.eq c prec.eq b$
+]
+
+
+#proof[
+(1) ⇒ (2)：使 $A$ 為 $X$ 之非空子集也，且有下界。集 $A$ 之下界以為 
+$ B := {b in X | b prec.eq a, forall a in A } $
+以 $A$ 有下界知 $B$ 之不空也。凡 $a in A$ 皆為 $B$ 上界也。故 $B$ 有上確界也。
+假 $m := sup B$, 而 $m prec.eq a$ 也（以上確界乃最小上界故耳）。
+故知，$m in B$ 而 $m = max B$。$A$ 下界之最大者也。$m = inf A$。
+
+]
 
 = 代數
 
@@ -139,9 +156,9 @@ $
 == 全序關係
 若改 $prec.eq$ 之自反性爲完全性，即
 $
-  "完全性":& quad (forall s, t in S) s prec.eq t or t prec.eq s \
-  "反對稱性":& quad (forall s, t in S) s prec.eq t and t prec.eq s -> s = t\
-  "傳遞性":& quad (forall s, t, u in S) s prec.eq t and t prec.eq u -> s prec.eq u
+    "完全性": & quad (forall s, t in S) s prec.eq t or t prec.eq s \
+  "反對稱性": & quad (forall s, t in S) s prec.eq t and t prec.eq s -> s = t \
+    "傳遞性": & quad (forall s, t, u in S) s prec.eq t and t prec.eq u -> s prec.eq u
 $
 
 則謂之*全序#index(modifier: "全序")[關係]*，或曰*鏈*。凡全序之關係，恆偏序也。請備述之。全序關係滿足反對稱性與傳遞性，並以完全性蘊含自反性即知其亦偏序也。
@@ -240,21 +257,14 @@ $
 凡 $Q$ 爲 $QQ$ 上非空有上界子集，則定義為實數。
 全序集 $(X, prec.eq)$。若其非空子集之有上界者有上確界。曰*序完備*
 
-#proposition[
-  以下三命題等價也
-  + $(X, prec.eq)$ 序完備也
-  + $X$ 非空子集之有下界者有下確界也
-  + 凡 $∀A, B ⊆ X$ 不空，$∀a ∈ A, ∀b ∈ B, a ≤ b -> (∃c ∈ X)(∀a ∈ A, ∀b ∈ B) a <= c <= b$ 也。
-]
-
 = 極限
-若夫極限者，古希臘之先賢始用，至 Cauchy#figure(image("assets/Augustin-Louis_Cauchy_1901.jpg"), caption: [Augustin-Louis Cauchy, 1789-1857]) 嚴明定義之，已歷數千年矣。然微分與無窮小之辯，相爭其存廢逾千載未能決也。其或爲 0，或幾及 0 而非 0。時 0 而時亦非 0，George Berkeley 等甚異之。而物理學家總以無窮小算得正確之結果，故不以爲謬也。數學之理也，必明必晰。然則應先申明極限為何物，而後可以道嚴謹之分析而無虞也。
+若夫極限者，古希臘之先賢始用，至 Cauchy#figure(image("assets/Augustin-Louis_Cauchy_1901.jpg"), caption: [Augustin-Louis Cauchy, 1789-1857]) 嚴明定義之，已歷數千年矣。然微分與無窮小之辯，相爭其存廢逾千載未能決也。其或爲 0，或幾及 0 而非 0。時 0 而時亦非 0，George Berkeley 之屬者甚異之。而物理學家總以無窮小算得正確之結果，故不以爲謬也。數學之理也，必明必晰。然則應先申明極限為何物，而後可以道嚴謹之分析而無虞也。
 
 #definition(title: [極限])[
   稱數列 ${a_n}$ 之極限曰
 
   $
-    & lim_(n -> oo) a_n = L \
+             & lim_(n -> oo) a_n = L \
     <=> quad & (forall epsilon > 0) (exists N in NN^*) (forall n > N) abs(a_n - L) < epsilon
   $
 ]
@@ -312,7 +322,8 @@ $
 極限之加減乘除是也。設以 $lim_(n -> oo) a_n = L$，$lim_(n -> oo) b_n = M$，由定義知 $forall epsilon > 0$
 
 $
-  &(exists N_a in NN^*) (forall n > N_a) abs(a_n - L) < epsilon \ and quad &(exists N_b in NN^*) (forall n > N_b) abs(b_n - M) < epsilon
+           & (exists N_a in NN^*) (forall n > N_a) abs(a_n - L) < epsilon \
+  and quad & (exists N_b in NN^*) (forall n > N_b) abs(b_n - M) < epsilon
 $
 
 故而 $abs(-a_n - (-L)) = abs(a_n - L) < epsilon$，是以
@@ -372,9 +383,9 @@ $
 
   分組而計：
   $
-    "原式" &= 1 + 1 / 2 + (1 / 3 + 1 / 4) + (1 / 5 + 1 / 6 + 1 / 7 + 1 / 8) + dots.c \
-    &> 1 + 1 / 2 + (1 / 4 + 1 / 4) + (1 / 8 + 1 / 8 + 1 / 8 + 1 / 8) + dots.c \
-    &= 1 + 1 / 2 + 1 / 2 + 1 / 2 + dots.c
+    "原式" & = 1 + 1 / 2 + (1 / 3 + 1 / 4) + (1 / 5 + 1 / 6 + 1 / 7 + 1 / 8) + dots.c \
+           & > 1 + 1 / 2 + (1 / 4 + 1 / 4) + (1 / 8 + 1 / 8 + 1 / 8 + 1 / 8) + dots.c \
+           & = 1 + 1 / 2 + 1 / 2 + 1 / 2 + dots.c
   $
 
   無界而知其發散也。此為 Nicole Oresme 於十四世紀所證也。
@@ -410,10 +421,9 @@ $
 ]
 茲定義曰 $e_n := sum_(k=0)^n 1\/k!$，由 $(forall k >= 1) thick 1\/k! <= 1\/2^(k-1)$
 $
-  e_n
-  &= 1 + 1 + 1 / 2 + 1 / (2 times 3) + dots.c + 1 / (2 times dots.c times (n-1) times n)\
-  &<= 1 + 1 + 1 / 2 + 1 / (2 times 2) + dots.c + 1 / (2^(n-1))\
-  &<= 3
+  e_n & = 1 + 1 + 1 / 2 + 1 / (2 times 3) + dots.c + 1 / (2 times dots.c times (n-1) times n) \
+      & <= 1 + 1 + 1 / 2 + 1 / (2 times 2) + dots.c + 1 / (2^(n-1)) \
+      & <= 3
 $
 抑由 $forall k >= 2$
 $
@@ -439,9 +449,9 @@ $
 #proof[
   張 $a_n$ 如下, $forall k < n$
   $
-    a_n &= sum_(m=0)^n 1 / m! n / n (n-1) / n dots.c (n-m+1) / n \
-    &= 1 + 1 + 1 / 2! (1-1 / n) + dots.c + 1 / n! (1 - 1 / n) dots.c (1 - (n-1) / n) \
-    &> 1 + 1 + 1 / 2! (1-1 / n) + dots.c + 1 / k! (1 - 1 / n) dots.c (1 - (k-1) / n) \
+    a_n & = sum_(m=0)^n 1 / m! n / n (n-1) / n dots.c (n-m+1) / n \
+        & = 1 + 1 + 1 / 2! (1-1 / n) + dots.c + 1 / n! (1 - 1 / n) dots.c (1 - (n-1) / n) \
+        & > 1 + 1 + 1 / 2! (1-1 / n) + dots.c + 1 / k! (1 - 1 / n) dots.c (1 - (k-1) / n) \
   $<eq:an-expand>
   令 $n -> oo$。然則 $k in NN$
   $
@@ -479,7 +489,7 @@ $n >= 0$ 階差分遞歸定義曰
 
 $
   Delta^n = cases(
-    I &"if" n = 0,
+    I & "if" n = 0,
     Delta compose Delta^(n-1) quad & "if" n > 0,
   )
 $

@@ -135,3 +135,12 @@
   }
   html.style(css)
 }
+
+#let generate-section-id(heading, index) = {
+  let level = heading.depth
+  let id = heading.text.to-kebab-case()
+  if level > 1 {
+    id = "${level}-${id}-${index.join("-")}"
+  }
+  id
+}
