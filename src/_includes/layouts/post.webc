@@ -505,10 +505,4 @@
 
     // 启动
     sections.forEach(section => observer.observe(section));
-    document.querySelectorAll('.toc-nav a').forEach(link => {
-        link.addEventListener('click', (e) => {
-            e.preventDefault();
-            document.getElementById(link.href.split('#')[1])?.scrollIntoView({ behavior: 'smooth' });
-        });
-    });
 </script>
