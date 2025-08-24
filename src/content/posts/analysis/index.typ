@@ -20,8 +20,6 @@ $
   A union B = {x | x in A or x in B}
 $
 
-// == 商集
-
 == 勢
 集 $S$ 其元之數曰*勢*，記 $abs(S)$。例如 $abs({1, 2, 3}) = 3$。若 $(exists n in NN^*)abs(S) = n$，則稱 $S$ 爲*有限集*，否則爲*無限集*，如分數集，實數集云云。無限集中，$abs(NN) = alef_0$ 若勢與自然數集之勢等，則名之*可數集*，否則曰*不可數集*。例如分數集爲可數集，實數集爲不可數集。有限集之勢皆自然數，且 $abs(emptyset) = 0$。何言其勢等？
 $
@@ -134,7 +132,21 @@ $ B := {b in X | b prec.eq a, forall a in A } $
 $
   a R b <=> (forall r in R)(exists a in A)(exists b in B)r = (a, b)
 $
-亦可記作前綴表達式並輔以括弧讀號，如 $R(a,b)$。這裡舉例同窗關係，朋友關係
+亦可記作前綴表達式並輔以括弧讀號，如 $R(a,b)$。
+
+== 等價關係
+
+#definition(title: [等價關係])[
+]
+
+
+#definition(title: [等價類與商集])[
+  設 $~$ 爲 $S$ 上之等價關係，凡 $s in S$，曰集合 $[s]_~ := {t in S | s ~ t}$ 爲 $s$ 之*等價類*。$S$ 之等價類族曰*商集*，記 $S / ~ := {[s]_~ | s in S}$。
+]
+
+#proposition[
+   $S$ 之等價關係與其劃分一一對應也
+]
 
 == 恆等關係
 記 $S$ 上之*恆等#index(modifier: "恆等")[關係]*曰 $id_S$

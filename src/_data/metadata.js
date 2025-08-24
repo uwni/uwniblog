@@ -2,7 +2,7 @@ export default {
 	title: "Uwni'Space",
 	url: "https://omots.io/",
 	language: "en",
-	description: "Nest of a cyber cute corvus🐦‍⬛.",
+	description: "A cyber nest for the cute corvus Uwni🐦‍⬛.",
 	author: {
 		name: "Uwni",
 		email: "uwni@example.com",

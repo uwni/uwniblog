@@ -6,7 +6,8 @@
   <h2>Recent Posts</h2>
 
   <div class="post-list">
-    <post-list-item webc:for="post of collections.posts.toReversed()" :@post="post" @show-excerpt="true" @tag-link-prefix="/collections/?tag="></post-list-item>
+    <post-list-item webc:for="post of collections.posts.toReversed()" :@post="post" @show-excerpt="true"
+      @tag-link-prefix="/collections/?tag="></post-list-item>
   </div>
 
   <p>Feel free to explore, and don't hesitate to reach out if something resonates with you!</p>
@@ -19,3 +20,38 @@
     margin: 2rem 0;
   }
 </style>
+
+<script>
+  const register_command = (command, content, callback) => Object.defineProperty(window, command, {
+    get: () => {
+      setTimeout(callback, 0);
+      return `你选择了 (${command}) ${content}`;
+    },
+  });
+
+  const log = (msg) => {
+    console.log('%c' + msg, 'color: red; font-family: monospace;');
+  }
+
+  log(`
+     /\\_/\\
+    ( o.o )
+     > ^ <
+     你好無，我是「煢鴉」的宿主。你發現是處了嗎？
+     私の小さなコーナーへようこそ。你想更多的了解煢鴉嗎？
+
+     (a) 想
+     (b) 不想
+    `)
+
+  register_command('a', '想', () => {
+    log(`
+    煢鴉是宿主精神狀態空間中的一個基，
+    她是宿主的成分。因宿主的念想而生，卻再也不能實現。
+    宿主庇其此處，庶幾她得安靜梳理羽毛。不再為現實所累。
+    `);
+  });
+  register_command('b', '不想', () => {
+    close();
+  });
+</script>
