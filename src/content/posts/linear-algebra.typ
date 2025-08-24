@@ -5,8 +5,6 @@
   title: "Linear Algebra",
 )
 
-= Introduction
-
 We have learned about linear algebra in a concrete way, such as solving linear equations, matrix operations, etc. In this chapter, we will learn about the abstract concept of linear spaces, which is a generalization of vectors and matrices. First of all, you may ask, why do we need to learn such abstract concepts? check the following example.
 We have learned about vectors at least in high school, like displacement, velocity, force, etc.
 actually, when we say vectors, our first impression is that they must have two or three components, which represent a point in a plane or in space. but after we learned about the linear algebra, we learned that something like $(1, 2, 3, 4, 5)$ is also a vector, even though we cannot imagine what its _physical picture_ in the real world.

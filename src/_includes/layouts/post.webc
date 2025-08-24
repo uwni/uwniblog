@@ -142,6 +142,12 @@
         text-align: justify;
     }
 
+    .post-content > .post-section > p:first-child::first-letter {
+          -webkit-initial-letter: 2;
+          initial-letter: 2;
+          margin-right: 0.1em;
+    }
+
     /* 目录样式 */
     .post-toc {
         position: sticky;

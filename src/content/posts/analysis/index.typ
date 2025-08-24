@@ -32,7 +32,7 @@ $
 $abs(2^emptyset) = abs({emptyset}) = 1$
 ,令
 $abs(2^S) = 2^abs(S)$,
-既添一新元 $x$ 於 $S$，其冪集必含原 $2^S$ 諸元，又以 $2^(S union {x})$ 之新添乃 $x$ 與舊 $2^S$ 諸元之合併故
+既添新元 $x$ 於 $S$，其冪集必含原 $2^S$ 諸元。$2^(S union {x})$ 之新添乃 $x$ 與舊 $2^S$ 諸元之合併。是以
 
 $
   abs(2^(S union {x})) = overbrace(abs(2^S), "原" S "之勢") + underbrace(abs(2^S times {x}), "新添之勢") = 2^abs(S) + 2^abs(S) = 2^(abs(S)+1) = 2^(abs(S union {x}))
@@ -128,15 +128,19 @@ $ B := {b in X | b prec.eq a, forall a in A } $
 = 代數
 
 == 關係
-稱集 $R subset.eq A times B$ 爲集 $A$，$B$ 上之*二元#index(modifier: "二元")[關係]*，畧以#index[關係]。若 $A = B$ 即 $R subset.eq A^2$ 則畧以 $A$ 上之關係。若以中綴表達式記 $a in A$ 與 $b in B$ 之適關係 $R$ 者，曰 $a R b$:
+稱集 $R subset.eq A times B$ 爲集 $A$ 與 $B$ 上之*二元#index(modifier: "二元")[關係]*，畧以#index[關係]。若 $A = B$ 即 $R subset.eq A^2$ 則畧以 $A$ 上之關係。若以中綴表達式記 $a in A$ 與 $b in B$ 之適關係 $R$ 者，曰 $a R b$:
 $
   a R b <=> (forall r in R)(exists a in A)(exists b in B)r = (a, b)
 $
-亦可記作前綴表達式並輔以括弧讀號，如 $R(a,b)$。
+亦可記以前綴表達式並輔以括弧讀號，如 $R(a,b)$。
 
 == 等價關係
 
 #definition(title: [等價關係])[
+  設 $~$ 爲集 $S$ 上之二元關係。適三性如下列者則曰 $S$ 上之*等價關係*。：
+  / 自反性: $(forall s in S) s ~ s$
+  / 對稱性: $(forall s, t in S) s ~ t -> t ~ s$  
+  / 傳遞性: $(forall s, t, u in S) s ~ t and t ~ u -> s ~ u$
 ]
 
 
