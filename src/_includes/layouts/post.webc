@@ -142,10 +142,10 @@
         text-align: justify;
     }
 
-    .post-content > .post-section > p:first-child::first-letter {
-          -webkit-initial-letter: 2;
-          initial-letter: 2;
-          margin-right: 0.1em;
+    .post-content>.post-section>p:first-child::first-letter {
+        -webkit-initial-letter: 2;
+        initial-letter: 2;
+        margin-right: 0.1em;
     }
 
     /* 目录样式 */
@@ -423,8 +423,12 @@
     }
 
     /* 深色模式下 SVG 反色 */
-    .typst-equation svg path {
+    .typst-equation path {
         fill: currentColor;
+    }
+
+    .typst-shape {
+        stroke: currentColor;
     }
 
     .heading-anchor {
