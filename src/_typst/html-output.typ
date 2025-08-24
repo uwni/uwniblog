@@ -73,7 +73,7 @@
     [(#it)],
   ))
   show math.equation: handle-math
-  show math.equation: set text(size: 12pt, font: ("STIX Two Math"))
+  show math.equation: set text(size: 12pt, font: "STIX Two Math")
 
   show ref: it => {
     it.element
@@ -103,7 +103,7 @@
   // 构建标签HTML
   let tags-html = if tags.len() > 0 {
     let tag-links = tags.map(tag => html.a(href: "/collections/?tag=" + tag, "#" + tag)).join(" ")
-    html.span(" tags: " + tag-links)
+    html.div(tag-links)
   }
 
   // 处理 body - 统一使用 Typst 标题编号
@@ -119,6 +119,8 @@
     }
   })
 
+  let local-time = html.div(html.time(class: "local-time", data-utc: date, [Loading...]))
+
   // let sectioned-content = body
   [
     #html.div(class: "post-container")[
@@ -126,7 +128,7 @@
         #html.div(class: "post-title-container", [
           #html.h1(class: "post-title", title)
           #html.div(class: "post-meta mobile-meta", [
-            #html.time(class: "local-time", data-utc: date, [Loading...])
+            #local-time
             #tags-html
           ])
         ])
@@ -150,7 +152,7 @@
             #html.div(
               class: "post-meta desktop-meta",
               [
-                #html.time(class: "local-time", data-utc: date, [Loading...])
+                #local-time
                 #tags-html
               ],
             )
