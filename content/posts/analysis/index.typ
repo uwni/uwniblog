@@ -1,5 +1,5 @@
-#import "/_typst/environment.typ": *
-#import "/_typst/template.typ": post-template
+#import "/typst/environment.typ": *
+#import "/typst/template.typ": post-template
 
 #let index(..args, body) = body
 #let eu = $upright(e)$
@@ -117,11 +117,11 @@ $
 
 
 #proof[
-(1) ⇒ (2)：使 $A$ 為 $X$ 之非空子集也，且有下界。集 $A$ 之下界以為 
-$ B := {b in X | b prec.eq a, forall a in A } $
-以 $A$ 有下界知 $B$ 之不空也。凡 $a in A$ 皆為 $B$ 上界也。故 $B$ 有上確界也。
-假 $m := sup B$, 而 $m prec.eq a$ 也（以上確界乃最小上界故耳）。
-故知，$m in B$ 而 $m = max B$。$A$ 下界之最大者也。$m = inf A$。
+  (1) ⇒ (2)：使 $A$ 為 $X$ 之非空子集也，且有下界。集 $A$ 之下界以為
+  $ B := {b in X | b prec.eq a, forall a in A } $
+  以 $A$ 有下界知 $B$ 之不空也。凡 $a in A$ 皆為 $B$ 上界也。故 $B$ 有上確界也。
+  假 $m := sup B$, 而 $m prec.eq a$ 也（以上確界乃最小上界故耳）。
+  故知，$m in B$ 而 $m = max B$。$A$ 下界之最大者也。$m = inf A$。
 
 ]
 
@@ -139,7 +139,7 @@ $
 #definition(title: [等價關係])[
   設 $~$ 爲集 $S$ 上之二元關係。適三性如下列者則曰 $S$ 上之*等價關係*。：
   / 自反性: $(forall s in S) s ~ s$
-  / 對稱性: $(forall s, t in S) s ~ t -> t ~ s$  
+  / 對稱性: $(forall s, t in S) s ~ t -> t ~ s$
   / 傳遞性: $(forall s, t, u in S) s ~ t and t ~ u -> s ~ u$
 ]
 
@@ -149,7 +149,7 @@ $
 ]
 
 #proposition[
-   $S$ 之等價關係與其劃分一一對應也
+  $S$ 之等價關係與其劃分一一對應也
 ]
 
 == 恆等關係

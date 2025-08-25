@@ -1,0 +1,4 @@
+<layout-base webc:nokeep>
+    <!-- Typst生成的内容已包含完整布局，这里直接输出 -->
+    <template @html="content" webc:nokeep></template>
+</layout-base>

@@ -1,4 +1,4 @@
-#import "/_typst/template.typ": post-template
+#import "/typst/template.typ": post-template
 
 #show: post-template.with(
   title: "About",

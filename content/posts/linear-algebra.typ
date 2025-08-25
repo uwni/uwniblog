@@ -1,5 +1,5 @@
-#import "/_typst/environment.typ": *
-#import "/_typst/template.typ": post-template
+#import "/typst/environment.typ": *
+#import "/typst/template.typ": post-template
 
 #show: post-template.with(
   title: "Linear Algebra",

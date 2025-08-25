@@ -116,7 +116,6 @@ export default async function (eleventyConfig) {
 
 	// Add Typst plugin for dual HTML/PDF generation
 	eleventyConfig.addPlugin(eleventyPluginTypst, {
-		workspace: "src",
 		collection: "posts"
 	});
 
@@ -138,9 +137,9 @@ export const config = {
 
 	// These are all optional:
 	dir: {
-		input: "src/content",          // default: "."
-		includes: "../_includes",  // default: "_includes" (`input` relative)
-		data: "../_data",          // default: "_data" (`input` relative)
+		input: "content",          // default: "."
+		includes: "../src/_includes",  // default: "_includes" (`input` relative)
+		data: "../src/_data",          // default: "_data" (`input` relative)
 		output: "dist",         // default: "_site"
 	},
 
