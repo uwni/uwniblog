@@ -10,8 +10,8 @@
         "@11ty/eleventy-plugin-rss": "^2.0.4",
         "@11ty/eleventy-plugin-syntaxhighlight": "^5.0.2",
         "@11ty/eleventy-plugin-webc": "^0.11.2",
-        "@myriaddreamin/typst-ts-node-compiler": "^0.6.1-rc2",
-        "@myriaddreamin/typst.ts": "^0.6.1-rc2",
+        "@myriaddreamin/typst-ts-node-compiler": "^0.6.1-rc3",
+        "@myriaddreamin/typst.ts": "^0.6.1-rc3",
         "html-minifier-terser": "^7.2.0",
       },
       "devDependencies": {
