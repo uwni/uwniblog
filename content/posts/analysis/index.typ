@@ -8,6 +8,7 @@
 #show: post-template.with(
   title: "分析學",
   tags: ("Mathematics", "Analysis"),
+  language: "lzh"
 )
 
 = 集論

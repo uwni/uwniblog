@@ -10,9 +10,9 @@
     </nav>
     <div class="sidebar-actions">
         <button class="desktop-theme-toggle" aria-label="切换主题">
-            <span class="material-symbols-outlined theme-icon light-mode">light_mode</span>
-            <span class="material-symbols-outlined theme-icon dark-mode">dark_mode</span>
-            <span class="material-symbols-outlined theme-icon auto-mode">routine</span>
+            <span class="theme-icon light-mode"><lightmode-icon></lightmode-icon></span>
+            <span class="theme-icon dark-mode"><darkmode-icon></darkmode-icon></span>
+            <span class="theme-icon auto-mode"><automode-icon></automode-icon></span>
         </button>
     </div>
 </aside>

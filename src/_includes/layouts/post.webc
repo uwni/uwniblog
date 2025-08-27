@@ -421,6 +421,10 @@
         float: right;
     }
 
+    .typst-equation {
+        overflow-x: auto;
+    }
+    
     /* 深色模式下 SVG 反色 */
     .typst-equation path {
         fill: currentColor;

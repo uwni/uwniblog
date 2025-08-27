@@ -2,8 +2,8 @@
     <p>
         <span @text="`&copy; ${new Date().getFullYear()} ${$data.metadata.title}`" webc:nokeep></span>, All rights
         reserved.
-        <span class="material-symbols-outlined">
-            commit
+        <span class="commit-icon">
+            <commit-icon></commit-icon>
         </span> <code @text="$data.metadata.commitSha?.substring(0, 7)">unknown</code>.
     </p>
 </footer>

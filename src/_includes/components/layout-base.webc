@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html :lang="$data.metadata.language || 'en'">
+<html :lang="$data.language || 'en'">
 
 <head>
     <meta charset="UTF-8">
@@ -19,11 +19,6 @@
     <!--- inline bundles --->
     <style @raw="getBundle('css')" webc:keep></style>
     <script @raw="getBundle('js')" webc:keep></script>
-
-    <!--- Google Fonts --->
-    <link
-        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined&icon_names=commit,dark_mode,light_mode,routine&display=block"
-        rel="stylesheet" webc:keep />
 
     <!--- Favicon --->
     <!--- <link rel="icon" type="image/x-icon" href="/favicon.ico"> --->
@@ -198,7 +193,7 @@
         width: 100%;
     }
 
-    .material-symbols-outlined {
+    .commit-icon {
         vertical-align: middle;
     }
 </style>
