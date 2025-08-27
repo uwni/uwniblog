@@ -3,15 +3,17 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="description" webc:if="$data.metadata.description" :content="$data.metadata.description" />
+    <meta name="description" webc:if="$data.description" :content="$data.description" />
     <!--- RFC 2822 --->
     <meta name="author" webc:if="$data.metadata.author"
         :content="`${$data.metadata.author.name} <${$data.metadata.author.email}>`" />
+    <meta name="keywords" webc:if="$data.tags" :content="$data.tags.join(', ')" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="Eleventy, Typst">
+    <meta name="application-name" webc:if="$data.metadata.title" :content="$data.metadata.title" />
     <meta name="color-scheme" content="light dark">
 
-
-    <title id="page-title" @text="$data.metadata.title"></title>
+    <title id="page-title" @text="`${$data.title}-${$data.metadata.title}`"></title>
 
     <!--- 全局 CSS 变量 --->
     <link rel="stylesheet" href="/css/variables.css" webc:keep>
