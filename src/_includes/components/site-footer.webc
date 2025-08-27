@@ -17,6 +17,10 @@
         font-size: var(--font-size-md);
     }
 
+    .commit-icon svg {
+        vertical-align: middle;
+    }
+
     p:last-child {
         margin-bottom: 0;
     }

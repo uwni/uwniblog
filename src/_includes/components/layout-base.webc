@@ -192,8 +192,4 @@
         box-sizing: border-box;
         width: 100%;
     }
-
-    .commit-icon {
-        vertical-align: middle;
-    }
 </style>
