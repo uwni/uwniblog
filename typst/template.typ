@@ -1,37 +1,50 @@
+#let frontmatter(
+  ..args,
+) = {
+  [#metadata(
+    args.named(),
+  )<frontmatter>]
+}
+
+#let get-target() = if "target" in sys.inputs {
+  sys.inputs.target
+} else {
+  panic("target is required for post-template")
+}
+
 //! A specified targets arg can override that controlled by genBoth
 #let post-template(
   genHtml: true,
   genPdf: true,
-  creationDate: datetime.today(),
+  date: none,
   title: "untitled post",
   ..args,
   body,
 ) = {
-  let targets = ("html",) * int(genHtml) + ("pdf",) * int(genPdf)
-  let target = if "target" in sys.inputs {
-    sys.inputs.target
-  } else {
-    panic("target is required for post-template")
-  }
-
-  let date = if "date" in sys.inputs {
-    sys.inputs.date
-  }
-
   set heading(numbering: "1.1")
   set math.equation(numbering: "(1)")
-  
-  show: if target == "query" {
-    [#metadata((
+  let target = get-target()
+  if target == "query" {
+    let date = if date != none {
+      date
+    } else {
+      "git Last Modified"
+    }
+    let targets = ("html",) * int(genHtml) + ("pdf",) * int(genPdf)
+
+    frontmatter(
       title: title,
-      date: "git Last Modified",
-      created: creationDate.display(),
+      date: date,
       targets: targets,
       ..args.named(),
-    ))<frontmatter>]
+    )
   } else if target == "html" {
     import "html-output.typ": as-html-output
-
+    let date = if "date" in sys.inputs {
+      sys.inputs.date
+    } else {
+      panic("date should be provided by the 11ty side")
+    }
     let tags = args.named().at("tags", default: ())
     as-html-output(title, tags: tags, date: date, body)
   } else if target == "pdf" {
@@ -42,3 +55,15 @@
   }
 }
 
+#let standalone-template(title, body) = {
+  let target = get-target()
+
+  if target == "query" {
+    frontmatter(
+      title: title,
+      date: date,
+      targets: targets,
+      ..args.named(),
+    )
+  }
+}

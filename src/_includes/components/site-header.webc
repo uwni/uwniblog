@@ -1,10 +1,7 @@
-<!-- 响应式三列布局 Header -->
 <header webc:root="override">
     <div class="header-inner">
-        <!-- 网站标题 -->
         <site-title></site-title>
 
-        <!-- 导航链接 -->
         <nav class="header-nav">
             <ul class="nav-links">
                 <li><a href="/">Home</a></li>
@@ -13,9 +10,7 @@
             </ul>
         </nav>
 
-        <!-- 右侧工具栏 -->
         <div class="header-actions">
-            <!-- 主题切换 -->
             <button class="theme-toggle" aria-label="切换主题">
                 <span class="material-symbols-outlined theme-icon light-mode">light_mode</span>
                 <span class="material-symbols-outlined theme-icon dark-mode">dark_mode</span>

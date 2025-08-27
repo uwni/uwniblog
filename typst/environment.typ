@@ -226,19 +226,6 @@
   let _body = {
     title + body + h(1fr) + qed_symbol
   }
-  if "children" in body.fields() {
-    let children = body.children
-    let last = children.pop()
-    if last.func() == math.equation {
-      let with_qed = grid(
-        columns: (1fr, auto, 1fr),
-        none, last, align(right + horizon, qed_symbol),
-      )
-     
-      children.push(with_qed)
-      _body = [].func()(title + children)
-    }
-  }
   environment(
     numbered: false,
     "proof",

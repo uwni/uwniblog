@@ -1,27 +1,32 @@
 <!DOCTYPE html>
-<html lang="en">
+<html :lang="$data.metadata.language || 'en'">
 
 <head>
     <meta charset="UTF-8">
+    <meta name="description" webc:if="$data.metadata.description" :content="$data.metadata.description" />
+    <!--- RFC 2822 --->
+    <meta name="author" webc:if="$data.metadata.author"
+        :content="`${$data.metadata.author.name} <${$data.metadata.author.email}>`" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="color-scheme" content="light dark">
-    <title id="page-title" @text="$data.metadata.title"></title>
-    <meta name="description" content="" id="page-description">
 
-    <!-- 全局 CSS 变量 -->
+
+    <title id="page-title" @text="$data.metadata.title"></title>
+
+    <!--- 全局 CSS 变量 --->
     <link rel="stylesheet" href="/css/variables.css" webc:keep>
 
-    <!-- inline bundles -->
+    <!--- inline bundles --->
     <style @raw="getBundle('css')" webc:keep></style>
     <script @raw="getBundle('js')" webc:keep></script>
 
-    <!-- Google Fonts -->
+    <!--- Google Fonts --->
     <link
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined&icon_names=commit,dark_mode,light_mode,routine&display=block"
         rel="stylesheet" webc:keep />
 
-    <!-- Favicon -->
-    <!-- <link rel="icon" type="image/x-icon" href="/favicon.ico"> -->
+    <!--- Favicon --->
+    <!--- <link rel="icon" type="image/x-icon" href="/favicon.ico"> --->
 </head>
 
 <body>
@@ -38,7 +43,7 @@
 
 </html>
 
-<!-- 防止深色模式闪烁 - 内联在 head 中 -->
+<!--- 防止深色模式闪烁 - 内联在 head 中 --->
 <script>
     // Apply theme immediately to avoid FOUC
     const currentTheme = localStorage.getItem('theme') || 'auto'; // 默认主题为浅色

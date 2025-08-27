@@ -1,4 +1,3 @@
-<!-- 网站标题组件 -->
 <div class="site-title" webc:root="override">
     <h1 @text="$data.metadata.title"></h1>
 </div>
