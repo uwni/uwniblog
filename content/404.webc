@@ -1,0 +1,4 @@
+<standalone-heading>
+    <div webc:nokeep>404 Not Found</div>
+    <div webc:nokeep slot="subtitle">Sorry, the page you are looking for does not exist.</div>
+</standalone-heading>

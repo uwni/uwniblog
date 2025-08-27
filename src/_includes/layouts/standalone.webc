@@ -1,4 +1,13 @@
 <layout-base webc:nokeep>
-    <!-- Typst生成的内容已包含完整布局，这里直接输出 -->
+  <div class="standalone-container">
     <template @html="content" webc:nokeep></template>
+  </div>
 </layout-base>
+
+<style>
+  .standalone-container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 2rem;
+  }
+</style>

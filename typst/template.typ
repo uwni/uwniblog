@@ -62,6 +62,7 @@
     frontmatter(
       title: title,
       date: date,
+      layout: "",
       targets: targets,
       ..args.named(),
     )

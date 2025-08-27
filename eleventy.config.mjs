@@ -107,7 +107,7 @@ export default async function (eleventyConfig) {
 		// by default we use Eleventy’s built-in `slugify` filter:
 		// slugify: eleventyConfig.getFilter("slugify"),
 		// selector: "h1,h2,h3,h4,h5,h6", // default
-		checkDuplicates: false
+		checkDuplicates: true
 	});
 
 	eleventyConfig.addShortcode("currentBuildDate", () => {
@@ -126,7 +126,6 @@ export const config = {
 	// e.g.: *.md, *.njk, *.html, *.liquid
 	templateFormats: [
 		"html",
-		"md",
 		"11ty.js",
 		"typ",
 		"njk"

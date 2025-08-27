@@ -1,71 +1,43 @@
-<layout-base webc:nokeep>
-  <div class="posts-page">
-    <div class="posts-header">
-      <h1>All Posts</h1>
-      <p>Explore my digital adventures, technical thoughts, and creative musings.</p>
-    </div>
+<standalone-heading>
+  <div webc:nokeep>All Posts</div>
+  <div webc:nokeep slot="subtitle">Explore my digital adventures, technical thoughts, and creative musings.</div>
+</standalone-heading>
 
-    <!-- 过滤和排序控件 -->
-    <div class="posts-controls">
-      <div class="filter-controls">
-        <label for="tag-filter">Filter by tag:</label>
-        <select id="tag-filter">
-          <option value="">All tags</option>
-          <option webc:for="tag of [...new Set(collections.posts.flatMap(post => post.data.tags || []))].sort()"
-            :value="tag" @text="`#${tag}`"></option>
-        </select>
-      </div>
-
-      <div class="sort-controls">
-        <label for="sort-order">Sort by:</label>
-        <select id="sort-order">
-          <option value="newest">Newest first</option>
-          <option value="oldest">Oldest first</option>
-          <option value="title">Title A-Z</option>
-          <option value="title-desc">Title Z-A</option>
-        </select>
-      </div>
-    </div>
-
-    <!-- 文章列表 -->
-    <div class="posts-list">
-      <post-list-item webc:for="post of collections.posts.toReversed()" :@post="post"
-        :data-tags="post.data.tags?.join(' ') || ''" :data-date="post.date" @compact="true"></post-list-item>
-    </div>
-
-    <!-- 无结果提示 -->
-    <div class="no-results" style="display: none;">
-      <p>No posts found matching the current filters.</p>
-      <button onclick="clearFilters()" class="clear-filters-btn">Clear filters</button>
-    </div>
+<!-- 过滤和排序控件 -->
+<div class="posts-controls">
+  <div class="filter-controls">
+    <label for="tag-filter">Filter by tag:</label>
+    <select id="tag-filter">
+      <option value="">All tags</option>
+      <option webc:for="tag of [...new Set(collections.posts.flatMap(post => post.data.tags || []))].sort()"
+        :value="tag" @text="`#${tag}`"></option>
+    </select>
   </div>
-</layout-base>
+
+  <div class="sort-controls">
+    <label for="sort-order">Sort by:</label>
+    <select id="sort-order">
+      <option value="newest">Newest first</option>
+      <option value="oldest">Oldest first</option>
+      <option value="title">Title A-Z</option>
+      <option value="title-desc">Title Z-A</option>
+    </select>
+  </div>
+</div>
+
+<!-- 文章列表 -->
+<div class="posts-list">
+  <post-list-item webc:for="post of collections.posts.toReversed()" :@post="post"
+    :data-tags="post.data.tags?.join(' ') || ''" :data-date="post.date" @compact="true"></post-list-item>
+</div>
+
+<!-- 无结果提示 -->
+<div class="no-results" style="display: none;">
+  <p>No posts found matching the current filters.</p>
+  <button onclick="clearFilters();" class="clear-filters-btn">Clear filters</button>
+</div>
 
 <style>
-  .posts-page {
-    max-width: 900px;
-    margin: 0 auto;
-    padding: 2rem;
-  }
-
-  .posts-header {
-    text-align: center;
-    margin-bottom: 3rem;
-  }
-
-  .posts-header h1 {
-    font-size: var(--font-size-4xl);
-    color: var(--color-text-primary);
-    margin-bottom: var(--spacing-md);
-    font-weight: bold;
-  }
-
-  .posts-header p {
-    font-size: var(--font-size-lg);
-    color: var(--color-text-muted);
-    font-style: italic;
-  }
-
   /* 控件样式 */
   .posts-controls {
     display: flex;
@@ -142,7 +114,7 @@
       padding: var(--spacing-md);
     }
 
-    .posts-header h1 {
+    .standalone-header h1 {
       font-size: var(--font-size-3xl);
     }
 
