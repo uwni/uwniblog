@@ -1,10 +1,9 @@
 <layout-base webc:nokeep>
-  <h1>About me</h1>
+  <h2>About me</h2>
   <p>Hey there! Welcome to my little corner of the internet. I'm Uwni, and this is where I document my adventures
     through cyberspace, share technical discoveries, and explore what it means to exist digitally.</p>
 
   <h2>Recent Posts</h2>
-
   <div class="post-list">
     <post-list-item webc:for="post of collections.posts.toReversed()" :@post="post" @show-excerpt="true"
       @tag-link-prefix="/collections/?tag="></post-list-item>
@@ -14,10 +13,12 @@
 </layout-base>
 
 <style>
-  .post-list {
-    list-style: none;
-    padding: 0;
-    margin: 2rem 0;
+  h2 {
+    padding-bottom: 1rem;
+  }
+
+  p {
+    margin-bottom: 2rem;
   }
 </style>
 

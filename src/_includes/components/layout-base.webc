@@ -13,7 +13,7 @@
     <meta name="application-name" webc:if="$data.metadata.title" :content="$data.metadata.title" />
     <meta name="color-scheme" content="light dark">
 
-    <title id="page-title" @text="`${$data.title}-${$data.metadata.title}`"></title>
+    <title id="page-title" @text="$data.title ? `${$data.title} - ${$data.metadata.title}` : $data.metadata.title"></title>
 
     <!--- 全局 CSS 变量 --->
     <link rel="stylesheet" href="/css/variables.css" webc:keep>

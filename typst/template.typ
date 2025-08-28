@@ -6,10 +6,11 @@
   )<frontmatter>]
 }
 
-#let get-target() = if "target" in sys.inputs {
+#let get-compile-mode() = if "target" in sys.inputs {
   sys.inputs.target
 } else {
-  panic("target is required for post-template")
+  // for preview
+  "pdf"
 }
 
 //! A specified targets arg can override that controlled by genBoth
@@ -23,8 +24,8 @@
 ) = {
   set heading(numbering: "1.1")
   set math.equation(numbering: "(1)")
-  let target = get-target()
-  if target == "query" {
+  let compile-mode = get-compile-mode()
+  if compile-mode == "query" {
     let date = if date != none {
       date
     } else {
@@ -38,7 +39,7 @@
       targets: targets,
       ..args.named(),
     )
-  } else if target == "html" {
+  } else if compile-mode == "html" {
     import "html-output.typ": as-html-output
     let date = if "date" in sys.inputs {
       sys.inputs.date
@@ -47,7 +48,7 @@
     }
     let tags = args.named().at("tags", default: ())
     as-html-output(title, tags: tags, date: date, body)
-  } else if target == "pdf" {
+  } else if compile-mode == "pdf" {
     import "pdf-output.typ": as-pdf-output
     as-pdf-output(title, body)
   } else {
@@ -56,9 +57,9 @@
 }
 
 #let standalone-template(title, body) = {
-  let target = get-target()
+  let compile-mode = get-compile-mode()
 
-  if target == "query" {
+  if compile-mode == "query" {
     frontmatter(
       title: title,
       date: date,

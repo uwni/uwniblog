@@ -109,7 +109,7 @@ $
 ]
 
 #proposition[
-  設 $(X, prec.eq)$ 為全序集。下列命題等價也。
+  設 $(X, prec.eq)$ 為全序集。下列三命題等價也。
 
   (1) 凡 $X$ 之非空子集有上界者有上確界\
   (2) 凡 $X$ 之非空子集有下界者有下確界\
@@ -118,12 +118,14 @@ $
 
 
 #proof[
+
   (1) ⇒ (2)：使 $A$ 為 $X$ 之非空子集也，且有下界。集 $A$ 之下界以為
   $ B := {b in X | b prec.eq a, forall a in A } $
   以 $A$ 有下界知 $B$ 之不空也。凡 $a in A$ 皆為 $B$ 上界也。故 $B$ 有上確界也。
   假 $m := sup B$, 而 $m prec.eq a$ 也（以上確界乃最小上界故耳）。
   故知，$m in B$ 而 $m = max B$。$A$ 下界之最大者也。$m = inf A$。
 
+  (2) ⇒ (3): 
 ]
 
 = 代數
@@ -159,6 +161,8 @@ $
   id_S := {(s, s) | s in S}
 $
 例如 $S = {suit.club.stroked, suit.diamond.stroked, suit.heart.stroked}$，$id_S = {(suit.club.stroked, suit.club.stroked), (suit.diamond.stroked, suit.diamond.stroked), (suit.heart.stroked, suit.heart.stroked)}$
+
+恆等關係者，等價關係也
 
 == 偏序關係
 設以并關係集 $(S, prec.eq)$，並有
