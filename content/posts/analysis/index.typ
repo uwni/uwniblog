@@ -8,7 +8,7 @@
 #show: post-template.with(
   title: "分析學",
   tags: ("Mathematics", "Analysis"),
-  language: "lzh"
+  language: "lzh",
 )
 
 = 集論
@@ -125,7 +125,7 @@ $
   假 $m := sup B$, 而 $m prec.eq a$ 也（以上確界乃最小上界故耳）。
   故知，$m in B$ 而 $m = max B$。$A$ 下界之最大者也。$m = inf A$。
 
-  (2) ⇒ (3): 
+  (2) ⇒ (3):
 ]
 
 = 代數
@@ -279,7 +279,7 @@ $
 全序集 $(X, prec.eq)$。若其非空子集之有上界者有上確界。曰*序完備*
 
 = 極限
-若夫極限者，古希臘之先賢始用之。自古及 Weierstrass#figure(image("assets/Augustin-Louis_Cauchy_1901.jpg"), caption: [Karl Weierstrass, 1815-1897]) 之定義，歷數千年而莫能確然論之也。微分與無窮小之辯，相爭其存廢逾千載未能決也。其或爲 0，或幾及 0 而非 0。時 0 而時亦非 0，George Berkeley 之屬者甚異之。而物理學家總以無窮小算得正確之結果，故不以爲謬也。數學之理也，必明必晰。然則應先申明極限為何物，而後可以道嚴謹之分析而無虞也。
+若夫極限者，古希臘之先賢始用之。自古及 Weierstrass#figure(image("assets/Augustin-Louis_Cauchy_1901.jpg"), caption: [Karl Weierstrass, 1815-1897]) 之定義，歷數千年而莫能確然論之也。微分與無窮小之辯，相爭其存廢逾千載未能決也。其或爲 0，或幾及 0 而非 0。時 0 而時亦非 0，George Berkeley 之屬者甚異之。物理學家屢以無窮小正定本末不爽，故不以爲謬也。數學之理也，必明必晰。然則應先申明極限為何物，而後可以道嚴謹之分析而無虞也。
 
 #definition(title: [極限])[
   稱數列 ${a_n}$ 之極限曰
