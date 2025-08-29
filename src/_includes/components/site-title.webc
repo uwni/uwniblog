@@ -7,6 +7,8 @@
         display: block;
         margin: var(--spacing-xl) 0;
         padding: 0;
+        min-width: 0;
+        flex-shrink: 0;
     }
 
     .site-title h1 {
@@ -17,5 +19,20 @@
         line-height: 1.2;
         padding: 0;
         border: 0;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    /* 移动端响应式调整 */
+    @media (max-width: 768px) {
+        .site-title {
+            margin: var(--spacing-md) 0;
+        }
+
+        .site-title h1 {
+            font-size: 1.2rem;
+            max-width: 150px;
+        }
     }
 </style>

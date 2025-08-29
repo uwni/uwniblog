@@ -29,7 +29,6 @@
     }
 
     .header-inner {
-        padding: 0 var(--spacing-lg);
         display: grid;
         grid-template-columns: auto 1fr auto;
         align-items: center;
@@ -115,7 +114,6 @@
 
         /* var(--breakpoint-md) */
         .header-inner {
-            padding: 0px var(--spacing-lg);
             column-gap: 0.5rem;
         }
 
