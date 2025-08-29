@@ -282,7 +282,7 @@ $
 全序集 $(X, prec.eq)$。若其非空子集之有上界者有上確界。曰*序完備*
 
 = 極限
-若夫極限者，古希臘之先賢始用之。自古及 Weierstrass#figure(image("assets/Augustin-Louis_Cauchy_1901.jpg"), caption: [Karl Weierstrass, 1815-1897]) 之定義，歷數千年而莫能確然論之也。微分與無窮小之辯，相爭其存廢逾千載未能決也。其或爲 0，或幾及 0 而非 0。時 0 而時亦非 0，George Berkeley 之屬者甚異之。物理學家屢以無窮小正定所求不爽，故不以爲謬也。數學之理也，必明必晰。然則應先申明極限為何物，而後可以道嚴謹之分析而無虞也。
+若夫極限者，古希臘之先賢始用之。自古及 Weierstrass#figure(image("assets/Augustin-Louis_Cauchy_1901.jpg"), caption: [Karl Weierstrass, 1815-1897]) 之議，歷久而鮮能盡其理實也。微分與無窮小之辯，相爭其存廢逾千載猶未能決。其或爲 0，或幾及 0 而非 0。時 0 而時亦非 0，George Berkeley 之屬者甚異之。物理學家屢以無窮小正定所求不爽，故不以爲謬也。數學之理也，必明必晰。然則應先辯明所謂極限者，後可以確然治分析無慮也。
 
 #definition(title: [極限])[
   稱數列 ${a_n}$ 之極限曰
