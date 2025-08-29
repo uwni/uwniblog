@@ -19,11 +19,14 @@
   genPdf: true,
   date: none,
   title: "untitled post",
+  language: "en",
   ..args,
   body,
 ) = {
   set heading(numbering: "1.1")
   set math.equation(numbering: "(1)")
+  set text(lang: language)
+  
   let compile-mode = get-compile-mode()
   if compile-mode == "query" {
     let date = if date != none {
@@ -37,6 +40,7 @@
       title: title,
       date: date,
       targets: targets,
+      language: language,
       ..args.named(),
     )
   } else if compile-mode == "html" {

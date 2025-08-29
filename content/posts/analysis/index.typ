@@ -29,11 +29,11 @@ $
 此計數之抽象也，若有 $S = {suit.club.stroked, suit.diamond.stroked, suit.heart.stroked, suit.spade.stroked}$ 集，數以一二三四而知其勢乃 $4$ 也。編號計數法實乃一雙射: $S -> NN^*_(<=4)$ 也。無限集也，雖數不盡其元，猶可較也。若有集可令其元一一對應於自然數者，正如數盡自然數之勢也。
 
 == 幂集
-集 $S$ 全子之所聚也，曰冪集，記 $2^S := {x | x subset S }$。例如 $2^{1, 2} = {{}, {1}, {2}, {1, 2}}$。$S$ 冪集之勢 $abs(2^S) = 2^abs(S)$ 也，請以歸納法證明之:
+凡 $S$ 之子悉聚以為集族，曰冪集，記 $2^S := {x | x subset S }$。例如 $2^{1, 2} = {{}, {1}, {2}, {1, 2}}$。$S$ 冪集之勢 $abs(2^S) = 2^abs(S)$ 也，請以歸納法證明之:
 $abs(2^emptyset) = abs({emptyset}) = 1$
 ,令
 $abs(2^S) = 2^abs(S)$,
-既添新元 $x$ 於 $S$，其冪集必含原 $2^S$ 諸元。$2^(S union {x})$ 之新添乃 $x$ 與舊 $2^S$ 諸元之合併。是以
+既添新元 $x$ 於 $S$，其冪集必含原 $2^S$ 之諸元。$2^(S union {x})$ 之新添乃 $x$ 與舊 $2^S$ 諸元之併。是以
 
 $
   abs(2^(S union {x})) = overbrace(abs(2^S), "原" S "之勢") + underbrace(abs(2^S times {x}), "新添之勢") = 2^abs(S) + 2^abs(S) = 2^(abs(S)+1) = 2^(abs(S union {x}))
@@ -113,7 +113,7 @@ $
 
   (1) 凡 $X$ 之非空子集有上界者有上確界\
   (2) 凡 $X$ 之非空子集有下界者有下確界\
-  (3) $A$, $B$ 皆 $X$ 之非空子集也。 凡 $A$ 中之 $a$ 與 $B$ 中之 $b$ 使 $a prec.eq b$ 者。$exists c in X$，而 $a prec.eq c prec.eq b$
+  (3) $A$, $B$ 皆 $X$ 之非空子集也。 凡 $A$ 中之 $a$ 與 $B$ 中之 $b$ 使 $a prec.eq b$ 者。 $X$ 中必有一元 $c$ 夾於 $a$, $b$ 之間，即 $exists c in X, a prec.eq c prec.eq b$
 ]
 
 
@@ -125,7 +125,10 @@ $
   假 $m := sup B$, 而 $m prec.eq a$ 也（以上確界乃最小上界故耳）。
   故知，$m in B$ 而 $m = max B$。$A$ 下界之最大者也。$m = inf A$。
 
-  (2) ⇒ (3):
+  (2) ⇒ (3): 設 $A$, $B$ 皆 $X$ 之非空子集也。$forall a in A, forall b in B, a prec.eq b$ 也。故知 $A$ 之元俱為 $B$ 之下界也。由 (2) 知 $B$ 有下確界，設以為 $c := inf B$，則 $a prec.eq c prec.eq b$ ，即所求也。
+
+  (3) ⇒ (1)：
+
 ]
 
 = 代數
@@ -279,7 +282,7 @@ $
 全序集 $(X, prec.eq)$。若其非空子集之有上界者有上確界。曰*序完備*
 
 = 極限
-若夫極限者，古希臘之先賢始用之。自古及 Weierstrass#figure(image("assets/Augustin-Louis_Cauchy_1901.jpg"), caption: [Karl Weierstrass, 1815-1897]) 之定義，歷數千年而莫能確然論之也。微分與無窮小之辯，相爭其存廢逾千載未能決也。其或爲 0，或幾及 0 而非 0。時 0 而時亦非 0，George Berkeley 之屬者甚異之。物理學家屢以無窮小正定本末不爽，故不以爲謬也。數學之理也，必明必晰。然則應先申明極限為何物，而後可以道嚴謹之分析而無虞也。
+若夫極限者，古希臘之先賢始用之。自古及 Weierstrass#figure(image("assets/Augustin-Louis_Cauchy_1901.jpg"), caption: [Karl Weierstrass, 1815-1897]) 之定義，歷數千年而莫能確然論之也。微分與無窮小之辯，相爭其存廢逾千載未能決也。其或爲 0，或幾及 0 而非 0。時 0 而時亦非 0，George Berkeley 之屬者甚異之。物理學家屢以無窮小正定所求不爽，故不以爲謬也。數學之理也，必明必晰。然則應先申明極限為何物，而後可以道嚴謹之分析而無虞也。
 
 #definition(title: [極限])[
   稱數列 ${a_n}$ 之極限曰
@@ -329,7 +332,7 @@ $
 
 若數列 ${b_n}$ 之極限難求，但得覓取上下夾逼之數列 ${a_n}$ 與 ${c_n}$，則可藉求 ${a_n}$ 與 ${c_n}$ 之極限而得 ${b_n}$ 之極限也。
 
-舉例以言之。
+例以議之。
 #example[
   請證 $ lim_(n -> oo) (sin n) / n = 0 $
 
