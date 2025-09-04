@@ -17,7 +17,7 @@
     counter(std.heading).at(heading.location())
   }
 
-  "s_" + h-counter.map(str).join(".") + "_" + to-kebab-case(plain-text(heading.body))
+  "s" + h-counter.map(str).join("_") + "-" + to-kebab-case(plain-text(heading.body))
 }
 
 // 生成目录HTML

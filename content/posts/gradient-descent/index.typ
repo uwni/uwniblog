@@ -1,13 +1,13 @@
 #import "/typst/environment.typ": *
 #import "@preview/lovelace:0.3.0": pseudocode-list
 #import "/typst/template.typ": post-template
+#import "@preview/zero:0.5.0": num
+
+#show math.gradient: math.bold
 #show: post-template.with(
   title: "Gradient Descent",
   tags: ("Mathematics", "optimization"),
 )
-#import "@preview/zero:0.5.0": num
-
-#show math.gradient: math.bold
 
 Optimization problems can be divided into minimization and maximization categories, and maximization problems can always be transformed into equivalent minimization problems. Therefore, in the following text, we will focus on minimization problems.
 Gradient descent is an iterative optimization algorithm used to find the local minimum of a function. It gradually approaches the minimum point by moving in the opposite direction of the function's gradient.
