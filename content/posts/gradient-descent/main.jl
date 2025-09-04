@@ -1,7 +1,7 @@
 # Gradient Descent Example for f(x1, x2) = x1² + x1*x2 + x2²
 using Pkg;
 Pkg.activate(@__DIR__);
-using CairoMakie
+using CairoMakie, CSV, DataFrames
 
 # Define the objective function
 function f(x1::Real, x2::Real)::Real
@@ -40,6 +40,23 @@ function gradient_descent(x0::Vector{<:Real}, alpha::Real, tolerance::Real=1e-20
     return x, max_iter, x_history, f_history
 end
 
+# Function to export iteration data to CSV
+function export_to_csv(x_history, f_history, filename)
+    # Create DataFrame with iteration data
+    df = DataFrame(
+        iteration = 0:(length(x_history)-1),
+        x1 = [x[1] for x in x_history],
+        x2 = [x[2] for x in x_history],
+        f_value = f_history
+    )
+    
+    # Save to assets directory
+    filepath = joinpath(@__DIR__, "assets", filename)
+    CSV.write(filepath, df)
+    println("Iteration data exported to: $filepath")
+    return df
+end
+
 # Example 1: α = 0.1
 println("Example 1: α = 0.1")
 x0 = [1.0, 2.0]
@@ -50,6 +67,9 @@ println("Initial point: x₀ = [$(x0[1]), $(x0[2])]")
 println("Step size: α = $alpha1")
 println("Final point after $iterations1 iterations: x* ≈ [$(x_opt1[1]), $(x_opt1[2])]")
 println("Final function value: f(x*) ≈ $(f(x_opt1[1], x_opt1[2]))")
+
+# Export iteration data for α = 0.1
+export_to_csv(x_hist1, f_hist1, "gradient_descent_alpha_0.1.csv")
 println()
 
 # Example 2: α = 0.4
@@ -61,6 +81,9 @@ println("Initial point: x₀ = [$(x0[1]), $(x0[2])]")
 println("Step size: α = $alpha2")
 println("Final point after $iterations2 iterations: x* ≈ [$(x_opt2[1]), $(x_opt2[2])]")
 println("Final function value: f(x*) ≈ $(f(x_opt2[1], x_opt2[2]))")
+
+# Export iteration data for α = 0.4
+export_to_csv(x_hist2, f_hist2, "gradient_descent_alpha_0.4.csv")
 println()
 
 # Verify analytical solution: minimum at (0, 0)

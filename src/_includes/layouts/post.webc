@@ -139,6 +139,7 @@
         line-height: 1.75;
         font-family: var(--font-family-serif);
         text-align: justify;
+        hyphens: auto;
     }
 
     .post-content>.post-section>p:first-child::first-letter {
