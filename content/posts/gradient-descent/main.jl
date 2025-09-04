@@ -1,6 +1,7 @@
 # Gradient Descent Example for f(x1, x2) = x1² + x1*x2 + x2²
 using Pkg;
 Pkg.activate(@__DIR__);
+
 using CairoMakie, CSV, DataFrames
 
 # Define the objective function
@@ -19,7 +20,7 @@ function gradient_descent(x0::Vector{<:Real}, alpha::Real, tolerance::Real=1e-20
     x_history = [copy(x)]
     f_history = [f(x[1], x[2])]
 
-    for i in 1:max_iter
+    for i ∈ 1:max_iter
         grad = grad_f(x[1], x[2])
         x_new = x - alpha * grad
 
@@ -52,6 +53,7 @@ function export_to_csv(x_history, f_history, filename)
     
     # Save to assets directory
     filepath = joinpath(@__DIR__, "assets", filename)
+    @show filepath
     CSV.write(filepath, df)
     println("Iteration data exported to: $filepath")
     return df
@@ -199,4 +201,4 @@ end
 plot_combined = create_visualization()
 
 # Save the plot
-save(string(@__DIR__, "assets/gradient_descent_visualization.pdf"), plot_combined)
+save(joinpath(@__DIR__, "assets", "gradient_descent_visualization.pdf"), plot_combined)

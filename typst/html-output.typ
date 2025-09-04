@@ -1,13 +1,23 @@
 #import "html.typ"
-#import "helper.typ": build-tree, inline-css
+#import "helper.typ": build-tree, plain-text
 
-#let _get_heading_id(heading: none) = {
-  let h-counter = if heading == none {
-    counter(std.heading).get()
+#let to-kebab-case(s) = {
+  lower(s).replace(" ", "-")
+}
+
+#let get-heading-id(id: none, heading) = {
+  if heading == none {
+    return none
+  }
+
+  let h-counter = if id != none {
+    // let h-counter = if false {
+    id
   } else {
     counter(std.heading).at(heading.location())
   }
-  h-counter.map(str).join("-")
+
+  "s_" + h-counter.map(str).join(".") + "_" + to-kebab-case(plain-text(heading.body))
 }
 
 // 生成目录HTML
@@ -16,8 +26,8 @@
   show outline.entry: it => {
     context {
       // 获取标题计数器值并构建层次化ID
-      let id = _get_heading_id(heading: it.element)
-      let href = "#heading-" + id
+      let id = get-heading-id(it.element)
+      let href = "#" + id
       let depth = it.level - 1
 
       html.li(
@@ -80,7 +90,7 @@
   }
 
   show heading: it => {
-    let id = _get_heading_id()
+    let id = get-heading-id(it)
     // 生成HTML元素，但保持编号功能
     if it.level == 1 {
       html.h2
@@ -92,9 +102,9 @@
       html.h5
     } else {
       html.h6
-    }(class: "post-heading", id: "heading-" + id, html.a(
+    }(class: "post-heading", id: id, html.a(
       class: "heading-anchor",
-      href: "#heading-" + id,
+      href: "#" + id,
       it.body,
     ))
   }
@@ -106,18 +116,28 @@
     html.div(tag-links)
   }
 
-  // 处理 body - 统一使用 Typst 标题编号
-  let sectioned-content = build-tree(body, func: (level: 0, heading: none, id: "", body) => {
-    if heading != none {
-      html.section(
-        aria-labelledby: "heading-" + id,
-        class: "post-section",
-        heading + body,
-      )
-    } else {
-      html.section(class: "post-section", body)
+  let sectioned-content = build-tree(body, func: (level: 0, heading: none, body) => {
+    if level == 0 {
+      return body
     }
+
+    html.section(
+      class: "labelled-placeholder",
+      heading + body,
+    )
   })
+
+  show html.elem.where(tag: "section", attrs: (class: "labelled-placeholder")): it => context {
+    let headings = query(selector(heading).after(here()))
+    let id-entry = if headings.len() > 0 {
+      (aria-labelledby: get-heading-id(headings.first()))
+    }
+    html.section(
+      class: "post-section",
+      ..id-entry,
+      it.body,
+    )
+  }
 
   let local-time = html.div(html.time(class: "local-time", data-utc: date, [Loading...]))
 

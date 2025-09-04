@@ -1,13 +1,9 @@
-#import "html.typ"
-
-#let end-sect = metadata("_tree_end_sect")
 #let build-tree(
   body,
   func: none,
 ) = {
   let stack = ()
   let nodes = ()
-  let level-counters = () // 动态维护各层级计数器，用于生成 id
 
   // fold a node into stack or nodes
   let fold(stack, nodes, node) = {
@@ -22,17 +18,6 @@
   // traverse body(supposed to be a sequnce) and build tree
   for c in body.children {
     if c.func() == heading {
-      // 确保数组长度足够
-      while level-counters.len() < c.depth {
-        level-counters.push(0)
-      }
-
-      // 截断到当前深度，重置更深层计数
-      level-counters = level-counters.slice(0, c.depth)
-
-      // 递增当前层级计数
-      level-counters.at(c.depth - 1) += 1
-
       while stack.len() > 0 and stack.last().heading.depth >= c.depth {
         let node = stack.pop()
         (stack, nodes) = fold(stack, nodes, node)
@@ -40,12 +25,8 @@
 
       stack.push((
         heading: c,
-        index: level-counters, // 直接存储层级计数器数组，用于生成 id
         children: (),
       ))
-    } else if c.func() == metadata and c.value == end-sect.value {
-      let node = stack.pop()
-      (stack, nodes) = fold(stack, nodes, node)
     } else {
       (stack, nodes) = fold(stack, nodes, c)
     }
@@ -113,7 +94,6 @@
     wrapping-func(
       level: level,
       heading: node.heading,
-      id: node.at("index", default: ()).map(str).join("-"), // 转换为字符串格式
       body,
     )
   }
@@ -127,20 +107,40 @@
   )
 }
 
-#let inline-css(path: none, raw: none) = {
-  let css = if path != none {
-    read(path)
-  } else {
-    raw
+
+/// stoled from https://github.com/Myriad-Dreamin/Myriad-Dreamin/blob/e860798e5c436ef991ca014091f1f810aa72504b/typ/templates/supports-text.typ#L11
+/// Collect text content of element recursively into a single string
+/// https://discord.com/channels/1054443721975922748/1088371919725793360/1138586827708702810
+/// https://github.com/Myriad-Dreamin/shiroa/issues/55
+#let plain-text(it) = {
+  if type(it) == str {
+    return it
+  } else if it == [ ] {
+    return " "
   }
-  html.style(css)
+
+  if "child" in it.fields() {
+    return plain-text(it.child)
+  }
+
+  if "body" in it.fields() {
+    return plain-text(it.body)
+  }
+
+  if "text" in it.fields() {
+    return it.text
+  }
+
+  if it.func() == smartquote {
+    if it.double {
+      return "\""
+    } else {
+      return "'"
+    }
+  }
+
+  if "children" in it.fields() {
+    return it.children.map(plain-text).filter(t => type(t) == str).join()
+  }
 }
 
-#let generate-section-id(heading, index) = {
-  let level = heading.depth
-  let id = heading.text.to-kebab-case()
-  if level > 1 {
-    id = "${level}-${id}-${index.join("-")}"
-  }
-  id
-}
