@@ -1,51 +1,49 @@
 #import "/typst/environment.typ": *
-#import "@preview/lovelace:0.3.0"
+#import "@preview/lovelace:0.3.0": pseudocode-list
 #import "/typst/template.typ": post-template
 #show: post-template.with(
   title: "Gradient Descent",
   tags: ("Mathematics", "optimization"),
 )
 #import "@preview/zero:0.5.0": num
-#import "@preview/oxifmt:1.0.0": strfmt
-#import "@preview/lilaq:0.4.0" as lq
 
 #show math.gradient: math.bold
 
-優化問題可以分為最小化與最大化兩類，而最大化問題總能轉化為等價的最小化問題。因此在後文中，我們將重點討論最小化問題。
-梯度下降法是一种用于寻找函数局部最小值的迭代优化算法。它通过沿着函数梯度的反方向移动来逐步逼近最小值点。
+Optimization problems can be divided into minimization and maximization categories, and maximization problems can always be transformed into equivalent minimization problems. Therefore, in the following text, we will focus on minimization problems.
+Gradient descent is an iterative optimization algorithm used to find the local minimum of a function. It gradually approaches the minimum point by moving in the opposite direction of the function's gradient.
 
-= 等價問題
-首先我们来先证明一些关于单调性的引理。
-#proposition(title: [Lemma])[
-  $f$ 是单调递增函数，则
+= Equivalent Problems
+First, let us prove some lemmas about monotonicity.
+#proposition(title: [Order Preservation of Strictly Monotonic Functions])[
+  If $f$ is a strictly increasing function, then
   $
     x_1 < x_2 <-> f(x_1) < f(x_2)
   $
-  即，输出严格变大时，输入必严格变大。
+  That is, when the output strictly increases, the input must strictly increase.
 ]
 #proof[
-  ($->$) 即单调递增的定义\
+  ($->$) This is the definition of strictly increasing, $x_1 < x_2 -> f(x_1) < f(x_2)$\
   ($<-$)
-  反证法排除 $x_1 >= x_2$ 两种情况可得
+  By contradiction, if $x_1 >= x_2$ then $f(x_1) >= f(x_2)$, which is a contradiction.
 ]
 
-#proposition(title: [严格单调 $->$ 单射])[
-  $f$ 是严格单调函数，则 $f$ 是单射。即有
+#proposition(title: [Strictly Monotonic Function $->$ Injection])[
+  If $f$ is a strictly monotonic function, then $f$ is injective. That is,
   $
     x_1 = x_2 <-> f(x_1) = f(x_2)
   $
 ]
 #proof[
-  ($->$) 由函数的定义显然。 \
-  ($<-$) 即求證單射。
-  以 $f$ 在 $X$ 上严格递增为例。设 $x_1, x_2 in X, f(x_1) = f(x_2)$。
-  假设 $x_1 < x_2$, 因严格递增，$x_1 < x_2 -> f(x_1) < f(x_2)$, 矛盾。同理 $x_1 gt.not x_2$，故 $x_1 = x_2$
+  ($->$) This follows from the definition of functions. \
+  ($<-$) We need to prove injectivity.
+  Taking $f$ strictly increasing on $X$ as an example. Let $x_1, x_2 in X, f(x_1) = f(x_2)$.
+  Suppose $x_1 < x_2$, then by strict monotonicity, $x_1 < x_2 -> f(x_1) < f(x_2)$, which is a contradiction. Similarly $x_1 gt.not x_2$, therefore $x_1 = x_2$.
 ]
 
 
 
-#proposition(title: [單調函數的保序性])[
-  $Y subset.eq RR$, $f: X -> Y$ 是任意函数, $g: Y -> RR$ 是嚴格遞增函數，則 $g compose f$ 和 $f$ 具有相同的極值點。反之則有相反的極值點。
+#proposition(title: [Strictly Monotonic Functions Preserve Extreme Points])[
+  Let $Y subset.eq RR$, $f: X -> Y$ be an arbitrary function, and $g: Y -> RR$ be a strictly increasing function. Then $g compose f$ and $f$ have the same extreme points. Conversely, they have opposite extreme points.
 ]
 #proof[
   // 這裏只證明前者，後者思路類似
@@ -55,43 +53,61 @@
   // $
   // 因此对于任意区间 $(forall [x_1, x_2] subset.eq X) f(x_1) < f(x_2) => g(f(x_1)) < g(f(x_2))$, 即 $g compose f$ 和 $f$ 具有相同的严格單調性。一般的，若 $g$ 是不嚴格遞增函數，上面的 $<$ 改為 $<=$ 則单调性依然保持，但不严格。
 
-  由 lemma 知 $x_1 <= x_2 <-> g(x_1) <= g(x_2)$
-  於是對於某點 $x^* in X$, $exists delta > 0, forall x in U(x^*, delta)$
+  By the lemma, we know $x_1 <= x_2 <-> g(x_1) <= g(x_2)$
+  Thus for some point $x^* in X$, $exists delta > 0, forall x in U(x^*, delta)$
   $ f(x^*) <= f(x) <-> g(f(x^*)) <= g(f(x)) $
-  即證得 $f$ 的极小值点也是 $g compose f$ 的极小值点,  $g compose f$ 的极小值点也是 $f$ 的极小值点，
+  This proves that a minimum point of $f$ is also a minimum point of $g compose f$, and a minimum point of $g compose f$ is also a minimum point of $f$.
 ]
 
-基於此，对于优化问题
+Based on this, for the optimization problem
 $
   arg min f(x)
 $
-總有相同的解和 $arg min g compose f (x)$，如果 $g$ 是嚴格递增函数。或者 $arg max g compose f (x)$，如果 $g$ 是严格遞減函数。
+it always has the same solution as $arg min g compose f (x)$, if $g$ is a strictly increasing function. Or $arg max g compose f (x)$, if $g$ is a strictly decreasing function.
 
-= 无约束情况
-$RR^n$ 是 $n$ 维 Euclidean 空间。$bold(x) in RR^n$, $f: RR^n -> RR$ 是一个可微函数。求 $f$ 的最小值点和最小值是约束问题
+= Unconstrained Case
+$RR^n$ is the $n$-dimensional Euclidean space. $bold(x) in RR^n$, $f: RR^n -> RR$ is a differentiable function. Finding the minimum point and minimum value of $f$ is the optimization problem
 $
   min_(bold(x) in RR^n) f(bold(x))
 $
 
-迭代方程
+The iterative equation is
 $
   bold(x)_(k+1) = bold(x)_k - alpha gradient f(bold(x)_k)
 $
-其中，步长 $alpha$ 是一个正数，决定了每次迭代的更新幅度。$gradient f(bold(x)_k)$ 是函数 $f$ 在点 $bold(x)_k$ 处的梯度。算法的目标是使
-$bold(x)_(k) -> bold(x)^*$ as $k -> oo$ where $bold(x)^* in arg min f(bold(x))$. that is to say, $bold(x)^*$ is a minimum.
+where the step size $alpha$ is a positive number that determines the update magnitude at each iteration. $gradient f(bold(x)_k)$ is the gradient of function $f$ at point $bold(x)_k$. The algorithm's goal is to make
+$bold(x)_(k) -> bold(x)^*$ as $k -> oo$ where $bold(x)^* in arg min f(bold(x))$. that is to say, $bold(x)^*$ is a minimum. The pseudocode is as follows:
 
-让我们看一个例子
+#pseudocode-list[
+  - *Algorithm* Gradient Descent Method for minimize $f$
+  - *Input*: initial point $bold(x)_0$, step length $alpha > 0$, tolerance $epsilon > 0$, max iterations $N$
+  - *Output*: $bold(x)^*$
+    + $k <- 0$
+    + *while* $k < N$
+      + $bold(g)_k <- gradient f(bold(x)_k)$
+      + $bold(x)_(k+1) <- bold(x)_k - alpha bold(g)_k$
+      + *if* $f(bold(x)_(k+1)) < epsilon$ *then*
+        + *return* $bold(x)_(k+1)$
+      + *end*
+      + $k <- k + 1$
+    + *end*
+    + *return* $bold(x)_k$
+]
+
+Algorithm:
+
+Let us look at an example
 
 $
   min_((x_1, x_2) in RR^2) f(x_1, x_2)
 $
-where $= x_1^2 + x_1 x_2 + x_2^2$,
-首先我们通过解析法知道，对于 $x_1, x_2 in RR$
+where $f(x_1, x_2) = x_1^2 + x_1 x_2 + x_2^2$.
+First, we know through analytical methods that for $x_1, x_2 in RR$
 
 $
-  x_1^2 + x_1 x_2 + x_2^2 = (x_1, x_2) mat(1, 1\/2; 1\/2, 1) vec(x_1, x_2) <= 0
+  x_1^2 + x_1 x_2 + x_2^2 = (x_1, x_2) mat(1, 1\/2; 1\/2, 1) vec(x_1, x_2) >= 0
 $
-当且仅当 $x_1 = 0, x_2 = 0$ 时相等。故在原点处取得最小值 $0$。接下来我们使用梯度下降法来求解。
+Equality holds if and only if $x_1 = 0, x_2 = 0$. Therefore, the minimum value $0$ is achieved at the origin. Next, we use gradient descent to solve this.
 
 $
   gradient f vec(x_1, x_2) = vec(2x_1 + x_2, 2x_2 + x_1)
@@ -100,70 +116,124 @@ $
   vec(x_1, x_2)_(k+1) = vec(x_1, x_2)_k - alpha vec(2x_1 + x_2, 2x_2 + x_1)_k
 $
 
-#let fn(x1, x2) = x1 * x1 + x1 * x2 + x2 * x2
-#let grad-fn(x1, x2, a) = (x1 - a * (2 * x1 + x2), x2 - a * (2 * x2 + x1))
-#let tol = 1e-20
-#let max-iter = 1000
-#let a = 0.1
-#let i = 0
-#let x1 = 1.0
-#let x2 = 2.0
 
-#for _ in range(max-iter) {
-  i += 1
-  (x1, x2) = grad-fn(x1, x2, a)
-  if fn(x1, x2) < tol { break }
-}
-#let display-num(it) = $num(strfmt("{:.2e}", it))$
+#let illust = image("assets/gradient_descent_visualization.svg")
+#let example1 = csv("assets/gradient_descent_alpha_0.1.csv", row-type: dictionary).last()
+#let example2 = csv("assets/gradient_descent_alpha_0.4.csv", row-type: dictionary).last()
+#let example3 = csv("assets/gradient_descent_alpha_0.5.csv", row-type: dictionary).last()
 
-假设初始点为 $bold(x)_0 = vec(1.0, 2.0)$, 设步长为 $alpha = #a$, 则 $#i$ 步后 $f$ 迭代至 $#display-num(fn(x1, x2))$.
+We set the initial condition as $x_0 = (1.0, 2.0)^"T"$, step size $alpha = 0.1$, and stopping condition as $f <= 10^(-20)$. After #example1.iteration iterations, the function value reaches #num(example1.f_value, digits: 2). The trajectory left by each iteration in the feasible region is shown in the figure below. The black solid lines in the figure are the contour lines of function $f$, and the arrows indicate the gradient field. The coloring indicates the magnitude of the function value, with darker colors representing larger function values. The red points represent the positions updated at each iteration, and the connecting lines are the iteration trajectories. It can be seen that each iteration moves opposite to the gradient direction with step size proportional to the gradient magnitude, and the iteration points gradually approach the origin—the theoretical minimum point.
 
-$
-  bold(x)_#(i) approx vec(#display-num(x1), #display-num(x2))\
-  f(bold(x)_#i) approx #display-num(fn(x1, x2))
-$
+When we increase the step size to $0.4$, after #example2.iteration iterations, the function value reaches #num(example2.f_value, digits: 2).
 
-#let a = 0.4
-#let i = 0
-#let x1 = 1.0
-#let x2 = 2.0
-#for _ in range(max-iter) {
-  i += 1
-  (x1, x2) = grad-fn(x1, x2, a)
-  if fn(x1, x2) < tol { break }
-}
+When we increase the step size to $0.5$, after #example3.iteration iterations, the function value reaches #num(example3.f_value, digits: 2).
 
-$alpha = #a$ 时
+If the step size is increased to $0.6$, it leads to divergence. Therefore
+
+#figure(illust, caption: [Gradient Descent Visualization])
+
+It is not difficult to see that the iteration speed is related to the step size, which can lead to divergence. Therefore, we need to choose an appropriate step size to ensure convergence.
+
+= Constrained Case
+
+When dealing with constrained optimization problems, we need to find the minimum of a function $f(bold(x))$ subject to constraints. The general form is:
 
 $
-  bold(x)_#(i) approx vec(#display-num(x1), #display-num(x2))\
-  f(bold(x)_#i) approx #display-num(x1 * x1 + x2 * x2)
+  min_(bold(x) in RR^n) & quad f(bold(x)) \
+           "subject to" & quad g_i (bold(x)) <= 0, space i = 1, 2, ..., m \
+                        & quad h_j (bold(x)) = 0, space j = 1, 2, ..., l
 $
 
-#let a = 0.5
-#let i = 0
-#let x1 = 1.0
-#let x2 = 2.0
-#for _ in range(max-iter) {
-  i += 1
-  (x1, x2) = grad-fn(x1, x2, a)
-  if fn(x1, x2) < tol { break }
-}
+For constrained problems, we cannot simply move in the negative gradient direction as this may violate the constraints. Instead, we need to project the gradient onto the feasible region or use penalty methods.
 
-$alpha = #a$ 时
+== Projected Gradient Method
+
+The projected gradient method modifies the standard gradient descent by projecting each iteration onto the feasible set $cal(C)$:
 
 $
-  bold(x)_#(i) approx vec(#display-num(x1), #display-num(x2))\
-  f(bold(x)_#i) approx #display-num(fn(x1, x2))
+  bold(x)_(k+1) = Pi_(cal(C)) (bold(x)_k - alpha gradient f(bold(x)_k))
 $
 
-不难发现，迭代速度和步长相关，而如果你尝试将步长增大到 $0.8$，则导致发散。因此我们需要选择合适的步长来保证收敛。
+where $Pi_(cal(C))$ denotes the projection operator onto the constraint set $cal(C)$.
 
-= 收敛性
-接下來，我們嚴謹的分析梯度下降法的收敛性。
+The pseudocode for the projected gradient method is:
 
-= 凸優化
-如果優化問題是凸的，那麼梯度下降法可以保證找到全局最小值。凸函數的定義是：對於任意的 $x, y in RR^n$ 和 $lambda in [0, 1]$，都有
+#pseudocode-list[
+  - *Algorithm* Projected Gradient Method for minimize $f$ subject to $bold(x) in cal(C)$
+  - *Input*: initial point $bold(x)_0 in cal(C)$, step length $alpha > 0$, tolerance $epsilon > 0$, max iterations $N$
+  - *Output*: $bold(x)^*$
+    + $k <- 0$
+    + *while* $k < N$
+      + $bold(g)_k <- gradient f(bold(x)_k)$
+      + $bold(y)_(k+1) <- bold(x)_k - alpha bold(g)_k$
+      + $bold(x)_(k+1) <- Pi_(cal(C)) (bold(y)_(k+1))$
+      + *if* $f(bold(x)_(k+1)) < epsilon$ *then*
+        + *return* $bold(x)_(k+1)$
+      + *end*
+      + $k <- k + 1$
+    + *end*
+    + *return* $bold(x)_k$
+]
+
+== Example: Linear Constraint
+
+Consider the optimization problem:
+
+$
+  min_((x_1, x_2) in RR^2) & quad f(x_1, x_2) \
+              "subject to" & quad x_2 = 1
+$
+
+where $f(x_1, x_2) = x_1^2 + x_1 x_2 + x_2^2$ (same as the unconstrained case).
+
+The feasible set is the line $cal(C) = {(x_1, x_2) : x_2 = 1}$. The unconstrained minimum $(0, 0)$ is not feasible, so we expect the constrained optimum to lie on the constraint.
+
+The gradient is the same as in the unconstrained case.
+
+For the linear constraint $x_2 = 1$, the projection operation onto the line is:
+$
+  Pi_(cal(C)) (bold(y)) = vec(y_1, 1)
+$
+
+Algorithm implementation:
+
+$
+  vec(x_1, x_2)_(k+1) = Pi_(cal(C)) (vec(x_1, x_2)_k - alpha vec(2x_1 + x_2, 2x_2 + x_1)_k)
+$
+
+#let constrained_illust = image("assets/constrained_gradient_descent_visualization.svg")
+#let example_constrained = csv("assets/constrained_gradient_descent.csv", row-type: dictionary).last()
+
+We demonstrate the algorithm starting from the same initial point as the unconstrained case:
+
+We set the initial point as $x_0 = (1.0, 2.0)^"T"$, which lies off the constraint. The algorithm first projects this point onto the constraint $x_2 = 1$, resulting in $(1.0, 1.0)$. After #example_constrained.iteration iterations, it converges to the constrained optimal point with function value #num(example_constrained.f_value, digits: 2).
+
+The visualization below shows the optimization trajectory and the projection process. The black line represents the constraint $x_2 = 1$.
+
+For all iterations, the visualization shows (with later iterations becoming more transparent):
+- *Red arrows*: gradient steps $-alpha gradient f(bold(x)_k)$ from current point to unconstrained update
+- *Orange dotted lines*: projection steps from the unconstrained update back to the constraint
+
+This clearly demonstrates how the projected gradient method alternates between taking gradient steps and projecting back to the feasible set. The gradient arrows show both the direction and magnitude of the descent step, while the projection steps ensure feasibility. The path successfully reaches the constrained optimal point $(-0.5, 1.0)$.
+
+#figure(constrained_illust, caption: [Constrained Gradient Descent Visualization])
+
+== Penalty Method
+
+Another approach for handling constraints is the penalty method, where we convert the constrained problem into an unconstrained one by adding penalty terms:
+
+$
+  min_(bold(x) in RR^n) L(bold(x), rho) = f(bold(x)) + rho sum_(i=1)^m max(0, g_i(bold(x)))^2 + rho sum_(j=1)^l h_j(bold(x))^2
+$
+
+where $rho > 0$ is the penalty parameter. As $rho -> oo$, the solution of the penalized problem approaches the solution of the original constrained problem.
+
+
+= Convergence
+Next, we rigorously analyze the convergence of gradient descent.
+
+= Convex Optimization
+If the optimization problem is convex, then gradient descent can guarantee finding the global minimum. The definition of a convex function is: for any $x, y in RR^n$ and $lambda in [0, 1]$, we have
 $
   f(lambda x + (1-lambda) y) <= lambda f(x) + (1-lambda) f(y)
 $
