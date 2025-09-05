@@ -65,6 +65,39 @@ $
 $
 it always has the same solution as $arg min g compose f (x)$, if $g$ is a strictly increasing function. Or $arg max g compose f (x)$, if $g$ is a strictly decreasing function.
 
+#example[
+  Consider an interesting matrix optimization problem that demonstrates the equivalence of different objective functions under monotonic transformations.
+
+  Let $bold(X) = (x_(i j))_(n times n)$ be a non-negative matrix with column sum constraints: $sum_(i=1)^n x_(i j) = c$ for all $j$ (where $c$ is a constant).
+
+  Define two objective functions:
+
+  $ f_1 (bold(X)) = (sum_(i=1)^n x_(i i)) / (sum_(i eq.not j) x_(i j)) $ (diagonal elements / off-diagonal elements)
+
+  $ f_2 (bold(X)) = (sum_(i=1)^n x_(i i)) / (sum_(i,j=1)^n x_(i j)) $ (diagonal elements / all elements)
+
+  Due to the column sum constraint, the total sum of all elements is:
+  $sum_(i,j=1)^n x_(i j) = n c$
+
+  Therefore: $f_2 (bold(X)) = (sum_(i=1)^n x_(i i)) / (n c)$
+
+  The sum of off-diagonal elements is:
+  $sum_(i eq.not j) x_(i j) = n c - sum_(i=1)^n x_(i i)$
+
+  So: $f_1 (bold(X)) = (sum_(i=1)^n x_(i i)) / (n c - sum_(i=1)^n x_(i i))$
+
+  *Key Observation:* Let $s = sum_(i=1)^n x_(i i)$, then:
+  - $f_2 = s / (n c)$
+  - $f_1 = s / (n c - s)$
+
+  These two functions have a monotonic relationship:
+  $f_1 = f_2 / (1 - f_2) dot 1/n$
+
+  Since $f_1$ is a strictly increasing function of $f_2$ (in the range $f_2 < 1$), we have:
+
+  The optimization problems $max f_1 (bold(X))$ and $max f_2 (bold(X))$ are equivalent and have the same optimal solution.
+]
+
 = Unconstrained Case
 $RR^n$ is the $n$-dimensional Euclidean space. $bold(x) in RR^n$, $f: RR^n -> RR$ is a differentiable function. Finding the minimum point and minimum value of $f$ is the optimization problem
 $
