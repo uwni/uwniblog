@@ -403,6 +403,11 @@
     }
 
     /* Typst element 样式 */
+    img {
+        max-width: 100%;
+        object-fit: contain;
+    }
+
     .typst-figure {
         display: block;
         margin: 0 auto;
@@ -425,9 +430,9 @@
     .typst-equation {
         overflow-x: auto;
     }
-    
+
     /* 深色模式下 SVG 反色 */
-    .typst-equation path {
+    .typst-equation path, .typst-figure path {
         fill: currentColor;
     }
 

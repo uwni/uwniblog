@@ -117,20 +117,23 @@ end
 # Common function to setup base plot with contours
 function setup_base_plot(title::String)
     # Define grid for plotting
-    x_range = -3:0.2:3
-    y_range = -3:0.2:3
+    x_range = -1:0.2:3
+    y_range = -1:0.2:3
     Z = [f(x, y) for x in x_range, y in y_range]
 
-    # Create figure
-    fig = Figure(size=(900, 700))
+    # Create figure with transparent background and minimal margins
+    fig = Figure(size=(900, 700), backgroundcolor=:transparent)
+
     ax = Axis(fig[1, 1],
         title=title,
         xlabel="x₁",
         ylabel="x₂",
-        aspect=1,
         limits=(-1, 3, -1, 3),
         xticks=-1:1:3,
-        yticks=-1:1:3)
+        yticks=-1:1:3,
+    )
+
+    colsize!(fig.layout, 1, Aspect(1, 1.0))
 
     # Add smooth surface with blue transparency gradient
     surface!(ax, x_range, y_range, fill(0f0, size(Z));
@@ -151,6 +154,7 @@ function setup_base_plot(title::String)
         labelfont=:bold,
         labelsize=12)
 
+    resize_to_layout!(fig)
     return fig, ax, x_range, y_range
 end
 
@@ -333,8 +337,6 @@ function create_constrained_visualization()
     # Add legend
     axislegend(ax, position=:rt)
 
-
-
     return fig
 end
 
@@ -343,3 +345,4 @@ plot_constrained = create_constrained_visualization()
 save(joinpath(@__DIR__, "assets", "constrained_gradient_descent_visualization.svg"), plot_constrained)
 println("Constrained gradient descent completed successfully!")
 
+@show plot_constrained
