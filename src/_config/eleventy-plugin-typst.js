@@ -97,6 +97,7 @@ export default function eleventyPluginTypst(eleventyConfig, options = {}) {
           buildDate: buildDate,
           date: data?.page.date.toISOString(),
           source: data?.page.inputPath,
+          fileSlug: data?.page.fileSlug,
         };
         return data.target === "pdf" ? pdfRender(compiler, inputArgs, inputPath)
           : htmlRender(compiler, inputArgs, inputPath);

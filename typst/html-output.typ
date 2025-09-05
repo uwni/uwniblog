@@ -147,6 +147,14 @@
       #html.article[
         #html.div(class: "post-title-container", [
           #html.h1(class: "post-title", title)
+          #html.div(class: "post-pdf-download", [
+            #html.a(
+              href: "/archives/" + sys.inputs.at("fileSlug", default: "unknown") + ".pdf",
+              class: "pdf-download-link",
+              target: "_blank",
+              "📄 Download PDF",
+            )
+          ])
           #html.div(class: "post-meta mobile-meta", [
             #local-time
             #tags-html
