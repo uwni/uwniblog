@@ -220,6 +220,7 @@
         line-height: 1.4;
         transition: var(--transition-fast);
         position: relative;
+        border-left: 3px solid transparent;
     }
 
     .toc-nav a:hover {

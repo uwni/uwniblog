@@ -2,12 +2,13 @@
 #import "@preview/lovelace:0.3.0": pseudocode-list
 #import "/typst/template.typ": post-template
 #import "@preview/zero:0.5.0": num
+#show math.gradient: math.bold
 
 #show: post-template.with(
   title: "Gradient Descent",
   tags: ("Mathematics", "optimization"),
 )
-#show math.gradient: math.bold
+
 
 #let pseudocode-list = pseudocode-list.with(hooks: .5em)
 

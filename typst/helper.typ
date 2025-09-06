@@ -16,13 +16,7 @@
   }
 
   // traverse body(supposed to be a sequnce) and build tree
-  let children = if "children" in body.fields() {
-    body.children
-  } else {
-    (body,)
-  }
-
-  for c in children {
+  for c in body.children {
     if c.func() == heading {
       while stack.len() > 0 and stack.last().heading.depth >= c.depth {
         let node = stack.pop()
