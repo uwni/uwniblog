@@ -62,11 +62,12 @@
 // HTML输出主函数
 #let as-html-output(title, tags: (), date: none, body) = {
   show image: it => {
-    if (it.format != "svg") {
-      let alt = if it.alt != none { it.alt } else { "ALT" }
-      html.img(src: it.source, alt: alt)
+    let is-svg = it.format == "svg" or (it.format == auto and it.source.ends-with(".svg"))
+    if is-svg {
+      html.frame(it)
     } else {
-      it
+      let alt = if it.alt != none { it.alt } else { "ALT" }
+      return html.img(src: it.source, alt: alt)
     }
   }
 
@@ -84,6 +85,7 @@
   ))
   show math.equation: handle-math
   show math.equation: set text(size: 12pt, font: "STIX Two Math")
+  show grid: html.frame
 
   show ref: it => {
     it.element
@@ -141,7 +143,6 @@
 
   let local-time = html.div(html.time(class: "local-time", data-utc: date, [Loading...]))
 
-  // let sectioned-content = body
   [
     #html.div(class: "post-container")[
       #html.article[
@@ -152,7 +153,7 @@
               href: "/archives/" + sys.inputs.at("fileSlug", default: "unknown") + ".pdf",
               class: "pdf-download-link",
               target: "_blank",
-              "📄 Download PDF",
+              "Download PDF",
             )
           ])
           #html.div(class: "post-meta mobile-meta", [
@@ -162,7 +163,7 @@
         ])
         #html.div(class: "mobile-toc")[
           #html.details[
-            #html.summary[目录]
+            #html.summary[On this page]
             #html.nav(
               class: "mobile-toc-nav",
               _generate-toc(),
@@ -184,7 +185,7 @@
                 #tags-html
               ],
             )
-            #html.h3("目录")
+            #html.h3("On this page")
             #html.nav(
               class: "toc-nav",
               _generate-toc(),

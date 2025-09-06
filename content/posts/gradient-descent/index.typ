@@ -3,11 +3,13 @@
 #import "/typst/template.typ": post-template
 #import "@preview/zero:0.5.0": num
 
-#show math.gradient: math.bold
 #show: post-template.with(
   title: "Gradient Descent",
   tags: ("Mathematics", "optimization"),
 )
+#show math.gradient: math.bold
+
+#let pseudocode-list = pseudocode-list.with(hooks: .5em)
 
 Optimization problems can be divided into minimization and maximization categories, and maximization problems can always be transformed into equivalent minimization problems. Therefore, in the following text, we will focus on minimization problems.
 Gradient descent is an iterative optimization algorithm used to find the local minimum of a function. It gradually approaches the minimum point by moving in the opposite direction of the function's gradient.
@@ -22,8 +24,8 @@ First, let us prove some lemmas about monotonicity.
   That is, when the output strictly increases, the input must strictly increase.
 ]
 #proof[
-  ($->$) This is the definition of strictly increasing, $x_1 < x_2 -> f(x_1) < f(x_2)$\
-  ($<-$)
+  (→) This is the definition of strictly increasing, $x_1 < x_2 -> f(x_1) < f(x_2)$\
+  (←)
   By contradiction, if $x_1 >= x_2$ then $f(x_1) >= f(x_2)$, which is a contradiction.
 ]
 
@@ -34,13 +36,11 @@ First, let us prove some lemmas about monotonicity.
   $
 ]
 #proof[
-  ($->$) This follows from the definition of functions. \
-  ($<-$) We need to prove injectivity.
+  (→) This follows from the definition of functions. \
+  (←) We need to prove injectivity.
   Taking $f$ strictly increasing on $X$ as an example. Let $x_1, x_2 in X, f(x_1) = f(x_2)$.
   Suppose $x_1 < x_2$, then by strict monotonicity, $x_1 < x_2 -> f(x_1) < f(x_2)$, which is a contradiction. Similarly $x_1 gt.not x_2$, therefore $x_1 = x_2$.
 ]
-
-
 
 #proposition(title: [Strictly Monotonic Functions Preserve Extreme Points])[
   Let $Y subset.eq RR$, $f: X -> Y$ be an arbitrary function, and $g: Y -> RR$ be a strictly increasing function. Then $g compose f$ and $f$ have the same extreme points. Conversely, they have opposite extreme points.
@@ -111,23 +111,23 @@ $
 where the step size $alpha$ is a positive number that determines the update magnitude at each iteration. $gradient f(bold(x)_k)$ is the gradient of function $f$ at point $bold(x)_k$. The algorithm's goal is to make
 $bold(x)_(k) -> bold(x)^*$ as $k -> oo$ where $bold(x)^* in arg min f(bold(x))$. that is to say, $bold(x)^*$ is a minimum. The pseudocode is as follows:
 
-#pseudocode-list[
-  - *Algorithm* Gradient Descent Method for minimize $f$
-  - *Input*: initial point $bold(x)_0$, step length $alpha > 0$, tolerance $epsilon > 0$, max iterations $N$
-  - *Output*: $bold(x)^*$
+#figure(
+  kind: "algorithm",
+  supplement: "Algorithm",
+  caption: [Pseudocode of Gradient Descent],
+  pseudocode-list[
+    - *Input*: initial point $bold(x)_0$, step length $alpha > 0$, tolerance $epsilon > 0$, max iterations $N$
+    - *Output*: $bold(x)^*$
     + $k <- 0$
     + *while* $k < N$
       + $bold(g)_k <- gradient f(bold(x)_k)$
       + $bold(x)_(k+1) <- bold(x)_k - alpha bold(g)_k$
       + *if* $f(bold(x)_(k+1)) < epsilon$ *then*
         + *return* $bold(x)_(k+1)$
-      + *end*
       + $k <- k + 1$
-    + *end*
     + *return* $bold(x)_k$
-]
-
-Algorithm:
+  ],
+)
 
 Let us look at an example
 
