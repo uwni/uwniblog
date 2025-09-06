@@ -9,7 +9,6 @@
   tags: ("Mathematics", "optimization"),
 )
 
-
 #let pseudocode-list = pseudocode-list.with(hooks: .5em)
 
 Optimization problems can be divided into minimization and maximization categories, and maximization problems can always be transformed into equivalent minimization problems. Therefore, in the following text, we will focus on minimization problems.

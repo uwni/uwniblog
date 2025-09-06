@@ -6,11 +6,13 @@
   )<frontmatter>]
 }
 
-#let get-compile-mode() = if "target" in sys.inputs {
-  sys.inputs.target
-} else {
+#let get-compile-mode() = {
+  if "target" in sys.inputs {
+    return sys.inputs.target
+  }
+
   // for preview
-  "pdf"
+  return "pdf"
 }
 
 //! A specified targets arg can override that controlled by genBoth
@@ -26,7 +28,7 @@
   set heading(numbering: "1.1")
   set math.equation(numbering: "(1)")
   set text(lang: language)
-  
+
   let compile-mode = get-compile-mode()
   if compile-mode == "query" {
     let date = if date != none {
