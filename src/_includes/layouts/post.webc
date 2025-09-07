@@ -460,6 +460,7 @@
     }
 
     /* 深色模式下 SVG 反色 */
+    .typst-text use,
     .typst-equation path,
     .typst-figure path {
         fill: currentColor;

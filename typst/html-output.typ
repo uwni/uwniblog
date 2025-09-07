@@ -49,7 +49,10 @@
   )
 }
 
-#let handle-math(it) = {
+#let handle-math(it) = context {
+  if target() != "html" {
+    return it
+  }
   if it.block {
     let count = counter(math.equation).display()
     html.div(class: "typst-equation math-block", style: "text-align: center;", html.frame(it) + count)
@@ -60,7 +63,7 @@
 
 
 // HTML输出主函数
-#let as-html-output(title, tags: (), date: none, body) = {
+#let as-html-output(title, tags: (), date: none, genPdf: none, body) = {
   show image: it => {
     let is-svg = it.format == "svg" or (it.format == auto and it.source.ends-with(".svg"))
     if is-svg {
@@ -143,19 +146,21 @@
 
   let local-time = html.div(html.time(class: "local-time", data-utc: date, [Loading...]))
 
+  let genPdfButton = html.div(class: "post-pdf-download", [
+    #html.a(
+      href: "/archives/" + sys.inputs.at("fileSlug", default: "unknown") + ".pdf",
+      class: "pdf-download-link",
+      target: "_blank",
+      "Download PDF",
+    )
+  ])
+
   [
     #html.div(class: "post-container")[
       #html.article[
         #html.div(class: "post-title-container", [
           #html.h1(class: "post-title", title)
-          #html.div(class: "post-pdf-download", [
-            #html.a(
-              href: "/archives/" + sys.inputs.at("fileSlug", default: "unknown") + ".pdf",
-              class: "pdf-download-link",
-              target: "_blank",
-              "Download PDF",
-            )
-          ])
+          #if genPdf { genPdfButton }
           #html.div(class: "post-meta mobile-meta", [
             #local-time
             #tags-html

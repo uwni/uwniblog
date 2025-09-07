@@ -53,7 +53,7 @@
       panic("date should be provided by the 11ty side")
     }
     let tags = args.named().at("tags", default: ())
-    as-html-output(title, tags: tags, date: date, body)
+    as-html-output(title, tags: tags, date: date, genPdf: genPdf, body)
   } else if compile-mode == "pdf" {
     import "pdf-output.typ": as-pdf-output
     as-pdf-output(title, body)
