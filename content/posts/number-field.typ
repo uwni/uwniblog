@@ -1,5 +1,5 @@
 #import "/typst/environment.typ": *
-#import "/typst/template.typ": post-template, themed
+#import "/typst/template.typ": *
 #import "@preview/fletcher:0.5.8": diagram, edge, node
 
 #let index(..args, body) = body

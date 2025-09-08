@@ -69,7 +69,8 @@
   /* 内容宽度 */
   --body-max-width: 89rem;
   --sidebar-max-width: 23%;
-  --toc-item-expanded-height: 50vh; /* 视窗高度的50% */
+  --toc-item-expanded-height: 50vh;
+  /* 视窗高度的50% */
 
   /* 深色模式变量定义 */
 
@@ -95,6 +96,9 @@
 
   --dark-color-hover-opacity: 0.75;
   --dark-shadow-heavy: 0 8px 25px rgba(0, 0, 0, 0.4);
+
+  --present-on-light: revert;
+  --present-on-dark: none;
 }
 
 /* 深色模式 - 系统偏好（用户未强制浅色） */
@@ -119,6 +123,8 @@
     --color-hover-opacity: var(--dark-color-hover-opacity);
     --color-hover-border: var(--color-primary);
     --shadow-heavy: var(--dark-shadow-heavy);
+    --present-on-light: none;
+    --present-on-dark: revert;
   }
 }
 
@@ -143,4 +149,6 @@
   --color-hover-opacity: var(--dark-color-hover-opacity);
   --color-hover-border: var(--color-primary);
   --shadow-heavy: var(--dark-shadow-heavy);
+  --present-on-light: none;
+  --present-on-dark: revert;
 }

@@ -53,14 +53,19 @@
   if target() != "html" {
     return it
   }
+  import "mathyml/src/lib.typ": try-to-mathml
+
+  // math rules
+  show math.equation: set text(weight: 500)
+  // show math.equation: to-mathml
+  let mathml = try-to-mathml(it)
   if it.block {
-    let count = counter(math.equation).display()
-    html.div(class: "typst-equation math-block", style: "text-align: center;", html.frame(it) + count)
+    let numbering = counter(math.equation).display()
+    html.div(class: "typst-block-math", mathml + numbering)
   } else {
-    html.span(class: "typst-equation math-inline", html.frame(it))
+    mathml
   }
 }
-
 
 // HTML输出主函数
 #let as-html-output(title, tags: (), date: none, genPdf: none, body) = {

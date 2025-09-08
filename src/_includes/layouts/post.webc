@@ -450,23 +450,20 @@
         margin-top: var(--spacing-xs);
     }
 
+    .typst-block-math {
+        position: relative;
+        justify-content: center;
+        align-items: center;
+        display: flex;
+        margin: var(--spacing-md) 0;
+    }
+
     .equation-numbering {
-        display: inline;
-        float: right;
+        position: absolute;
+        right: 0;
+        padding-left: 1rem;
     }
 
-    .typst-equation {
-        overflow-x: auto;
-    }
-
-    /* 深色模式下 SVG 反色 */
-    .math-inline path {
-        fill: red;
-    }
-
-    .typst-equation .typst-shape {
-        stroke: currentColor;
-    }
 
     .heading-anchor {
         color: var(--color-text-primary);
@@ -485,7 +482,17 @@
         color: var(--color-text-muted);
         position: absolute;
     }
+
+    .light-mode {
+        display: var(--present-on-light);
+    }
+
+    .dark-mode {
+        display: var(--present-on-dark);
+    }
 </style>
+
+<link rel="stylesheet" href="../styles/mathyml.css">
 
 <script webc:bucket="defer">
     // 初始化目录导航功能

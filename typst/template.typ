@@ -1,3 +1,5 @@
+#import "mathyml/src/prelude.typ": *
+
 #let frontmatter(
   ..args,
 ) = {
@@ -16,7 +18,7 @@
 }
 
 #let _themes = (
-  (name: "light-mode", color: black),
+  (name: "light-mode", color: rgb("#2d1b17")),
   (name: "dark-mode", color: white),
 )
 
