@@ -18,10 +18,12 @@
 
 = 論自然數
 #let inc = $op(nu)$
+#let img = $op("Im")$
+
 #definition(title: [Dedekind-Peano 結構])[
-  三元組 $NN = (N, 0, inc)$ 之備下列性者曰 Dedekind-Peano 結構，$N$ 集合也, $0 in N$, $inc: N -> N_* := N without {0}$ 映射也，曰後繼函數。\
+  三元組 $(NN, 0, inc)$ 之備下列性者曰 Dedekind-Peano 結構，$NN$ 集合也, $0 in NN$, $inc: NN -> NN_* := NN without {0}$ 映射也，曰後繼函數。\
   ($N_0$) $inc$ 單射也\
-  ($N_1$) $M$ 者 $N$ 之子集含 $0$ 也。若 $(forall n in M) inc n in M$，則 $M = N$ 也。
+  ($N_1$) $M$ 者 $NN$ 之子集含 $0$ 也。若 $(forall n in M) inc n in M$，則 $M = NN$ 也。
 ]
 
 由此可見，
@@ -32,17 +34,22 @@
 
 又察下例，$N' := {♥️, ♦️, ♣️, ♠️}$, $0' := ♥️$。設 $inc$ 其義如下。$♦️ = inc ♥️ = inc ♠️$ 違於 $N_1$ 而非 Dedekind-Peano 結構之屬也。
 
-#align(center)[
-  #themed(theme => {
-    set text(fill: theme.color)
-    diagram(
-      cell-size: 2em,
-      edge-stroke: theme.color,
-      $
-        ♥️ edge(inc, |->) & ♦️ edge(inc, |->) & ♣️ edge(inc, |->) & ♠️ edge(#(1, 0), inc, |->, bend: #45deg)
-      $,
-    )
-  })]
+#themed(theme => {
+  set align(center)
+  set text(fill: theme.color)
+  diagram(
+    cell-size: 2em,
+    edge-stroke: theme.color,
+    $
+      ♥️ edge(inc, |->) & ♦️ edge(inc, |->) & ♣️ edge(inc, |->) & ♠️ edge(#(1, 0), inc, |->, bend: #45deg)
+    $,
+  )
+})
+
+$nu$ 滿射也。即 $forall n in NN_*, exists m in NN, inc m = n$
+#proof[
+  設 $M := img nu union {0} = {n in NN_* | exists n' in NN, inc n' = n} union {0}$。若 $m in M subset.eq NN$, $inc m in img nu subset.eq M$。由 $N_1$ 知 $M = NN$。故 $nu$ 滿射也。
+]
 
 
 = 論整數
