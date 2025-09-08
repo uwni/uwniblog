@@ -88,7 +88,6 @@
   ))
   show math.equation: handle-math
   show math.equation: set text(size: 12pt, font: "STIX Two Math")
-  show grid: html.frame
 
   show ref: it => {
     it.element
