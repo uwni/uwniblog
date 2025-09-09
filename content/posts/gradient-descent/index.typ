@@ -1,6 +1,6 @@
 #import "/typst/environment.typ": *
 #import "@preview/lovelace:0.3.0": pseudocode-list
-#import "/typst/template.typ": post-template
+#import "/typst/template.typ": *
 #import "@preview/zero:0.5.0": num
 #show math.gradient: math.bold
 
