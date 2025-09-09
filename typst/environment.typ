@@ -14,6 +14,7 @@
     appendix: "Appendix",
     proof: (name: "Proof.", supplement: "Proof"),
     proposition: (name: "PROPOSITION", supplement: "Proposition"),
+    axiom: (name: "AXIOM", supplement: "Axiom"),
     example: (name: "EXAMPLE", supplement: "Example"),
     definition: (name: "DEFINITION", supplement: "Definition"),
     bibliography: "Bibliography",
@@ -204,6 +205,16 @@
   body,
   ..args,
 )
+
+#let axiom(title: none, body, ..args) = environment(
+  "axiom",
+  accent-frame,
+  accent-frame-heading,
+  if title != none { [: #title] + h(1fr) },
+  body,
+  ..args,
+)
+
 
 #let highlighteq(body) = {
   $
