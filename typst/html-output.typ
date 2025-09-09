@@ -1,6 +1,20 @@
 #import "html.typ"
 #import "helper.typ": build-tree, plain-text
 
+#let _themes = (
+  (name: "light-mode", color: rgb("#2d1b17")),
+  (name: "dark-mode", color: white),
+)
+
+#let themed(fn) = {
+  for theme in _themes {
+    let result = fn((
+      color: color.rgb(theme.color),
+    ))
+    html.div(class: "typst-themed " + theme.name, html.frame(result))
+  }
+}
+
 #let to-kebab-case(s) = {
   lower(s).replace(" ", "-")
 }
@@ -86,6 +100,11 @@
       #it.caption
     ],
   )
+
+  show figure.where(kind: "algorithm"): it => themed(theme => {
+    set text(fill: theme.color)
+    it.body
+  })
 
   set math.equation(numbering: it => html.div(
     class: "equation-numbering",

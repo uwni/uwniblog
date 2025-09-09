@@ -17,22 +17,12 @@
   return "pdf"
 }
 
-#let _themes = (
-  (name: "light-mode", color: rgb("#2d1b17")),
-  (name: "dark-mode", color: white),
-)
-
-#let themed(fn) = {
-  if get-compile-mode() != "html" {
-    return fn((color: black))
-  }
-  import "html.typ"
-  for theme in _themes {
-    let result = fn((
-      color: color.rgb(theme.color),
-    ))
-    html.div(class: "typst-themed " + theme.name, html.frame(result))
-  }
+#let themed = if get-compile-mode() == "html" {
+  import "html-output.typ": themed
+  themed
+} else {
+  import "pdf-output.typ": themed
+  themed
 }
 
 //! A specified targets arg can override that controlled by genBoth

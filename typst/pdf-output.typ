@@ -1,3 +1,8 @@
+//themed
+#let themed(fn) = {
+  fn((color: black))
+}
+
 // PDF输出相关功能
 #let add-margin-watermark(content) = context {
   set text(top-edge: "bounds", bottom-edge: "bounds")
