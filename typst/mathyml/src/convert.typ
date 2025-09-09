@@ -1,4 +1,4 @@
-#import "utils.typ" as utils: types, convert-relative-len, _err, _warn, _is-err
+#import "utils.typ" as utils: _err, _is-err, _warn, convert-relative-len, types
 #import "unicode.typ"
 
 #let _is-custom-type(inner) = {
@@ -23,15 +23,11 @@
       }
     } else if func2 == math.class {
       let class = unicode._limits_for_class(base.class)
-      if class == "always" { true }
-        else if class == "display" { size == "display" }
-        else { false }
+      if class == "always" { true } else if class == "display" { size == "display" } else { false }
     } else if func2 == types.symbol {
       let class = unicode._limits-for-char(ctx, base.text)
       if _is-err(ctx, class) { return class }
-      if class == "always" { true }
-        else if class == "display" { size == "display" }
-        else { false }
+      if class == "always" { true } else if class == "display" { size == "display" } else { false }
     } else if func2 == math.lr {
       false
     } else if func2 == math.stretch {
@@ -140,7 +136,7 @@
   text,
   /// symbols should set this to true
   /// -> bool
-  auto-italic: false
+  auto-italic: false,
 ) = {
   if text.len() == 0 {
     return text
@@ -198,7 +194,7 @@
   let styled = _apply-style(ctx, text)
   if ctx.styles.upright-or-italic == "upright" {
     html.elem("mi", attrs: (mathvariant: "normal"), styled)
-  } else{
+  } else {
     html.elem("mi", styled)
   }
 }
@@ -312,7 +308,7 @@
   } else {
     return _err(ctx, "invalid element of type `" + type(inner) + "`: " + repr(inner))
   }
-  
+
   // If there's a space after the operator, add a 0.16667 em space
   if ctx.context_.before-space {
     let elem = html.elem
@@ -345,7 +341,8 @@
     }
     if children.len() == 1 {
       if inner.has("size") {
-        if inner.size != 100% + 0pt { // FIXME support different sizes
+        if inner.size != 100% + 0pt {
+          // FIXME support different sizes
           return _err(ctx, "lr does not support custom sizes. Got size", inner.size, "for elem", inner)
         }
       }
@@ -366,7 +363,8 @@
     if _is-err(ctx, children) { return children }
 
     if inner.has("size") {
-      if inner.size != 100% + 0pt { // FIXME support different sizes
+      if inner.size != 100% + 0pt {
+        // FIXME support different sizes
         return _err(ctx, "lr does not support custom sizes. Got size", inner.size, "for elem", inner)
       }
     }
@@ -534,7 +532,8 @@
     }
     x
   }
-  let base = if tl == none and bl == none { // only right
+  let base = if tl == none and bl == none {
+    // only right
     if br != none and tr != none {
       elem("msubsup")[#base #br #tr]
     } else if br != none {
@@ -544,7 +543,8 @@
     } else {
       base
     }
-  } else { // with left
+  } else {
+    // with left
     let maybe(it) = if it != none {
       it
     } else {
@@ -623,10 +623,10 @@
           class += "mathyml-align-left "
         } else if align == end or align == right {
           class += "mathyml-align-right"
-        // FIXME allow more aligns?
-        // } else if align == top {
+          // FIXME allow more aligns?
+          // } else if align == top {
           // attrs.insert("rowalign", "top")
-        // } else if align == bottom {
+          // } else if align == bottom {
           // attrs.insert("rowalign", "bottom")
         } else {
           // and align != horizon
@@ -697,7 +697,7 @@
     assert.eq(inner.delim.len(), 2)
     inner.delim
   } else {
-    return _err(ctx, "invalid `delim` " + inner.delim  + " in `vec`", inner)
+    return _err(ctx, "invalid `delim` " + inner.delim + " in `vec`", inner)
   }
   _create-table(ctx, inner, left, right, children, align: align, row-gap: row-gap)
 }
@@ -730,7 +730,11 @@
           return _err(ctx, "cannot draw a vertical line after column 0", inner)
         }
         if aug >= ncols {
-          return _err(ctx, "cannot draw a vertical line after column " + str(aug) + " of a matrix with " + str(ncols) + " columns", inner)
+          return _err(
+            ctx,
+            "cannot draw a vertical line after column " + str(aug) + " of a matrix with " + str(ncols) + " columns",
+            inner,
+          )
         }
         vlines.push(aug - 1)
       } else if type(aug) == dictionary {
@@ -754,7 +758,11 @@
               return _err(ctx, "cannot draw a vertical line after column " + str(aug), inner)
             }
             if aug >= ncols {
-              return _err(ctx, "cannot draw a vertical line after column " + str(aug) + " of a matrix with " + str(ncols) + " columns", inner)
+              return _err(
+                ctx,
+                "cannot draw a vertical line after column " + str(aug) + " of a matrix with " + str(ncols) + " columns",
+                inner,
+              )
             }
             vlines.push(aug - 1)
           }
@@ -773,7 +781,11 @@
               return _err(ctx, "cannot draw a horizontal line after row " + str(aug), inner)
             }
             if aug >= nrows {
-              return _err(ctx, "cannot draw a horizontal line after row " + str(aug) + " of a matrix with " + str(nrows) + " rows", inner)
+              return _err(
+                ctx,
+                "cannot draw a horizontal line after row " + str(aug) + " of a matrix with " + str(nrows) + " rows",
+                inner,
+              )
             }
             hlines.push(aug - 1)
           }
@@ -806,15 +818,19 @@
     }
     inner.delim
   } else {
-    return _err(ctx, "invalid `delim` " + inner.delim  + " in `vec`", inner)
+    return _err(ctx, "invalid `delim` " + inner.delim + " in `vec`", inner)
   }
   _create-table(
-    ctx, inner, left, right, children,
+    ctx,
+    inner,
+    left,
+    right,
+    children,
     align: align,
     column-gap: column-gap,
     row-gap: row-gap,
     extra-style: (y, x) => {
-      let style =""
+      let style = ""
       if x in vlines {
         style += "border-right:" + stroke_ + ";"
       }
@@ -822,7 +838,7 @@
         style += "border-bottom:" + stroke_ + ";"
       }
       style
-    }
+    },
   )
 }
 
@@ -839,7 +855,7 @@
       assert.eq(inner.delim.len(), 2)
       inner.delim.last()
     } else {
-      return _err(ctx, "invalid `delim` " + inner.delim  + " in `vec`", inner)
+      return _err(ctx, "invalid `delim` " + inner.delim + " in `vec`", inner)
     }
     (none, delim, right)
   } else {
@@ -851,7 +867,7 @@
       assert.eq(inner.delim.len(), 2)
       inner.delim.first()
     } else {
-      return _err(ctx, "invalid `delim` " + inner.delim  + " in `vec`", inner)
+      return _err(ctx, "invalid `delim` " + inner.delim + " in `vec`", inner)
     }
     (delim, none, left)
   }
@@ -862,7 +878,9 @@
         if elem.func() == types.align-point or elem.func() == linebreak {
           let inner = inner.children.join(linebreak())
           return (ctx.rec._convert-alignments)(
-            ctx, rec, inner,
+            ctx,
+            rec,
+            inner,
             row-gap: row-gap,
             alternate: false,
             left-delim: left,
@@ -886,11 +904,9 @@
   let elem = html.elem
   let func = inner.func()
   let symb = if func == math.overline { "¯" } // or "―"?
-    else if func == math.overbrace { "⏞" }
-    else if func == math.overbracket { "⎴" }
-    else if func == math.overparen { "⏜" }
-    else if func == math.overshell { "⏠" }
-    else { return _err(ctx, "unreachable", inner) }
+  else if func == math.overbrace { "⏞" } else if func == math.overbracket { "⎴" } else if func == math.overparen {
+    "⏜"
+  } else if func == math.overshell { "⏠" } else { return _err(ctx, "unreachable", inner) }
   let body = rec(inner.body)
   if _is-err(ctx, body) { return body }
   let res = elem("mover", attrs: (accent: "true"))[ // FIXME `accent` attribute?
@@ -909,12 +925,11 @@
 #let _convert-underset(ctx, rec, inner) = {
   let elem = html.elem
   let func = inner.func()
-  let symb = if func == math.underline { "_" }
-    else if func == math.underbrace { "⏟" }
-    else if func == math.underbracket { "⎵" }
-    else if func == math.underparen { "⏝" }
-    else if func == math.undershell { "⏡" }
-    else { return _err(ctx, "unreachable", inner) }
+  let symb = if func == math.underline { "_" } else if func == math.underbrace { "⏟" } else if (
+    func == math.underbracket
+  ) { "⎵" } else if func == math.underparen { "⏝" } else if func == math.undershell { "⏡" } else {
+    return _err(ctx, "unreachable", inner)
+  }
   let body = rec(inner.body)
   if _is-err(ctx, body) { return body }
   let res = elem("munder", attrs: (accent: "true"))[ // FIXME `accent` attribute?
@@ -933,7 +948,8 @@
 #let _convert-accent(ctx, rec, inner) = {
   let attrs = (:)
   if inner.has("size") {
-    if inner.size != 100% + 0pt { // FIXME support different sizes
+    if inner.size != 100% + 0pt {
+      // FIXME support different sizes
       return _err(ctx, "size is currently unsupported")
       // this does not work
       attrs.insert("minsize", convert-relative-len(inner.size, inner))
@@ -1096,6 +1112,10 @@
       _convert-text(ctx, rec, inner.text)
     } else if func == ref {
       _create-mtext(ctx, inner)
+    } else if func == box {
+      if "body" in inner.fields() {
+        _to-mathml(inner.body, ctx)
+      }
     } else {
       return _err(ctx, "unknown content element of type `" + repr(func) + "`: " + repr(inner))
     }
@@ -1179,7 +1199,11 @@
   }
 
   _create-table(
-    ctx, inner, left-delim, right-delim, rows,
+    ctx,
+    inner,
+    left-delim,
+    right-delim,
+    rows,
     row-gap: row-gap,
     column-gap: column-gap,
     extra-class: extra-class,
@@ -1220,7 +1244,7 @@
   /// -> function
   on-error: panic,
   /// This function will be called with every warning.
-  /// 
+  ///
   /// The function should take a single argument sink as parameter.
   /// If you overwrite this parameter, don't forget to overwrite @is-error.
   /// In combination with @is-error, you can `panic` on the warning, silence it or propagate it.
@@ -1238,7 +1262,7 @@
     handlers: (
       on-error: on-error,
       on-warn: on-warn,
-      is-error: is-error
+      is-error: is-error,
     ),
     context_: (
       before-space: false,
