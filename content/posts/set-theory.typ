@@ -16,6 +16,6 @@
 #definition(title: [$n$元組])[
   $
     () := {{}} \
-    X 
+    X
   $
 ]

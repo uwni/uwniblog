@@ -12,46 +12,59 @@
   language: "lzh",
 )
 
-本章議數集之建構及諸性質。數集者，蓋數之集合也。數集之有，始於自然數。自然數之有，始於人數物之需。人數物以計其數，故有自然數也。自然數者，其性自然。人之所創者，記號而已矣。現代之數學需以形式論理之，故欲明自然數之義，必以公理定之。
+本章議數集之建構及諸性質。數集者，蓋數之集合也。數集之有，始於自然數。自然數之有，始於人數物之需。人數物以計其數，故有自然數也。自然數者，其性自然。人之所創者，記號而已矣。今之數學需以形式論理之，故欲明自然數之義，必議以公理。
 
 數學之發展，非獨賴自然數也。蓋自然數之有，猶樹之有根本也。樹之有枝葉，賴根本而生也。數學之有他數集，賴自然數而立也。故分析學之始，必自自然數論也。
-
+// 关于 A 的公理不告诉我什么是 A 或者 A 是什么。他只描述 A 的性质。
+// 而满足公理系统的 A 的一个构造则是公理化定义。
 = 論自然數
 #let inc = $class(
   "unary",
-  nu,
+  S,
 )$
 
 #let img = $op("Im")$
 
-#axiom(title: [一阶 Peano 公理])[
-  語言：$L := {0, S, =}$；變元：$x, y, z, …$。
+#axiom(title: [Peano 算數公理系統])[
+  算數語言 $cal(L)_"AR" = {0, S, =}$, $0$ 常符也，曰「零」。$S$ 一元函數符也，曰後繼。$=$ 等價關係也，曰「相等」。$x, y,…$ 變元也。並以公理
+  - (PA1) $forall x, S(x) != 0$； #h(1fr) $0$ 非後繼也
+  - (PA2) $forall x, forall y, (S(x) = S(y) -> x = y)$； #h(1fr) 後繼相等則原數相等
+  - (PA3) $phi(0) and forall x (phi(x) -> phi(S(x))) -> forall x phi(x)$ #h(1fr) 一階歸納法模式
+    - (PA3\*)  $forall phi[phi(0) and forall x (phi(x) -> phi(S(x))) -> forall x phi(x)]$  #h(1fr) 二階歸納法原理
+  ]
 
-  (A1) $exists x (x = 0)$； $0$ 自然數也\
-  (A2) $forall x, exists y, (y = S(x))$； 後繼亦自然數也\
-  (A3) $forall x, S(x) != 0$； $0$ 非後繼也\
-  (A4) $forall x, forall y, (S(x) = S(y) -> x = y)$； 後繼相等則原數相等\
-  (A5) $phi(0) and forall x (phi(x) -> phi(S(x))) -> forall x phi(x)$。 歸納法原理
+(PA1) \~ (PA3) 曰一階 Peano 公理。 將 (PA3) 換為 (PA3\*) 則曰二階 Peano 公理。後文所述皆用二階。
+至此，算數之構造初成矣。然加法、乘之義猶未立也。$cal(L)_"AR"$ 外，加號 $+$, 乘號 $times$, 小於號 $<=$ 之義也，以中綴記遞歸立之如下：
 
-  特別的，當 (A5) 為
-  $
-    forall phi[phi(0) and forall x (phi(x) -> phi(S(x))) -> forall x phi(x)]
-  $
-  時，稱為*二阶 Peano 公理*。
+#definition(title: [加法])[
+  + $x + 0 := x$; #h(1fr) 加零得其數也
+  + $x + S(y) := S(x + y)$; #h(1fr) 加後繼得和之後繼也
 ]
+註：為了體現還原論的精神，我們這裡採用了 5 公理版本的基本 PA 公理系統，$+$, $times$ 不在 $cal(L)_"AR"$ 中。因此不能固然保證對於任何 $x + y$ 皆「有定義」，即表示 $cal(L)_"AR"$ 中一項 (term)。此實良義也。蓋凡 $x$，可證加法於 $y$ 皆有定義。設 $P(y) := x + y "有定義"$，若 $y=0$，則依 (1) 知有定義也。若 $x + y$ 有定義，則以 (2) 而 $x + S(y)$ 亦有定義。由 PA3 知全有定義也。
 
-在集合論中，「自然数集」由 Dedekind–Peano 結構定义；它滿足二階 PA。但注意滿足一階 PA 的集合不全是 Dedekind-Peano 結構，因一階算數必有非標準模型。Dedekind-Peano 结构是二階邏輯。N1 等价于二阶归纳原理。而可以证明所有二階 Peano 算數的模型都同構的。即同构意义上只有一种自然数集。
+有關乘法之公理:
+- (PA8) $forall x(x times 0 = 0)$; #h(1fr) 乘零得零也
+- (PA9) $forall x, forall y (x times S(y) = (x times y) + x)$; #h(1fr) 乘後繼得
+
+
+
+
+== 自然數集
+
+在集合論中，$cal(L)_"AR"$-結構之適 PA 公理系統者 Dedekind-Peano 結構也。定義「自然数集」。
 
 #definition(title: [Dedekind-Peano 結構])[
-  三元組 $(NN, 0, inc)$ 之備下列性者曰 Dedekind-Peano 結構，$NN$ 集合也, $0 in NN$, $inc: NN -> NN_* := NN without {0}$ 映射也，曰後繼函數。
-
-  ($N_0$) $inc$ 單射也\
-  ($N_1$) $M$ 者 $NN$ 之子集含 $0$ 也。若 $(forall n in M) inc n in M$，則 $M = NN$ 也。
+  三元組 $frak(N) := (NN, 0, inc)$ 曰 Dedekind-Peano 結構，$NN$ 論域也, $0 in NN$, $inc: NN -> NN_* := NN without {0}$ 單射也，曰後繼函數。且
+  - 若 $M$ 者 $NN$ 之子集含 $0$ 也。若 $(forall n in M) inc n in M$，則 $M = NN$ 也。
 ]
 
-由此可見，
-- 凡 $n in NN$，$0$ 非後繼也
-- $a != b -> inc a != inc b$, 即相異者後繼亦不同也。
+$S^frak(N)$ 之值域 $NN_*$ 也，使 PA1 成立，單射性使 PA2 成立。PA3 得以定義中之歸納性明也。
+
+然則 $frak(N) models "PA"$，即此結構滿足 $"PA"1~"PA"3^*$。
+凡 Dedekind-Peano 結構者皆 PA 之模型也。
+#footnote[但注意滿足一階 PA 的集合不全是 Dedekind-Peano 結構，因一階算數必有非標準模型。Dedekind-Peano 结构是二階邏輯。N1 等价于二阶归纳原理。] 然則確有合 Dedekind-Peano 結構之造耶？「歸納集」是也，但此處不深究。而 Dedekind (1888) 证明了所有二階 Peano 算數的模型都同構的。即同构意义上只有一种自然数集。
+
+
 
 察時針之刻，$N' := {🕛,🕐,🕑,🕒,🕓,🕔,🕕,🕖,🕗,🕘,🕙,🕚}$, $0' := 🕛$。$inc$ 進一時刻也。然則 $🕛 = inc 🕚$，是以不適 $N_0$ 而非 Dedekind-Peano 結構也。
 
@@ -74,16 +87,7 @@ $nu$ 滿射也。即 $forall n in NN_*, exists m in NN, inc m = n$
   設 $M := img nu union {0} = {n in NN_* | exists n' in NN, inc n' = n} union {0}$。若 $m in M subset.eq NN$, $inc m in img nu subset.eq M$。由 $N_1$ 知 $M = NN = NN_* union {0}$。以 $0 in.not img nu$, $img nu = NN_*$  故 $nu$ 滿射也。
 ]
 
-== 加
-至此，$NN$ 之構造甚簡，僅有一集，一元 $0$，一函數，公理二个而已。然人所熟稔之加法，猶未定義也。縱 $1+1$ 亦不可算也。
 
-#definition(title: [加法])[
-  定義函數 $+: NN^2 -> NN$ 如下，凡 $m in NN$：\
-  (0) $0 + m := m$\
-  (1) $inc(n) + m := inc(n + m)$
-]
-
-此定義稱善。蓋凡 $m in NN$，可證加法於 $n in NN$ 皆有定義。若 $n=0$，則依(0)有定義。若 $n + m$ 有定義，則以 (1) 而 $inc(n) + m$ 亦有定義。由 $N_1$ 知加法於 $NN$ 上全有定義也。
 
 == 序
 加法既立，則可定義自然數之序。
@@ -121,14 +125,7 @@ $nu$ 滿射也。即 $forall n in NN_*, exists m in NN, inc m = n$
   由是，據歸納公理，完全性得證。
 ]
 
-== 乘法
-乘法者，亦可由加法遞歸而生。
-#definition(title: [乘法])[
-  定義函數 $times: NN^2 -> NN$ 如下，凡 $m in NN$：\
-  (1) $0 times m := 0$\
-  (2) $inc(n) times m := (n times m) + m$
-]
-此定義亦稱善，其理同於加法，可遍施於 $NN^2$ 而無缺。
+
 
 == 記數法
 然加法既成，尚需記數之法以表之。吾人所習用者，十進位制也。蓋以十為基，逢十進一。所用數碼，印度-阿拉伯數字也，凡十，曰 ${0, 1, 2, 3, 4, 5, 6, 7, 8, 9}$。

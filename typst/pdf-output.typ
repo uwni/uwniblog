@@ -12,7 +12,7 @@
 // PDF输出主函数
 #let as-pdf-output(title, body) = {
   set text(font: ((name: "Libertinus Serif", covers: "latin-in-cjk"), "尙古明體SC"))
-  show math.equation: set text(font: "Libertinus Math")
+  show math.equation: set text(font: ("Libertinus Math", "尙古明體SC"))
   set page(header: add-margin-watermark[©Uwni, All Rights Reserved])
   align(center, text(size: 18pt, font: ("Noto Sans CJK SC", "Noto Sans"), weight: "bold", title))
   line(length: 100%)
