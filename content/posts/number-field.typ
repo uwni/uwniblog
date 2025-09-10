@@ -24,19 +24,27 @@
 
 #let img = $op("Im")$
 
-#axiom(title: [Peano 公理])[
-  語言：$L := {0, S, =}$；變元：$x, y, z, …$。\
+#axiom(title: [一阶 Peano 公理])[
+  語言：$L := {0, S, =}$；變元：$x, y, z, …$。
+
   (A1) $exists x (x = 0)$； $0$ 自然數也\
   (A2) $forall x, exists y, (y = S(x))$； 後繼亦自然數也\
   (A3) $forall x, S(x) != 0$； $0$ 非後繼也\
   (A4) $forall x, forall y, (S(x) = S(y) -> x = y)$； 後繼相等則原數相等\
   (A5) $phi(0) and forall x (phi(x) -> phi(S(x))) -> forall x phi(x)$。 歸納法原理
+
+  特別的，當 (A5) 為
+  $
+    forall phi[phi(0) and forall x (phi(x) -> phi(S(x))) -> forall x phi(x)]
+  $
+  時，稱為*二阶 Peano 公理*。
 ]
 
-集合论中的 “标准自然数” 由 Dedekind–Peano 结构定义；它满足 PA 的公理。但注意不是所有满足 PA 的集合都是 Dedekind-Peano 结构。#footnote[比如，非标准模型中可能包含无限大的自然数，这些数永不可达。而 $N_1$ 直接要求含0且后继封闭的子集 = 全集]。而可以证明所有满足 Dedekind-Peano 结构的模型都是同构的。即同构意义上只有一种自然数集。
+在集合論中，「自然数集」由 Dedekind–Peano 結構定义；它滿足二階 PA。但注意滿足一階 PA 的集合不全是 Dedekind-Peano 結構，因一階算數必有非標準模型。Dedekind-Peano 结构是二階邏輯。N1 等价于二阶归纳原理。而可以证明所有二階 Peano 算數的模型都同構的。即同构意义上只有一种自然数集。
 
 #definition(title: [Dedekind-Peano 結構])[
-  三元組 $(NN, 0, inc)$ 之備下列性者曰 Dedekind-Peano 結構，$NN$ 集合也, $0 in NN$, $inc: NN -> NN_* := NN without {0}$ 映射也，曰後繼函數。\
+  三元組 $(NN, 0, inc)$ 之備下列性者曰 Dedekind-Peano 結構，$NN$ 集合也, $0 in NN$, $inc: NN -> NN_* := NN without {0}$ 映射也，曰後繼函數。
+
   ($N_0$) $inc$ 單射也\
   ($N_1$) $M$ 者 $NN$ 之子集含 $0$ 也。若 $(forall n in M) inc n in M$，則 $M = NN$ 也。
 ]
