@@ -52,7 +52,7 @@
   [
     #html.div(class: "environment-kind")[#name #number\. ]
     #if title != none [
-      #html.div(class: "environment-title")[ (#title)]
+      #html.div(class: "environment-title")[ #title]
     ]
   ]
 }
@@ -172,7 +172,7 @@
     let id = if label != none { (id: str(label)) }
     let number = if numbered { _env_state.get().at(kind) }
     html.div(
-      class: "environment " + frame-class + " environment-" + kind,
+      class: "environment envframe-" + frame-class + " envkind-" + kind,
       ..id,
       [
         #html.div(
@@ -238,7 +238,7 @@
 #let proposition = environment(
   kind: "proposition",
   paged-frame: accent-frame,
-  frame-class: "accent-frame",
+  frame-class: "accent",
   paged-heading: accent-frame-heading,
   html-heading: accent-frame-heading-html,
 )
@@ -246,7 +246,7 @@
 #let axiom = environment(
   kind: "axiom",
   paged-frame: accent-frame,
-  frame-class: "accent-frame",
+  frame-class: "accent",
   paged-heading: accent-frame-heading,
   html-heading: accent-frame-heading-html,
   compact: true,
@@ -262,7 +262,7 @@
 #let definition = environment(
   kind: "definition",
   paged-frame: accent-frame,
-  frame-class: "accent-frame",
+  frame-class: "accent",
   paged-heading: accent-frame-heading,
   html-heading: accent-frame-heading-html,
   compact: true,
@@ -280,7 +280,7 @@
     numbered: false,
     kind: "proof",
     paged-frame: plain-frame,
-    frame-class: "plain-frame",
+    frame-class: "plain",
     paged-heading: plain-frame-heading,
     html-heading: plain-frame-heading-html,
     paged-body-processor: it => it + h(1fr) + qed_symbol,
