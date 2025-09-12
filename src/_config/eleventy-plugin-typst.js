@@ -33,10 +33,10 @@ async function pdfRender(compiler, inputArgs, inputPath) {
     inputs: inputArgs
   });
 
-  compileResult.printDiagnostics();
   const result = compileResult.result;
   if (!result) {
     console.error("Typst compilation failed, no PDF generated.");
+    compileResult.printDiagnostics();
     if (process.env.ELEVENTY_RUN_MOD === "build") {
       process.exit(1);
     }
