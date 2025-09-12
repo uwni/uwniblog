@@ -12,7 +12,7 @@
   _sans_font: "Barlow",
   _main_size: 1em,
   _page_num_size: 1em,
-  _qed_symbol: $qed$,
+  _qed_symbol: sym.qed,
   _envskip: 1em,
   title-wrapper: ("(", ")"),
   i18n: (
@@ -34,7 +34,7 @@
   _sans_font: "Barlow",
   _main_size: 1em,
   _page_num_size: 1em,
-  _qed_symbol: $qed$,
+  _qed_symbol: sym.qed,
   _envskip: 1em,
   title-wrapper: ("（", "）"),
   i18n: (
@@ -310,7 +310,7 @@
 })
 
 #let proof = {
-  let qed_symbol = use-context(config => (_color_palette.accent, config._qed_symbol))
+  let qed_symbol = use-context(config => config._qed_symbol)
   environment(
     numbered: false,
     kind: "proof",
