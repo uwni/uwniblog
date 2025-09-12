@@ -2,12 +2,19 @@
 
 #let _reset_env_counting() = _env_state.update(it => it.keys().map(k => (k, 0)).to-dict())
 
-#let config = (
+#let _color_palette = (
+  accent: black,
+  grey: rgb(100, 100, 100),
+  grey-light: rgb(224, 228, 228),
+)
+
+#let en-config = (
   _sans_font: "Barlow",
   _main_size: 1em,
   _page_num_size: 1em,
   _qed_symbol: $qed$,
   _envskip: 1em,
+  title-wrapper: ("(", ")"),
   i18n: (
     chapter: "Chapter",
     section: "Section",
@@ -21,75 +28,100 @@
     index: "Index",
     toc: "Table of Contents",
   ),
-  _color_palette: (
-    accent: black,
-    grey: rgb(100, 100, 100),
-    grey-light: rgb(224, 228, 228),
+)
+
+#let lzh-config = (
+  _sans_font: "Barlow",
+  _main_size: 1em,
+  _page_num_size: 1em,
+  _qed_symbol: $qed$,
+  _envskip: 1em,
+  title-wrapper: ("（", "）"),
+  i18n: (
+    chapter: "章",
+    section: "節",
+    appendix: "附錄",
+    proof: (name: "證.", supplement: "證"),
+    proposition: (name: "命題", supplement: "命題"),
+    axiom: (name: "公理", supplement: "公理"),
+    example: (name: "例", supplement: "例"),
+    definition: (name: "定義", supplement: "定義"),
+    bibliography: "参考文献",
+    index: "索引",
+    toc: "目录",
   ),
 )
 
-#let accent-frame-heading(number: none, name, title) = {
-  set text(
+#let use-context(fn) = context {
+  let lang = text.lang
+  let config = if lang == "lzh" { lzh-config } else { en-config }
+  fn(config)
+}
+
+#let accent-frame-heading(number: none, name, title) = use-context(config => {
+  let kind-text = text.with(
     font: config._sans_font,
     weight: 500,
     tracking: 0.07em,
     size: config._main_size,
-    fill: config._color_palette.accent,
+    fill: _color_palette.accent,
   )
-
+  let (wrapper-left, wrapper-right) = config.title-wrapper
+  let title = [#wrapper-left#title#wrapper-right]
   let heading = if number != none {
-    // set text(fill: config._color_palette.grey)
-    name + h(.25em) + number + h(.5em) + title
+    // set text(fill: _color_palette.grey)
+    kind-text(name + h(.25em) + number) + h(.5em) + title
   } else {
-    name + h(.5em) + title
+    kind-text(name) + h(.5em) + title
   }
   block(heading)
-}
+})
 
 #let accent-frame-heading-html(number: none, name, title) = {
   import "html.typ"
 
-  [
+  use-context(cfg => [
     #html.div(class: "environment-kind")[#name #number\. ]
     #if title != none [
-      #html.div(class: "environment-title")[ #title]
+      #let (wrapper-left, wrapper-right) = cfg.title-wrapper
+      #html.div(class: "environment-title")[#wrapper-left#title#wrapper-right]
     ]
-  ]
+  ])
 }
 
 #let accent-frame() = (
-  fill: config._color_palette.grey-light,
+  fill: _color_palette.grey-light,
   width: 100%,
   outset: 0pt,
   inset: 1em,
   breakable: true,
 )
 
-#let example-heading(number: none, name, title) = {
+#let example-heading(number: none, name, title) = use-context(config => {
   set text(
     font: config._sans_font,
     weight: 500,
     tracking: 0.07em,
     size: config._main_size,
-    fill: config._color_palette.accent,
+    fill: _color_palette.accent,
   )
   block(
     [#name #number #title],
     spacing: 1em,
     sticky: true,
-    stroke: (top: gradient.linear(config._color_palette.accent, white)),
+    stroke: (top: gradient.linear(_color_palette.accent, white)),
     outset: (x: 1em, top: 1em),
   )
-}
+})
 
 
-#let example-bottomdeco() = {
-  block(height: 1pt, width: 1em, fill: config._color_palette.accent, outset: 0pt, above: 0pt, breakable: false)
+#let example-bottomdeco() = use-context(config => {
+  block(height: 1pt, width: 1em, fill: _color_palette.accent, outset: 0pt, above: 0pt, breakable: false)
   v(config._envskip, weak: true)
-}
+})
 
 #let solid-frame() = (
-  stroke: (left: (thickness: .25em, paint: config._color_palette.accent)),
+  stroke: (left: (thickness: .25em, paint: _color_palette.accent)),
   width: 100%,
   outset: (bottom: 1pt, top: 0.5pt),
   inset: 1em,
@@ -112,8 +144,8 @@
 
 #let paged_environment(
   kind: none,
-  topdeco: { v(config._envskip, weak: true) },
-  bottomdeco: { v(config._envskip, weak: true) },
+  topdeco: none, //{ v(config._envskip, weak: true) },
+  bottomdeco: none, //{ v(config._envskip, weak: true) },
   frame: none,
   heading: none,
   title: none,
@@ -126,23 +158,26 @@
   #show figure.where(kind: kind): set block(breakable: true)
   #show figure.where(kind: kind): it => it.body
 
-  #let i18n = config.i18n.at(kind)
-  #let (name, supplement) = if type(i18n) == dictionary {
-    (i18n.name, i18n.supplement)
-  } else if type(i18n) == str {
-    (i18n, i18n)
-  } else { panic("Invalid i18n entry for kind: " + kind) }
+  #use-context(config => [
+    #let i18n = config.i18n.at(kind)
 
-  #figure(kind: kind, supplement: supplement, placement: none, caption: none, {
-    set align(left)
-    topdeco
-    block(breakable: true, ..frame(), [
-      #let number = if numbered { context [#_env_state.get().at(kind)] }
-      #heading(number: number, name, title)
-      #body-processor(body)
-    ])
-    bottomdeco
-  }) #label
+    #let (name, supplement) = if type(i18n) == dictionary {
+      (i18n.name, i18n.supplement)
+    } else if type(i18n) == str {
+      (i18n, i18n)
+    } else { panic("Invalid i18n entry for kind: " + kind) }
+
+    #figure(kind: kind, supplement: supplement, placement: none, caption: none, {
+      set align(left)
+      topdeco
+      block(breakable: true, ..frame(), [
+        #let number = if numbered { context [#_env_state.get().at(kind)] }
+        #heading(number: number, name, title)
+        #body-processor(body)
+      ])
+      bottomdeco
+    }) #label
+  ])
 ]
 
 #let html_environment(
@@ -161,14 +196,14 @@
   #import "html.typ"
   #_env_state.update(it => it + (str(kind): it.at(kind, default: 0) + 1))
 
-  #let i18n = config.i18n.at(kind)
-  #let (name, supplement) = if type(i18n) == dictionary {
-    (i18n.name, i18n.supplement)
-  } else if type(i18n) == str {
-    (i18n, i18n)
-  } else { panic("Invalid i18n entry for kind: " + kind) }
+  #use-context(config => {
+    let i18n = config.i18n.at(kind)
+    let (name, supplement) = if type(i18n) == dictionary {
+      (i18n.name, i18n.supplement)
+    } else if type(i18n) == str {
+      (i18n, i18n)
+    } else { panic("Invalid i18n entry for kind: " + kind) }
 
-  #context {
     let id = if label != none { (id: str(label)) }
     let number = if numbered { _env_state.get().at(kind) }
     html.div(
@@ -185,13 +220,13 @@
         )
       ],
     )
-  }
+  })
 ]
 
 #let environment(
   kind: "",
-  topdeco: { v(config._envskip, weak: true) },
-  bottomdeco: { v(config._envskip, weak: true) },
+  topdeco: none,
+  bottomdeco: none,
   paged-frame: none,
   frame-class: none,
   paged-heading: none,
@@ -215,8 +250,8 @@
 } else {
   paged_environment(
     kind: kind,
-    topdeco: topdeco,
-    bottomdeco: bottomdeco,
+    topdeco: use-context(cfg => { v(cfg._envskip, weak: true) }),
+    bottomdeco: use-context(cfg => { v(cfg._envskip, weak: true) }),
     frame: paged-frame,
     heading: paged-heading,
     label: label,
@@ -232,7 +267,7 @@
   paged-heading: example-heading,
   html-heading: example-heading,
   bottomdeco: example-bottomdeco(),
-  topdeco: { v(config._envskip, weak: true) },
+  topdeco: use-context(cfg => { v(cfg._envskip, weak: true) }),
 )
 
 #let proposition = environment(
@@ -255,7 +290,7 @@
 
 #let highlighteq(body) = {
   $
-    #box(stroke: config._color_palette.grey, inset: 1em, body)
+    #box(stroke: _color_palette.grey, inset: 1em, body)
   $
 }
 
@@ -268,14 +303,14 @@
   compact: true,
 )
 
-#let proof-html-processor(it) = {
+#let proof-html-processor(it) = use-context(config => {
   import "html.typ"
   let qed_symbol = html.span(config._qed_symbol, style: "float: right;")
   it + qed_symbol
-}
+})
 
 #let proof = {
-  let qed_symbol = text(config._color_palette.accent, config._qed_symbol)
+  let qed_symbol = use-context(config => (_color_palette.accent, config._qed_symbol))
   environment(
     numbered: false,
     kind: "proof",

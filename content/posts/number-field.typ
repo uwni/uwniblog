@@ -86,7 +86,6 @@ $nu$ 滿射也。即 $forall n in NN_*, exists m in NN, inc m = n$
 ]
 
 
-
 == 序
 加法既立，則可定義自然數之序。
 #definition(title: [序關係])[
