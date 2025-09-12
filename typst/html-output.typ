@@ -69,8 +69,6 @@
   }
   import "mathyml/src/lib.typ": try-to-mathml
 
-  // math rules
-  show math.equation: set text(weight: 500)
   // show math.equation: to-mathml
   let mathml = try-to-mathml(it)
   if it.block {
