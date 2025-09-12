@@ -331,7 +331,7 @@
     }
 
     .post-content p {
-        margin-bottom: var(--spacing-md);
+        margin-block-end: var(--spacing-md);
     }
 
     .post-content a {
@@ -414,7 +414,7 @@
 
     /* Environment 环境样式 */
     .environment-header {
-        margin-bottom: var(--spacing-sm);
+        margin-block-end: var(--spacing-sm);
     }
 
     .environment-header.inlined {
@@ -427,11 +427,15 @@
 
     .environment-title {
         display: inline-block;
-        margin-right: var(--spacing-sm);
+        margin-inline-end: var(--spacing-sm);
     }
 
     .environment-body {
         display: inline;
+    }
+
+    .environment-body p {
+        margin-block-start: 0;
     }
 
     .environment-body p:first-child {
@@ -439,7 +443,7 @@
     }
 
     .environment-body p:last-child {
-        margin-bottom: 0;
+        margin-block-end: 0;
     }
 
     /* accent 样式 */
