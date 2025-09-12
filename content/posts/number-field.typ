@@ -47,8 +47,6 @@
 - (PA9) $forall x, forall y (x times S(y) = (x times y) + x)$; #h(1fr) 乘後繼得
 
 
-
-
 == 自然數集
 
 在集合論中，$cal(L)_"AR"$-結構之適 PA 公理系統者 Dedekind-Peano 結構也。定義「自然数集」。
