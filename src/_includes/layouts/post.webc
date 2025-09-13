@@ -387,7 +387,7 @@
     .post-content ol {
         /* make list markers inside */
         list-style-position: inside;
-        padding-inline-start: 1em;
+        padding-inline-start: 0.5em;
     }
 
     .post-content li {
