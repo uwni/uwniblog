@@ -25,6 +25,14 @@
   themed
 }
 
+#let to-html-lang(lang) = {
+  if lang == "en" {
+    "en"
+  } else if lang == "zh" or lang == "lzh" {
+    "zh"
+  }
+}
+
 //! A specified targets arg can override that controlled by genBoth
 #let post-template(
   genHtml: true,
@@ -52,7 +60,7 @@
       title: title,
       date: date,
       targets: targets,
-      language: language,
+      language: to-html-lang(language),
       ..args.named(),
     )
   } else if compile-mode == "html" {

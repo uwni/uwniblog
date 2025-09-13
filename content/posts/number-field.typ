@@ -31,7 +31,7 @@
   - (PA2) $forall x, forall y, (S(x) = S(y) -> x = y)$； #h(1fr) 後繼相等則原數相等
   - (PA3) $phi(0) and forall x (phi(x) -> phi(S(x))) -> forall x phi(x)$ #h(1fr) 一階歸納法模式
     - (PA3\*)  $forall phi[phi(0) and forall x (phi(x) -> phi(S(x))) -> forall x phi(x)]$  #h(1fr) 二階歸納法原理
-  ]
+]
 
 (PA1) \~ (PA3) 曰一階 Peano 公理。 將 (PA3) 換為 (PA3\*) 則曰二階 Peano 公理。後文所述皆用二階。
 至此，算數之構造初成矣。然加法、乘之義猶未立也。$cal(L)_"AR"$ 外，加號 $+$, 乘號 $times$, 小於號 $<=$ 之義也，以中綴記遞歸立之如下：
@@ -94,7 +94,7 @@ $nu$ 滿射也。即 $forall n in NN_*, exists m in NN, inc m = n$
 此序關係全序也，凡自然數皆可相較也。
 
 #proof[
-此序關係為全序，須證四性：
+  此序關係為全序，須證四性：
 
   *自反性* ($n <= n$)：\
   由加法定義，$n = n + 0$。以 $0 in NN$，故 $n <= n$ 恆真。
