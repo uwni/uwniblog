@@ -109,7 +109,7 @@
     [#name #number #title],
     spacing: 1em,
     sticky: true,
-    stroke: (top: gradient.linear(_color_palette.accent, white)),
+    stroke: (top: gradient.linear(..(0%, 50%, 75%).map(luma)).sharp(3)),
     outset: (x: 1em, top: 1em),
   )
 })
@@ -248,10 +248,18 @@
     ..args,
   )
 } else {
+  let topdeco = if topdeco == none {
+    use-context(cfg => { v(cfg._envskip, weak: true) })
+  } else { topdeco }
+
+  let bottomdeco = if bottomdeco == none {
+    use-context(cfg => { v(cfg._envskip, weak: true) })
+  } else { bottomdeco }
+
   paged_environment(
     kind: kind,
-    topdeco: use-context(cfg => { v(cfg._envskip, weak: true) }),
-    bottomdeco: use-context(cfg => { v(cfg._envskip, weak: true) }),
+    topdeco: topdeco,
+    bottomdeco: bottomdeco,
     frame: paged-frame,
     heading: paged-heading,
     label: label,
@@ -267,7 +275,6 @@
   paged-heading: example-heading,
   html-heading: example-heading,
   bottomdeco: example-bottomdeco(),
-  topdeco: use-context(cfg => { v(cfg._envskip, weak: true) }),
 )
 
 #let proposition = environment(
