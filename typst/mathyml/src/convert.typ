@@ -283,28 +283,53 @@
   }
 }
 
+// #let _convert-op(ctx, rec, outer) = {
+//   let inner = outer.text
+//   ctx.styles.upright-or-italic = "upright"
+//   if type(inner) == content {
+//     let func = inner.func()
+//     if func == types.symbol {
+//       _create-mi(ctx, inner.text)
+//     } else if func == text {
+//       _create-mi(ctx, inner.text)
+//     } else if _is-custom-type(inner) {
+//       let inner-rec(inner, ctx: ctx) = {
+//         _convert-op(ctx, rec, inner)
+//       }
+//       _convert-custom-type(ctx, inner-rec, inner.value)
+//     } else {
+//       return _err(ctx, "invalid content element of type `" + repr(func) + "`: " + repr(inner))
+//     }
+//   } else if type(inner) == str {
+//     _create-mi(ctx, inner)
+//   } else if type(inner) == symbol {
+//     _convert-op(ctx, rec, [#inner])
+//   } else {
+//     return _err(ctx, "invalid element of type `" + type(inner) + "`: " + repr(inner))
+//   }
+// }
+
 #let _convert-op(ctx, rec, outer) = {
   let inner = outer.text
   ctx.styles.upright-or-italic = "upright"
-  let op-result = none
-  if type(inner) == content {
+  let op-result = if type(inner) == content {
     let func = inner.func()
     if func == types.symbol {
-      op-result = _create-mi(ctx, inner.text)
+      _create-mi(ctx, inner.text)
     } else if func == text {
-      op-result = _create-mi(ctx, inner.text)
+      _create-mi(ctx, inner.text)
     } else if _is-custom-type(inner) {
       let inner-rec(inner, ctx: ctx) = {
         _convert-op(ctx, rec, inner)
       }
-      op-result = _convert-custom-type(ctx, inner-rec, inner.value)
+      _convert-custom-type(ctx, inner-rec, inner.value)
     } else {
       return _err(ctx, "invalid content element of type `" + repr(func) + "`: " + repr(inner))
     }
   } else if type(inner) == str {
-    op-result = _create-mi(ctx, inner)
+    _create-mi(ctx, inner)
   } else if type(inner) == symbol {
-    return _convert-op(ctx, rec, [#inner])
+    _convert-op(ctx, rec, [#inner])
   } else {
     return _err(ctx, "invalid element of type `" + type(inner) + "`: " + repr(inner))
   }
@@ -1112,10 +1137,6 @@
       _convert-text(ctx, rec, inner.text)
     } else if func == ref {
       _create-mtext(ctx, inner)
-    } else if func == box {
-      if "body" in inner.fields() {
-        _to-mathml(inner.body, ctx)
-      }
     } else {
       return _err(ctx, "unknown content element of type `" + repr(func) + "`: " + repr(inner))
     }
