@@ -194,7 +194,7 @@
 
     let (title, heading-container) = if title != none {
       let (wrapper-left, wrapper-right) = ctx.config.title-wrapper
-      ([#wrapper-left#title#wrapper-right], block)
+      ([#wrapper-left#title#wrapper-right], block.with(sticky: true))
     } else {
       (none, box)
     }
@@ -205,6 +205,7 @@
     } else {
       kind-text(name) + h(.5em) + title
     }
+
     heading-container(heading)
   })
 
@@ -236,9 +237,14 @@
       size: ctx.config._main_size,
       fill: _color_palette.accent,
     )
-    let (wrapper-left, wrapper-right) = ctx.config.title-wrapper
+
+    let title = if title != none {
+      let (wrapper-left, wrapper-right) = ctx.config.title-wrapper
+      [#wrapper-left#title#wrapper-right]
+    }
+
     block(
-      [#name #number #wrapper-left#title#wrapper-right],
+      [#name #number #h(.5em) #title],
       spacing: 1em,
       sticky: true,
       stroke: (top: gradient.linear(..(0%, 50%, 75%).map(luma)).sharp(3)),
@@ -275,16 +281,6 @@
     body: body,
   )
 }
-
-
-
-#let solid-frame = (
-  stroke: (left: (thickness: .25em, paint: _color_palette.accent)),
-  width: 100%,
-  outset: (bottom: 1pt, top: 0.5pt),
-  inset: 1em,
-  breakable: true,
-)
 
 #let example = environment(
   kind: "example",

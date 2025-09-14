@@ -281,10 +281,12 @@ Similarly, any plane or line through the origin in $RR^3$ is a subspace. but not
 
 = Sum of Subspaces
 Now let's talk about the sum of two subspaces. Given two subspaces $U$ and $W$ of a vector space $V$, their sum, denoted $U + W$, is defined as:
+
 #definition(title: [Sum of Subspaces])[
   The sum of two subspaces $U$ and $W$ of a vector space $V$ is the set:
   $ U + W = {bold(u) + bold(w) mid(|) bold(u) in U, bold(w) in W} $
 ]
+
 but note that $U union W$ is not the same as $U + W$. The sum $U + W$ is a vector space itself, and it contains all possible sums of vectors from $U$ and $W$ whereas $U union W$ just combines the elements of both subspaces so it will not must be a vector space.
 
 #example[
