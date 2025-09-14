@@ -91,14 +91,16 @@ export default function eleventyPluginTypst(eleventyConfig, options = {}) {
   eleventyConfig.addExtension("typ", {
     compile: function (contents, inputPath) {
       return async (data) => {
-        let inputArgs = {
-          url: data?.metadata?.url,
-          target: data?.target,
-          buildDate: buildDate,
-          date: data?.page.date.toISOString(),
-          source: data?.page.inputPath,
-          fileSlug: data?.page.fileSlug,
-        };
+
+        let inputArgs = {};
+
+        if (data?.metadata?.url) inputArgs.url = data.metadata.url;
+        if (data?.target) inputArgs.target = data.target;
+        if (data?.page?.date) inputArgs.date = data.page.date.toISOString();
+        if (data?.page?.inputPath) inputArgs.source = data.page.inputPath;
+        if (data?.page?.fileSlug) inputArgs.fileSlug = data.page.fileSlug;
+        if (data?.metadata?.commitSha) inputArgs.commitSha = data.metadata.commitSha;
+
         return data.target === "pdf" ? pdfRender(compiler, inputArgs, inputPath)
           : htmlRender(compiler, inputArgs, inputPath);
       }

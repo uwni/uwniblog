@@ -8,16 +8,11 @@
   )<frontmatter>]
 }
 
-#let get-compile-mode() = {
-  if "target" in sys.inputs {
-    return sys.inputs.target
-  }
+#let get-compile-data(..args) = sys.inputs.at(..args)
+#let compilation-mode = get-compile-data("target", default: "pdf")
+#let commitSha = get-compile-data("commitSha", default: none)
 
-  // for preview
-  return "pdf"
-}
-
-#let themed = if get-compile-mode() == "html" {
+#let themed = if compilation-mode == "html" {
   import "html-output.typ": themed
   themed
 } else {
@@ -43,8 +38,7 @@
   ..args,
   body,
 ) = {
-  let compile-mode = get-compile-mode()
-  if compile-mode == "query" {
+  if compilation-mode == "query" {
     let date = if date != none {
       date
     } else {
@@ -60,22 +54,23 @@
       ..args.named(),
     )
   }
-  
+
   set heading(numbering: "1.1")
   set math.equation(numbering: "(1)")
   set text(lang: language)
-  if compile-mode == "html" {
+  let tags = args.named().at("tags", default: ())
+
+  if compilation-mode == "html" {
     import "html-output.typ": as-html-output
     let date = if "date" in sys.inputs {
       sys.inputs.date
     } else {
       panic("date should be provided by the 11ty side")
     }
-    let tags = args.named().at("tags", default: ())
     as-html-output(title, tags: tags, date: date, genPdf: genPdf, body)
-  } else if compile-mode == "pdf" {
+  } else if compilation-mode == "pdf" {
     import "pdf-output.typ": as-pdf-output
-    as-pdf-output(title, body)
+    as-pdf-output(title, tags: tags, commitSha: commitSha, date: date, genHtml: genHtml, body)
   } else {
     panic("Unknown target: " + target)
   }
