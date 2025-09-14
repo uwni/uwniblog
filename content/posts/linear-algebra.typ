@@ -88,7 +88,7 @@ Meanwhile, the integers are _not_ a field, because they do not have multiplicati
 
 = Vector Space
 
-Now we're ready to define what a vector space is.
+Now We're ready to define what a vector space is.
 #definition(title: [Vector Space])[
   A vector space $V$ _over_ $FF$, consists of a set $V$ (whose elements are called vectors) and a field $FF$ (whose elements are called scalars), together with two operations:
 

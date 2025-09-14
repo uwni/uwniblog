@@ -43,10 +43,6 @@
   ..args,
   body,
 ) = {
-  set heading(numbering: "1.1")
-  set math.equation(numbering: "(1)")
-  set text(lang: language)
-
   let compile-mode = get-compile-mode()
   if compile-mode == "query" {
     let date = if date != none {
@@ -56,14 +52,19 @@
     }
     let targets = ("html",) * int(genHtml) + ("pdf",) * int(genPdf)
 
-    frontmatter(
+    return frontmatter(
       title: title,
       date: date,
       targets: targets,
       language: to-html-lang(language),
       ..args.named(),
     )
-  } else if compile-mode == "html" {
+  }
+  
+  set heading(numbering: "1.1")
+  set math.equation(numbering: "(1)")
+  set text(lang: language)
+  if compile-mode == "html" {
     import "html-output.typ": as-html-output
     let date = if "date" in sys.inputs {
       sys.inputs.date
