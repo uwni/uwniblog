@@ -3,7 +3,7 @@
 #let _reset_env_counting() = _env_state.update(it => it.keys().map(k => (k, 0)).to-dict())
 
 #let _color_palette = (
-  accent: black,
+  accent: luma(25%),
   grey: rgb(100, 100, 100),
   grey-light: rgb(224, 228, 228),
 )
@@ -189,7 +189,6 @@
       weight: 500,
       // tracking: 0.02em,
       size: ctx.config._main_size,
-      fill: _color_palette.accent,
     )
 
     let (title, heading-container) = if title != none {
@@ -235,7 +234,6 @@
       weight: 500,
       // tracking: 0.07em,
       size: ctx.config._main_size,
-      fill: _color_palette.accent,
     )
 
     let title = if title != none {
@@ -247,7 +245,7 @@
       [#name #number #h(.5em) #title],
       spacing: 1em,
       sticky: true,
-      stroke: (top: gradient.linear(..(0%, 50%, 75%).map(luma)).sharp(3)),
+      stroke: (top: gradient.linear(..(25%, 50%, 75%).map(luma)).sharp(3)),
       outset: (x: 1em, top: 1em),
     )
   })
