@@ -5,10 +5,10 @@ export function htmlminTransform(content) {
         let minified = htmlmin.minify(content, {
             useShortDoctype: true,
             removeComments: true,
-            collapseWhitespace: true,
             minifyCSS: true,
             minifyJS: true,
-            sortClassName: true
+            sortClassName: true,
+            sortAttributes: true,
         });
         return minified;
     }
