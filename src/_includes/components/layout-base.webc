@@ -150,6 +150,7 @@
         scrollbar-gutter: stable both-edges;
         font-size: 16px;
         scroll-behavior: smooth;
+        -webkit-overflow-scrolling: touch;
     }
 
     button {
@@ -168,6 +169,8 @@
         display: flex;
         max-width: var(--body-max-width);
         margin: 0 auto;
+        text-emphasis-position: under;
+        -webkit-font-smoothing: antialiased;
     }
 
     .main-content-area {

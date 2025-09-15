@@ -9,13 +9,13 @@ We have learned about linear algebra in a concrete way, such as solving linear e
 We have learned about vectors at least in high school, like displacement, velocity, force, etc.
 actually, when we say vectors, our first impression is that they must have two or three components, which represent a point in a plane or in space. but after we learned about the linear algebra, we learned that something like $(1, 2, 3, 4, 5)$ is also a vector, even though we cannot imagine what its _physical picture_ in the real world.
 
-So, basically, the change of the concept of vector to a arbitrary number of components is a generalization or a abstraction to the original concept. so that we can handle more with the new denition. but at the cost of lossing some physical meaning. In this lecture, we will repeat this process, to further abstract the concept of vector, so that we can figure out some shared, common, or general properties of these.
+So, basically, the change of the concept of vector to a arbitrary number of components is a generalization or a abstraction to the original concept. so that we can handle more with the new definition. but at the cost of losing some physical meaning. In this lecture, we will repeat this process, to further abstract the concept of vector, so that we can figure out some shared, common, or general properties of these.
 
 
-let us recall the process of the abstraction from $RR^3$ to $RR^n$, here, I will give a more rigour definition, as the first step to get you familiar with the algebric structure.
+let us recall the process of the abstraction from $RR^3$ to $RR^n$, here, I will give a more rigorous definition, as the first step to get you familiar with the algebraic structure.
 
-Recall that if given a structure like $(a,b,c,d)$, is this a vector? No, definitily not. actually, it it just a tuple, which is a orderd finite sequence or list of elemenets. btw you can construct it with ordered pairs, anyway. Althogh we usually by default treat it as a vector, that because we can define a addition and scalar multiplication on it, in a very natural way. but with the structure of a tuple only, we cannot do any operation on it, unless you define some in advance. for example, if you try to run
-`(1, 2, 3) + (1, 2, 3)` in Python, it will return `(1, 2, 3, 1, 2, 3)`, and if you try to write $(1,2,3) + (4,5,6)$ on your paper, the reader will think it is $(1+4, 2+5, 3+6)$ by default. that because for the programming languages, the `+` operator is overloaded to concatenate two tuples. but for the math, especially in the Euclid space, the `+` operator is defined to add their elements one by one. so you will understand that it is important to delcare or at least to know what a symbol exactly means before using it, otherwise you will get confused. so, the tuple is not a vector, but we can define a vector structure on it, and then it becomes a vector.
+Recall that if given a structure like $(a,b,c,d)$, is this a vector? No, definitely not. actually, it is just a tuple, which is an ordered finite sequence or list of elements. btw you can construct it with ordered pairs, anyway. Although we usually by default treat it as a vector, that because we can define a addition and scalar multiplication on it, in a very natural way. but with the structure of a tuple only, we cannot do any operation on it, unless you define some in advance. for example, if you try to run
+`(1, 2, 3) + (1, 2, 3)` in Python, it will return `(1, 2, 3, 1, 2, 3)`, and if you try to write $(1,2,3) + (4,5,6)$ on your paper, the reader will think it is $(1+4, 2+5, 3+6)$ by default. that because for the programming languages, the `+` operator is overloaded to concatenate two tuples. but for the math, especially in the Euclid space, the `+` operator is defined to add their elements one by one. so you will understand that it is important to declare or at least to know what a symbol exactly means before using it, otherwise you will get confused. so, the tuple is not a vector, but we can define a vector structure on it, and then it becomes a vector.
 
 == Application of Vectors
 Then, let's return back to the topic of vectors. for example, we know that force can be decomposed into two orthogonal components, and we use this to analyze mechanics problems. Why can we do that? because the force is a vector. but similarly, a sine signal
@@ -26,7 +26,7 @@ $
 
 can be decomposed into two components $sin(omega t)$ and $cos(omega t)$, we usually use a constellation to represent this decomposition. Have you ever noticed the similarity between the two cases? therefore, our goal today is to come up with a structure to deal with all the similar cases.
 
-From these two examples above, looking like a list is neither a sufficient condition for being a vector (because addition on lists isn't necessarily vector addition), nor is it a necessary condition (because even if something doesn't look like a list, like a function or a polynomial, it can still behave exactly like a vector)._So, Finally, waht is a vector? how should we define what a vector is?_
+From these two examples above, looking like a list is neither a sufficient condition for being a vector (because addition on lists isn't necessarily vector addition), nor is it a necessary condition (because even if something doesn't look like a list, like a function or a polynomial, it can still behave exactly like a vector)._So, Finally, what is a vector? how should we define what a vector is?_
 
 Here we will first introduce the concept of field, which are the basic algebraic structures that we will use to define linear spaces.
 
@@ -106,7 +106,7 @@ Now We're ready to define what a vector space is.
   6. *Identity*: $1 bold(v) = bold(v)$ #footnote[where $1$ is the multiplicative identity in $FF$]
   7. *Distributivity over vector addition*: $a (bold(u) + bold(v)) = a bold(u) + a bold(v)$
   8. *Distributivity over scalar addition*: $(a + b)bold(v) = a bold(v)+ b bold(v)$
-]#footnote[In other words, if we reuse the denifition, the $(V, +_(V))$ is a abelian group.]
+]#footnote[In other words, if we reuse the definition, the $(V, +_(V))$ is an abelian group.]
 Note that these eight axioms completely characterize what we mean by a vector space. If a set $V$ with operations satisfies these axioms over some field $FF$, then we call it a vector space over $FF$.
 
 For now, we can eventually answer the question, what is a vector? the answer is simple but abstract: A vector is an element of a vector space. And the vector space is defined by the eight axioms above.
