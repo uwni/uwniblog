@@ -16,9 +16,14 @@
 }
 
 // PDF输出主函数
-#let as-pdf-output(title, tags: (), commitSha: none, date: none, genHtml: none, body) = {
-  set text(font: ("Libertinus Serif", "尙古明體SC"))
+#let as-pdf-output(metadata, body) = {
+  let (title, tags, date, gen-pdf, gen-html, commitSha, language) = metadata
+
+  set text(lang: language, font: ("Libertinus Serif", "尙古明體SC"))
   set par(justify: true)
+  set heading(numbering: "1.1")
+  set math.equation(numbering: "(1)")
+
   show math.equation: set text(
     font: (
       (name: "Libertinus Serif", covers: "latin-in-cjk"),

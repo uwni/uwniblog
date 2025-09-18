@@ -12,7 +12,7 @@
         "@11ty/eleventy-plugin-webc": "^0.11.2",
         "@myriaddreamin/typst-ts-node-compiler": "^0.6.1-rc3",
         "@myriaddreamin/typst.ts": "^0.6.1-rc3",
-        "eleventy-plugin-typst": "^0.0.1",
+        "eleventy-plugin-typst": "^0.0.2",
         "html-minifier-terser": "^7.2.0",
         "luxon": "^3.7.2",
       },
@@ -238,7 +238,7 @@
 
     "ee-first": ["ee-first@1.1.1", "", {}, "sha512-WMwm9LhRUo+WUaRN+vRuETqG89IgZphVSNkdFgeb6sS/E4OrDIN7t48CAewSHXc6C8lefD8KKfr5vY61brQlow=="],
 
-    "eleventy-plugin-typst": ["eleventy-plugin-typst@0.0.1", "", { "dependencies": { "@myriaddreamin/typst-ts-node-compiler": "^0.6.1-rc3", "@myriaddreamin/typst.ts": "^0.6.1-rc3" }, "peerDependencies": { "typescript": "^5" } }, "sha512-VM+fn6aiYQMNcJ7etGHT3wPrIlZV5EPJn55x3AlUEVQ7HPMhFJX/OaQIeb17mjBbh4aJzXO0TrjJQ4pWANJLDg=="],
+    "eleventy-plugin-typst": ["eleventy-plugin-typst@0.0.2", "", { "dependencies": { "@myriaddreamin/typst-ts-node-compiler": "^0.6.1-rc3", "@myriaddreamin/typst.ts": "^0.6.1-rc3" }, "peerDependencies": { "typescript": "^5" } }, "sha512-k0MnlYMHevC4QPvgH6NovwpSHIm5eLwOJiEBsA5ado0goN7g8PSNuncx+NqFGmOZAAT1K5HfhiPdhnKw6azfAA=="],
 
     "encodeurl": ["encodeurl@2.0.0", "", {}, "sha512-Q0n9HRi4m6JuGIV1eFlmvJB7ZEVxu93IrMyiMsGC0lrMJMWzRgx6WGquyfQgZVb31vhGgXnfmPNNXmxnOkRBrg=="],
 

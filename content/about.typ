@@ -3,7 +3,7 @@
 #show: post-template.with(
   title: "About",
   layout: "layouts/post.webc",
-  genPdf: false,
+  gen-pdf: false,
 )
 
 

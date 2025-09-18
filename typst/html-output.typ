@@ -80,7 +80,12 @@
 }
 
 // HTML输出主函数
-#let as-html-output(title, tags: (), date: none, genPdf: none, body) = {
+#let as-html-output(metadata, body) = {
+  let (title, tags, date, gen-pdf, gen-html, commitSha, language) = metadata
+  set heading(numbering: "1.1")
+  set math.equation(numbering: "(1)")
+  set text(lang: language)
+
   show image: it => {
     let is-svg = it.format == "svg" or (it.format == auto and it.source.ends-with(".svg"))
     if is-svg {
@@ -167,7 +172,7 @@
 
   let local-time = html.div(html.time(class: "local-time", data-utc: date, [Loading...]))
 
-  let genPdfButton = html.div(class: "post-pdf-download", [
+  let gen-pdfButton = html.div(class: "post-pdf-download", [
     #html.a(
       href: "/archives/" + sys.inputs.at("fileSlug", default: "unknown") + ".pdf",
       class: "pdf-download-link",
@@ -181,7 +186,7 @@
       #html.article[
         #html.div(class: "post-title-container", [
           #html.h1(class: "post-title", title)
-          #if genPdf { genPdfButton }
+          #if gen-pdf { gen-pdfButton }
           #html.div(class: "post-meta mobile-meta", [
             #local-time
             #tags-html

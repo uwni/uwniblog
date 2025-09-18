@@ -24,7 +24,7 @@
     "@11ty/eleventy-plugin-webc": "^0.11.2",
     "@myriaddreamin/typst-ts-node-compiler": "^0.6.1-rc3",
     "@myriaddreamin/typst.ts": "^0.6.1-rc3",
-    "eleventy-plugin-typst": "^0.0.1",
+    "eleventy-plugin-typst": "^0.0.2",
     "html-minifier-terser": "^7.2.0",
     "luxon": "^3.7.2"
   }
