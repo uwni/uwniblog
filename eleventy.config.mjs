@@ -4,7 +4,8 @@ import pluginSyntaxHighlight from "@11ty/eleventy-plugin-syntaxhighlight";
 import pluginNavigation from "@11ty/eleventy-navigation";
 import { eleventyImageTransformPlugin } from "@11ty/eleventy-img";
 import pluginFilters from "./src/_config/filters.js";
-import eleventyPluginTypst from "./src/_config/eleventy-plugin-typst.js";
+import eleventyPluginTypst from "eleventy-plugin-typst";
+
 import { RenderPlugin } from "@11ty/eleventy";
 import pluginWebc from "@11ty/eleventy-plugin-webc";
 import metadata from "./src/_data/metadata.js";

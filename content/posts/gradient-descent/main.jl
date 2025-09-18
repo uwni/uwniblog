@@ -210,7 +210,7 @@ end
 plot_combined = create_visualization()
 
 # Save the plot
-save(joinpath(@__DIR__, "assets", "gradient_descent_visualization.svg"), plot_combined)
+save(joinpath(@__DIR__, "assets", "gradient_descent_visualization.pdf"), plot_combined)
 
 # CONSTRAINED GRADIENT DESCENT EXAMPLE
 # Reuse the same objective function and gradient as unconstrained case
@@ -342,7 +342,7 @@ end
 
 # Create and save the constrained visualization
 plot_constrained = create_constrained_visualization()
-save(joinpath(@__DIR__, "assets", "constrained_gradient_descent_visualization.svg"), plot_constrained)
+save(joinpath(@__DIR__, "assets", "constrained_gradient_descent_visualization.pdf"), plot_constrained)
 println("Constrained gradient descent completed successfully!")
 
 @show plot_constrained

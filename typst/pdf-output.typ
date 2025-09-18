@@ -10,7 +10,7 @@
 }
 
 #let artical-title(body) = {
-  align(center, text(size: 18pt, font: ("Noto Sans CJK SC", "Noto Sans"), weight: "bold", body))
+  align(center, text(size: 18pt, font: ("尙古黑體SC", "Noto Sans"), weight: "bold", body))
   line(length: 100%)
   v(1em)
 }
