@@ -80,7 +80,7 @@
 }
 
 // HTML输出主函数
-#let as-html-output(metadata, body) = {
+#let render(metadata, body) = {
   let (title, tags, date, gen-pdf, gen-html, commitSha, language) = metadata
   set heading(numbering: "1.1")
   set math.equation(numbering: "(1)")

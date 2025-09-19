@@ -16,7 +16,7 @@
 }
 
 // PDF输出主函数
-#let as-pdf-output(metadata, body) = {
+#let render(metadata, body) = {
   let (title, tags, date, gen-pdf, gen-html, commitSha, language) = metadata
 
   set text(lang: language, font: ("Libertinus Serif", "尙古明體SC"))
