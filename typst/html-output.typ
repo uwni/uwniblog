@@ -114,7 +114,6 @@
     [(#it)],
   ))
   show math.equation: handle-math
-  show math.equation: set text(size: 12pt, font: "STIX Two Math")
 
   show ref: it => {
     it.element
@@ -172,58 +171,54 @@
 
   let local-time = html.div(html.time(class: "local-time", data-utc: date, [Loading...]))
 
-  let gen-pdfButton = html.div(class: "post-pdf-download", [
-    #html.a(
-      href: "/archives/" + sys.inputs.at("fileSlug", default: "unknown") + ".pdf",
-      class: "pdf-download-link",
-      target: "_blank",
-      "Download PDF",
-    )
-  ])
+  let gen-pdfButton = html.div(class: "post-pdf-download", html.a(
+    href: "/archives/" + sys.inputs.at("fileSlug", default: "unknown") + ".pdf",
+    class: "pdf-download-link",
+    target: "_blank",
+    "Download PDF",
+  ))
 
-  [
-    #html.div(class: "post-container")[
-      #html.article[
-        #html.div(class: "post-title-container", [
-          #html.h1(class: "post-title", title)
-          #if gen-pdf { gen-pdfButton }
-          #html.div(class: "post-meta mobile-meta", [
-            #local-time
-            #tags-html
-          ])
+  html.div(class: "post-container")[
+    #html.article[
+      #html.div(class: "post-title-container", [
+        #html.h1(class: "post-title", title)
+        #if gen-pdf { gen-pdfButton }
+        #html.div(class: "post-meta mobile-meta", [
+          #local-time
+          #tags-html
         ])
-        #html.div(class: "mobile-toc")[
-          #html.details[
-            #html.summary[On this page]
-            #html.nav(
-              class: "mobile-toc-nav",
-              _generate-toc(),
-            )
-          ]]
-        #html.div(class: "post-content", sectioned-content)
-      ]
-
-
-      #html.aside(
-        class: "post-toc",
-        html.div(
-          class: "toc-container",
-          [
-            #html.div(
-              class: "post-meta desktop-meta",
-              [
-                #local-time
-                #tags-html
-              ],
-            )
-            #html.h3("On this page")
-            #html.nav(
-              class: "toc-nav",
-              _generate-toc(),
-            )
-          ],
-        ),
-      )
+      ])
+      #html.div(class: "mobile-toc")[
+        #html.details(open: "true")[
+          #html.summary[On this page]
+          #html.nav(
+            class: "mobile-toc-nav",
+            _generate-toc(),
+          )
+        ]]
+      #html.div(class: "post-content", sectioned-content)
     ]
+
+
+    #html.aside(
+      class: "post-toc",
+      html.div(
+        class: "toc-container",
+        [
+          #html.div(
+            class: "post-meta desktop-meta",
+            [
+              #local-time
+              #tags-html
+            ],
+          )
+          #html.h3("On this page")
+          #html.nav(
+            class: "toc-nav",
+            _generate-toc(),
+          )
+        ],
+      ),
+    )
   ]
 }
