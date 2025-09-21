@@ -143,4 +143,3 @@
     return it.children.map(plain-text).filter(t => type(t) == str).join()
   }
 }
-

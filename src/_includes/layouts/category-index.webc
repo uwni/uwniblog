@@ -1,0 +1,6 @@
+---
+layout: "layouts/post.webc"
+---
+
+<template @html="content" webc:nokeep></template>
+<category-list></category-list>

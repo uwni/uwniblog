@@ -16,8 +16,8 @@
 }
 
 // PDF输出主函数
-#let render(metadata, body) = {
-  let (title, tags, date, gen-pdf, gen-html, commitSha, language) = metadata
+#let render(data, body) = {
+  let (language, title, commitSha) = data
 
   set text(lang: language, font: ("Libertinus Serif", "尙古明體SC"))
   set par(justify: true)
@@ -37,5 +37,6 @@
     version: #commitSha
   ])
   artical-title(title)
+
   body
 }
