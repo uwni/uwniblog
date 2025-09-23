@@ -4,7 +4,6 @@
     "": {
       "name": "uwniblog",
       "dependencies": {
-        "eleventy-plugin-typst": "/Users/choei/Src/11ty-pst",
         "@11ty/eleventy": "^3.1.2",
         "@11ty/eleventy-img": "^6.0.4",
         "@11ty/eleventy-navigation": "^1.0.4",
@@ -13,6 +12,7 @@
         "@11ty/eleventy-plugin-webc": "^0.11.2",
         "@myriaddreamin/typst-ts-node-compiler": "^0.6.1-rc3",
         "@myriaddreamin/typst.ts": "^0.6.1-rc3",
+        "eleventy-plugin-typst": "^0.0.7",
         "html-minifier-terser": "^7.2.0",
         "luxon": "^3.7.2",
       },
@@ -238,7 +238,7 @@
 
     "ee-first": ["ee-first@1.1.1", "", {}, "sha512-WMwm9LhRUo+WUaRN+vRuETqG89IgZphVSNkdFgeb6sS/E4OrDIN7t48CAewSHXc6C8lefD8KKfr5vY61brQlow=="],
 
-    "eleventy-plugin-typst": ["eleventy-plugin-typst@file:../11ty-pst", { "dependencies": { "@myriaddreamin/typst-ts-node-compiler": "^0.6.1-rc3", "@myriaddreamin/typst.ts": "^0.6.1-rc3" }, "devDependencies": { "@types/bun": "latest" }, "peerDependencies": { "typescript": "^5" } }],
+    "eleventy-plugin-typst": ["eleventy-plugin-typst@0.0.7", "", { "dependencies": { "@myriaddreamin/typst-ts-node-compiler": "^0.6.1-rc3", "@myriaddreamin/typst.ts": "^0.6.1-rc3" }, "peerDependencies": { "typescript": "^5" } }, "sha512-iO4pAggyuX5Ze8H3qM6wjzzoRSdW5BUAuPVIfee41+PVj6QpADTdLHr77yMAnl+4xJi7hJmZ355K0NfxzapJsg=="],
 
     "encodeurl": ["encodeurl@2.0.0", "", {}, "sha512-Q0n9HRi4m6JuGIV1eFlmvJB7ZEVxu93IrMyiMsGC0lrMJMWzRgx6WGquyfQgZVb31vhGgXnfmPNNXmxnOkRBrg=="],
 
