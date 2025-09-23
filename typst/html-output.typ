@@ -81,7 +81,7 @@
 
 // HTML输出主函数
 #let render(metadata, body) = {
-  let (title, tags, date, gen-pdf, gen-html, commitSha, language) = metadata
+  let (title, tags, date, targets, commitSha, language) = metadata
   set heading(numbering: "1.1")
   set math.equation(numbering: "(1)")
   set text(lang: language)
@@ -182,7 +182,7 @@
     #html.article[
       #html.div(class: "post-title-container", [
         #html.h1(class: "post-title", title)
-        #if gen-pdf { gen-pdfButton }
+        #if "pdf" in targets { gen-pdfButton }
         #html.div(class: "post-meta mobile-meta", [
           #local-time
           #tags-html

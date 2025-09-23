@@ -16,20 +16,29 @@
   }
 }
 
-#let post-template(tags: (), language: "en", ..args, body) = {
+#let post-template(tags: (), gen-html: true, gen-pdf: true, language: "en", ..args, body) = {
+  let targets = ()
+  if gen-html {
+    targets.push("html")
+  }
+  if gen-pdf {
+    targets.push("pdf")
+  }
   let frontmatter = (
     language: to-html-lang(language),
     tags: ("posts", ..tags),
-    gen-html: true,
-    gen-pdf: true,
     layout: "layouts/post.webc",
+    targets: targets,
     ..args.named(),
   )
 
   let renderer = (eleventy-data: none) => {
     //merge eleventy-data and frontmatter
     let data = if eleventy-data != none {
-      let (metadata, page, target) = eleventy-data
+      let (metadata, page, target, links) = eleventy-data
+      if links.len() == 2 {
+
+      }
       (
         commitSha: metadata.commitSha,
         date: page.date,
@@ -52,8 +61,7 @@
   let frontmatter = (
     language: to-html-lang(language),
     tags: ("category", ..tags),
-    gen-html: true,
-    gen-pdf: false,
+    targets: ("html",),
     layout: "layouts/category-index.webc",
     ..args.named(),
   )
