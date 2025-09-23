@@ -1,5 +1,5 @@
 #import "/typst/environment.typ": *
-#import "/typst/template.typ": *
+#import "index.typ": *
 #import "@preview/fletcher:0.5.8": diagram, edge, node
 
 #let index(..args, body) = body
@@ -7,7 +7,7 @@
 #let im = $upright(i)$
 
 #show: post-template.with(
-  title: "分析學其一：數集",
+  title: "數集",
   tags: ("Mathematics", "Analysis", "Algebra"),
   language: "lzh",
 )

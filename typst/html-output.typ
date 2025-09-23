@@ -81,7 +81,7 @@
 
 // HTML输出主函数
 #let render(metadata, body) = {
-  let (title, tags, date, targets, commitSha, language) = metadata
+  let (title, tags, date, targets, links, commitSha, language) = metadata
   set heading(numbering: "1.1")
   set math.equation(numbering: "(1)")
   set text(lang: language)
@@ -139,7 +139,6 @@
     ))
   }
 
-
   // 构建标签HTML
   let tags-html = if tags.len() > 0 {
     let tag-links = tags.map(tag => html.a(href: "/collections/?tag=" + tag, "#" + tag)).join(" ")
@@ -171,18 +170,20 @@
 
   let local-time = html.div(html.time(class: "local-time", data-utc: date, [Loading...]))
 
-  let gen-pdfButton = html.div(class: "post-pdf-download", html.a(
-    href: "/archives/" + sys.inputs.at("fileSlug", default: "unknown") + ".pdf",
-    class: "pdf-download-link",
-    target: "_blank",
-    "Download PDF",
-  ))
+  let pdf-btn = if "pdf" in targets {
+    html.div(class: "post-pdf-download", html.a(
+      href: links.pdf,
+      class: "pdf-download-link",
+      target: "_blank",
+      "Download PDF",
+    ))
+  }
 
   html.div(class: "post-container")[
     #html.article[
       #html.div(class: "post-title-container", [
         #html.h1(class: "post-title", title)
-        #if "pdf" in targets { gen-pdfButton }
+        #pdf-btn
         #html.div(class: "post-meta mobile-meta", [
           #local-time
           #tags-html

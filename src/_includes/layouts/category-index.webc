@@ -3,4 +3,4 @@ layout: "layouts/post.webc"
 ---
 
 <template @html="content" webc:nokeep></template>
-<category-list></category-list>
+<category-list :@key="$data.eleventyNavigation.key"></category-list>
