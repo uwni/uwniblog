@@ -7,7 +7,7 @@
 #let im = $upright(i)$
 
 #show: post-template.with(
-  title: "分析學其零：集合論",
+  title: "論集合",
   tags: ("Mathematics", "Analysis", "Algebra"),
   language: "lzh",
   draft: true,
