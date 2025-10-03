@@ -4,7 +4,7 @@
 
 #let index(..args, body) = body
 #let eu = $upright(e)$
-#let im = $upright(i)$
+#let dom = math.op("dom")
 
 #show: post-template.with(
   title: "論集合",
@@ -14,15 +14,37 @@
 )
 
 
-= 集論
-
-== ZFC 公理
+= ZFC 公理
 
 
 == 交集
 $
   A union B = {x | x in A or x in B}
 $
+
+= 映射
+設 $A$, $B$ 皆集也。$A$ 與 $B$ 之間之*賦值法則*
+
+$
+  R := {(a, b) in A times B | (a,b) = (a, b') -> b = b'}
+$
+
+$f := (R, Y)$ 為映射，設 $dom f := A$，曰*定義域*。$im f := B$，曰*像域*。$Y supset.eq B$ *終域*也。$forall (a,b) in R$，記
+$
+  f: A -> B, quad a |-> f(a) := b
+$
+
+== 限制
+設 $f: A -> B$ 為映射，$S subset.eq A$，定義集合
+$
+  f[S] := {f(s) | s in S}
+$
+曰 $f$ 於 $S$ 之*像*。
+定義函數 $f$ 於 $S$ 之*限制* $f|_(S): S -> B$，$f|_S (s) := f(s)$。較然可見 $im f|_S = f[S]$
+
+== 單射
+$f$ 單射也，若 $ f(a) = f(a') -> a = a'. $
+意即 $f$ 之不同元有不同像也。
 
 == 勢
 集 $S$ 其元之數曰*勢*，記 $abs(S)$。例如 $abs({1, 2, 3}) = 3$。若 $(exists n in NN^*)abs(S) = n$，則稱 $S$ 爲*有限集*，否則爲*無限集*，如分數集，實數集云云。無限集中，$abs(NN) = alef_0$ 若勢與自然數集之勢等，則名之*可數集*，否則曰*不可數集*。例如分數集爲可數集，實數集爲不可數集。有限集之勢皆自然數，且 $abs(emptyset) = 0$。何言其勢等？
@@ -44,12 +66,63 @@ $
 
 所證如是。
 
+#proposition(title: [Schroder-Bernstein 定理])[
+  $S$, $T$ 皆集也。
+  $
+    abs(S) <= abs(T) and abs(T) <= abs(S) -> abs(S) = abs(T)
+  $
+]
+#let calS = $cal(S)$
+#let calT = $cal(T)$
+#proof[
+  設 $f: S -> T$ 與 $g: T -> S$ 皆單射也。欲證 $abs(S) = abs(T)$，即證有雙射 $h: S -> T$ 也。
+  設
+  $
+    S_n := cases(
+      S without g[T] quad & "if " n = 0,
+      g compose f[S_(n-1)] quad & "if " n > 0
+    )
+  $
+  $S_0$ 之元莫有 $g$ 之像也。而 $S_1$, $S_2$ ... 之屬，俱可緣溯至 $S_0$。故集 $S$ 之元之源自 $S$ 者設以為 $calS_S := union.big_(n in NN) S_n$ 也。$calT_S := f[calS_S]$。$T$ 之元之源自 $S$ 者也。類似者，設
+  $
+    T_n := cases(
+      T without f[S] quad & "if " n = 0,
+      f compose g[T_(n-1)] quad & "if " n > 0
+    )
+  $
+  $calT_T := union.big_(n in NN) T_n$ 為 $T$ 之元之源自 $T$ 者也。$calS_T := g[calT_T]$ 為 $S$ 之元之源自 $T$ 者也。$calS_S$, $calS_T$ 不相交。蓋 $s in calS_S$ 源自 $S$ 而非 $T$ 也。
+
+  設
+  $
+    h: S -> T = cases(
+      f quad & "if " s in calS_S,
+      g^(-1) quad & "if " s in S without calS_S,
+    )
+  $
+  則 $h$ 雙射也。何故？先證明引理
+  $
+    S without calS_S = g[T without calT_S]
+  $
+  + 凡 $s in S without calS_S$，則 $s in.not S_0$。是以 $s in g[T] -> (exists t in T) g(t) = s$。是唯需證 $t in.not calT_S$。\
+    若 $t in calT_S$，則 $(exists s' in calS_S) f(s') = t$。則 $s = g(t) = g(f(s'))$ 即 $(exists n in NN_+) s in S_n subset.eq calS_S$。謬也。故 $t in.not calT_S -> t in T without calT_S -> s = g(t) in g[T without calT_S]$。
+
+  + 反之，凡 $s in g[T without calT_S]$，則 $exists t in T without calT_S, g(t) = s$。是唯需證 $s in.not calS_S$。\
+    若 $s in calS_S$，則 $(exists n in NN_+) s in S_n$。繼而 $(exists s' in calS_S) g (f (s')) = s$，因 $g$ 單射，$t = f(s') in calT_S$。謬也。故 $s in S without calS_S$。
+]
+
+#proposition(title: [Cantor's 定理])[
+  $S$ 集也。
+  $
+    abs(S) < abs(2^S)
+  $
+]
+
 
 // == 界
 == 最大與最小
 論以偏序集之構 $(T, prec.eq)$，若 $forall t exists m (m prec.eq t)$，則稱 $T$ 有*最小元* $m$，記 $min T = m$。若 $forall t exists M(t prec.eq M)$，則謂之有*最大元* $M$也，記 $max T = M$。
-設 $cal(S) := { S | S subset.eq T }$ 爲 $T$ 子集族
-$ max (union.big_(S in cal(S)) S) = max {max S | S in cal(S)} $
+設 $calS := { S | S subset.eq T }$ 爲 $T$ 子集族
+$ max (union.big_(S in calS) S) = max {max S | S in calS} $
 $
   (forall t_1 in T_1)(forall t_2 in T_2)\ t_1 <= max T_1 <= max{max T_1, max T_2} and t_2 <= max T_2 <= max{max T_1, max T_2}
 $

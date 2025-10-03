@@ -19,19 +19,19 @@
 #let render(data, body) = {
   let (language, title, commitSha) = data
 
-  set text(lang: language, font: ("Libertinus Serif", "尙古明體SC"))
+  set text(lang: language, font: ("Minion 3", "尙古明體SC"))
   set par(justify: true)
   set heading(numbering: "1.1")
-  set math.equation(numbering: "(1)")
 
   show math.equation: set text(
     font: (
-      (name: "Libertinus Serif", covers: "latin-in-cjk"),
+      (name: "Minion 3", covers: "latin-in-cjk"),
       "Zhuque Fangsong (technical preview)",
-      "Libertinus Math",
+      "Minion Math",
     ),
     weight: 400,
   )
+  show "。": "．"
   set page(header: add-margin-watermark[
     ©Uwni, All Rights Reserved.
     version: #commitSha
