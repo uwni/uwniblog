@@ -10,31 +10,150 @@
   title: "論集合",
   tags: ("Mathematics", "Analysis", "Algebra"),
   language: "lzh",
-  draft: true,
 )
 
 
 = ZFC 公理
 
 
-== 交集
+== 集合代數
+設 $A$, $B$ 皆集也。納 A 及 B 之所有以為一集，曰 $A$ 與 $B$ 之*并集*，記 $A union B$。
+
 $
   A union B = {x | x in A or x in B}
 $
 
+擇 A 及 B 之共有以為一集，曰 $A$ 與 $B$ 之*交集*，記 $A inter B$。
+
+$
+  A inter B = {x | x in A and x in B}
+$
+
+$A$ 之所有之不見於 $B$ 者，曰 $A$ 與 $B$ 之*差集*，記 $A without B$。
+
+$
+  A without B = {x | x in A and x in.not B}
+$
+
+== 子集與空集
+設 $A$ 集也。若擇 $A$ 之部分以為一集 $B$，曰 $A$ 之*子集*，記 $B subset.eq A$。換言之, 凡 $b in B$ 者悉見於 $A$ 也。
+
+$
+  B subset.eq A <=> (forall b in B) b in A
+$
+
+若 $B subset.eq A$ 且 $B = A$，則曰 $B$ 為 $A$ 之*真子集*，記 $B subset A$。
+$A$ 子集之集
+集合無一物者曰*空集*，記 $emptyset$。空集爲任何集之子集也。
+
+#proof[
+  設 $A$ 集也。欲證 $emptyset subset.eq A$，即證
+  $forall x (x in emptyset -> x in A)$。蓋 $emptyset$ 無元也，故前項為假而命題空真矣。
+]
+
+=== 集族
+集合之集曰*集族*，設集族 $cal(F)$ 上之*一般並*為
+$
+  union.big cal(F) := union.big_(F in cal(F)) F := { x | (exists F in cal(F)) x in F }
+$
+若 $cal(F)$ 非空#footnote[因不存在所有元素之集合]，$cal(F)$ 上之*一般交*為
+$
+  inter.big cal(F) := inter.big_(F in cal(F)) F := { x | (forall F in cal(F)) x in F }
+$
+且较然易見
+$
+  union.big {A, B} = A union B\
+  inter.big {A, B} = A inter B
+$
+
+
+=== 幂集
+#let ps = $cal(P)$
+凡 $S$ 之子悉聚以為集族，曰*冪集*，記 $ps(S) := {x | x subset S }$。例如 $ps {1, 2} = {{}, {1}, {2}, {1, 2}}$。
+
+=== 不交並與劃分
+設 $cal(F)$ 集族也。若 $forall A, B in cal(F), A != B -> A inter B = emptyset$ 則記 $union.big cal(F)$ 為 $union.sq.big cal(F)$。曰*不交並*。
+
+設 $cal(F) subset.eq ps (X)$，$X$ 之族也。若
+$
+  union.sq.big cal(F) = X
+$
+則曰 $cal(F)$ 為 $X$ 之*劃分*。
+
+== 元組與 Cartesian 積
+
+TODO: 有序對（2元組），n元組，笛卡兒積
+
+$
+  A times B = {(a, b) | a in A and b in B}
+$
+
+$
+  A^n := underbrace(A times A times dots.c times A, n "個")
+$
+
+== 關係
+若集合 $R subset.eq A times B$ ，則稱之 *$A$ 與 $B$ 上之二元#index(modifier: "二元")[關係]*，畧以#index[關係]。若 $A = B$ 即 $R subset.eq A^2$ 則畧以 $A$ 上之關係。$(a,b) in R$ 則曰 *$(a, b)$ 適 $R$*。以中綴表達式記曰 $a R b$，亦可記以前綴表達式並輔以括弧讀號，曰$R(a,b)$。
+
+定義 $R$ 之*定義域*爲 $dom R := {a in A | (exists b in B) a R b}$，*像域*爲 $im R := {b in B |(exists a in A) a R b}$。
+
+== 等價關係
+
+#definition(title: [等價關係])[
+  設 $~$ 爲集 $S$ 上之二元關係。適三性如下列者則曰 $S$ 上之*等價關係*。：
+  / 自反性: $(forall s in S) s ~ s$
+  / 對稱性: $(forall s, t in S) s ~ t -> t ~ s$
+  / 傳遞性: $(forall s, t, u in S) s ~ t and t ~ u -> s ~ u$
+]
+
+
+#definition(title: [等價類與商集])[
+  設 $~$ 爲 $S$ 上之等價關係，凡 $s in S$，曰集合 $[s]_~ := {t in S | s ~ t}$ 爲 $s$ 之*等價類*。$S$ 之等價類族曰*商集*，記 $S \/ ~ := {[s]_~ | s in S}$。
+]
+
+#proposition[
+  $S$ 之等價關係與其劃分一一對應也
+]
+
+== 恆等關係
+記 $S$ 上之*恆等#index(modifier: "恆等")[關係]*曰 $id_S$
+$
+  id_S := {(s, s) | s in S}
+$
+例如 $S = {suit.club.stroked, suit.diamond.stroked, suit.heart.stroked}$，$id_S = {(suit.club.stroked, suit.club.stroked), (suit.diamond.stroked, suit.diamond.stroked), (suit.heart.stroked, suit.heart.stroked)}$
+
+恆等關係者，等價關係也
+
+== 偏序關係
+設以并關係集 $(S, prec.eq)$，並有
+/ 自反性: $(forall s in S) s prec.eq s$
+/ 反對稱性: $(forall s, t in S) s prec.eq t and t prec.eq s -> s = t$
+/ 傳遞性: $(forall s, t, u in S) s prec.eq t and t prec.eq u -> s prec.eq u$
+則名 $prec.eq$ 曰*偏序關係*。偏序關係之最小者，唯有恆等關係也。不難證明之。
++ $id$ 適自反性，反對稱性，傳遞性，故爲偏序關係也。
++ 凡 $(forall s in S) id without {(s, s)}$ 之關係皆以有違自反性而非偏序關係也。故最小也
++ 凡偏序關係必含 $id$ 也。可以歸謬法示其唯一也。
+
+== 全序關係
+若改 $prec.eq$ 之自反性爲完全性，即
+$
+    "完全性": & quad (forall s, t in S) s prec.eq t or t prec.eq s \
+  "反對稱性": & quad (forall s, t in S) s prec.eq t and t prec.eq s -> s = t \
+    "傳遞性": & quad (forall s, t, u in S) s prec.eq t and t prec.eq u -> s prec.eq u
+$
+
+則謂之*全序#index(modifier: "全序")[關係]*，或曰*鏈*。凡全序之關係，恆偏序也。請備述之。全序關係滿足反對稱性與傳遞性，並以完全性蘊含自反性即知其亦偏序也。
+
 = 映射
-設 $A$, $B$ 皆集也。$A$ 與 $B$ 之間之*賦值法則*
+設 $X$, $Y$ 皆集也。$X times Y$ 上之二元關係 $f$ 為*映射*，若
 
 $
-  R := {(a, b) in A times B | (a,b) = (a, b') -> b = b'}
+  (x, y) in f and (x, y') in f -> y = y'
 $
 
-$f := (R, Y)$ 為映射，設 $dom f := A$，曰*定義域*。$im f := B$，曰*像域*。$Y supset.eq B$ *終域*也。$forall (a,b) in R$，記
-$
-  f: A -> B, quad a |-> f(a) := b
-$
+若定義域 $dom f = A$，像域 $im f subset.eq B$。記 $f: A -> B$，$B$ 曰*終域*。若 $(x,y) in f$，記曰 $f(x) = y$ 或 $f: x |-> y$。若 $B$ 為一數集，則 $f$ 曰*函數*。
 
-== 限制
+== 限制與擴張
 設 $f: A -> B$ 為映射，$S subset.eq A$，定義集合
 $
   f[S] := {f(s) | s in S}
@@ -42,29 +161,27 @@ $
 曰 $f$ 於 $S$ 之*像*。
 定義函數 $f$ 於 $S$ 之*限制* $f|_(S): S -> B$，$f|_S (s) := f(s)$。較然可見 $im f|_S = f[S]$
 
-== 單射
-$f$ 單射也，若 $ f(a) = f(a') -> a = a'. $
+== 單滿性
+$f$ *單射*也，若 $ f(a) = f(a') -> a = a'. $
 意即 $f$ 之不同元有不同像也。
 
+$f: A -> B$ 曰*滿射*，若 $forall b in B, exists a in A, f(a) = b$。意即 $im f = B$ 也。
+
+$f$ *對射*也，若 $f$ 單射且滿射。
+
 == 勢
-集 $S$ 其元之數曰*勢*，記 $abs(S)$。例如 $abs({1, 2, 3}) = 3$。若 $(exists n in NN^*)abs(S) = n$，則稱 $S$ 爲*有限集*，否則爲*無限集*，如分數集，實數集云云。無限集中，$abs(NN) = alef_0$ 若勢與自然數集之勢等，則名之*可數集*，否則曰*不可數集*。例如分數集爲可數集，實數集爲不可數集。有限集之勢皆自然數，且 $abs(emptyset) = 0$。何言其勢等？
-$
-  S tilde.equiv T <=> (exists f: S -> T) f "對射也"
-$
-此計數之抽象也，若有 $S = {suit.club.stroked, suit.diamond.stroked, suit.heart.stroked, suit.spade.stroked}$ 集，數以一二三四而知其勢乃 $4$ 也。編號計數法實乃一雙射: $S -> NN^*_(<=4)$ 也。無限集也，雖數不盡其元，猶可較也。若有集可令其元一一對應於自然數者，正如數盡自然數之勢也。
+孟子曰權，然後知輕重；度，然後知長短。物皆然。計集 $S$ 其元众寡曰*勢*，記以 $abs(S)$。
+$S$, $T$ 集合也，若有對射 $f: S -> T$，則曰二集*等勢*，記曰 $S tilde.equiv T$。是以 $S$ 度 $T$ 之勢也。
 
-== 幂集
-凡 $S$ 之子悉聚以為集族，曰冪集，記 $2^S := {x | x subset S }$。例如 $2^{1, 2} = {{}, {1}, {2}, {1, 2}}$。$S$ 冪集之勢 $abs(2^S) = 2^abs(S)$ 也，請以歸納法證明之:
-$abs(2^emptyset) = abs({emptyset}) = 1$
-,令
-$abs(2^S) = 2^abs(S)$,
-既添新元 $x$ 於 $S$，其冪集必含原 $2^S$ 之諸元。$2^(S union {x})$ 之新添乃 $x$ 與舊 $2^S$ 諸元之併。是以
-
+自然数以為籌, 若 $exists n in NN$ 可使 $S$ 與 $NN_(<n) := {0, 1, 2, ..., n-1}$ 對射，則謂 $S$ *有限集*，勢 $n$，記 $abs(S) = n$。
+此計數之抽象也，若有 $S = {suit.club.stroked, suit.diamond.stroked, suit.heart.stroked, suit.spade.stroked}$ 集，數以一二三四而知其勢乃 $4$ 。蓋有對射:
 $
-  abs(2^(S union {x})) = overbrace(abs(2^S), "原" S "之勢") + underbrace(abs(2^S times {x}), "新添之勢") = 2^abs(S) + 2^abs(S) = 2^(abs(S)+1) = 2^(abs(S union {x}))
+  f: & S -> NN_(<4) \
+     & suit.club.stroked |-> 0, suit.diamond.stroked |-> 1, suit.heart.stroked |-> 2, suit.spade.stroked |-> 3
 $
+使之然也。
 
-所證如是。
+不然，則謂之*無限集*。如分數集，實數集云云。無限集中，定 $abs(NN) =: alef_0$。若集合勢等於自然數集，則名之*可數集*，否則曰*不可數集*。例如分數集爲可數集，實數集爲不可數集。有限集之勢皆自然數，且 $abs(emptyset) = 0$。無限集者，雖不可勝數，猶可較也。若有集可使其元對射於自然數者，譬如盡數自然數之勢然。
 
 #proposition(title: [Schroder-Bernstein 定理])[
   $S$, $T$ 皆集也。
@@ -75,7 +192,7 @@ $
 #let calS = $cal(S)$
 #let calT = $cal(T)$
 #proof[
-  設 $f: S -> T$ 與 $g: T -> S$ 皆單射也。欲證 $abs(S) = abs(T)$，即證有雙射 $h: S -> T$ 也。
+  設 $f: S -> T$ 與 $g: T -> S$ 皆單射也。欲證 $abs(S) = abs(T)$，即證有對射 $h: S -> T$ 也。
   設
   $
     S_n := cases(
@@ -83,14 +200,7 @@ $
       g compose f[S_(n-1)] quad & "if " n > 0
     )
   $
-  $S_0$ 之元莫有 $g$ 之像也。而 $S_1$, $S_2$ ... 之屬，俱可緣溯至 $S_0$。故集 $S$ 之元之源自 $S$ 者設以為 $calS_S := union.big_(n in NN) S_n$ 也。$calT_S := f[calS_S]$。$T$ 之元之源自 $S$ 者也。類似者，設
-  $
-    T_n := cases(
-      T without f[S] quad & "if " n = 0,
-      f compose g[T_(n-1)] quad & "if " n > 0
-    )
-  $
-  $calT_T := union.big_(n in NN) T_n$ 為 $T$ 之元之源自 $T$ 者也。$calS_T := g[calT_T]$ 為 $S$ 之元之源自 $T$ 者也。$calS_S$, $calS_T$ 不相交。蓋 $s in calS_S$ 源自 $S$ 而非 $T$ 也。
+  $S_0$ 之元莫有 $g$ 之像也。而 $S_1$, $S_2$ ... 之屬，俱可緣溯至 $S_0$。故集 $S$ 之元之源自 $S$ 者設以為 $calS_S := union.big_(n in NN) S_n$。設 $calT_S := f[calS_S]$，$T$ 之元之源自 $S$ 者也。$calS_S$, $calS_T$ 不相交。蓋 $s in calS_S$ 源自 $S$ 而非 $T$ 故也。
 
   設
   $
@@ -99,23 +209,56 @@ $
       g^(-1) quad & "if " s in S without calS_S,
     )
   $
-  則 $h$ 雙射也。何故？先證明引理
-  $
-    S without calS_S = g[T without calT_S]
-  $
-  + 凡 $s in S without calS_S$，則 $s in.not S_0$。是以 $s in g[T] -> (exists t in T) g(t) = s$。是唯需證 $t in.not calT_S$。\
-    若 $t in calT_S$，則 $(exists s' in calS_S) f(s') = t$。則 $s = g(t) = g(f(s'))$ 即 $(exists n in NN_+) s in S_n subset.eq calS_S$。謬也。故 $t in.not calT_S -> t in T without calT_S -> s = g(t) in g[T without calT_S]$。
+  則 $h$ 對射也。何故？
+  + $f$ 單射而 $f|_(calS_S)$ 自然也。反之，$f|_(calS_S): calS_S -> calT_S$ 滿射也。以 $calT_S = f[calS_S] = im f|_(calS_S)$ 較然可知。故 $f|_(calS_S)$ 對射也。
+  + 同理知 $g|_(T without calT_T)$ 單射。而又以
+    $
+      g[T without calT_S] = S without calS_S
+    $
+    得 $g|_(T without calT_T): T without calT_T -> S without calS_S$ 滿射也。所以然者，蓋
+    + 凡 $s in S without calS_S$，則 $s in.not S_0$。是以 $s in g[T] -> (exists t in T) g(t) = s$。是唯需證 $t in.not calT_S$。\
+      若 $t in calT_S$，則 $(exists s' in calS_S) f(s') = t$。則 $s = g(t) = g(f(s'))$ 即 $(exists n in NN_+) s in S_n subset.eq calS_S$。謬也。故 $t in.not calT_S -> t in T without calT_S -> s = g(t) in g[T without calT_S]$。
 
-  + 反之，凡 $s in g[T without calT_S]$，則 $exists t in T without calT_S, g(t) = s$。是唯需證 $s in.not calS_S$。\
-    若 $s in calS_S$，則 $(exists n in NN_+) s in S_n$。繼而 $(exists s' in calS_S) g (f (s')) = s$，因 $g$ 單射，$t = f(s') in calT_S$。謬也。故 $s in S without calS_S$。
+    + 反之，凡 $s in g[T without calT_S]$，則 $exists t in T without calT_S, g(t) = s$。是唯需證 $s in.not calS_S$。\
+      若 $s in calS_S$，則 $(exists n in NN_+) s in S_n$。繼而 $(exists s' in calS_S) g (f (s')) = s$，因 $g$ 單射，$t = f(s') in calT_S$。謬也。故 $s in S without calS_S$。
+
+  是以 $h$ 對射也。所證如是。
 ]
 
 #proposition(title: [Cantor's 定理])[
   $S$ 集也。
   $
-    abs(S) < abs(2^S)
+    abs(S) < abs(ps(S))
   $
 ]
+
+#proof[
+  設 $f: S -> ps(S)$ 為任意映射也。欲證 $f$ 非對射也，蓋則 $abs(S) <= abs(ps(S))$。設
+  $
+    T := {s in S | s in.not f(s)}
+  $
+  則 $T subset.eq S$ 故 $T in ps(S)$。欲證 $T$ 非 $f$ 之像也，蓋則 $f$ 非對射也。假 $exists t in S, f(t) = T$。則
+  + 若 $t in T$，則 $t in.not f(t) = T$。謬也。
+  + 若 $t in.not T$，則 $t in f(t) = T$。謬也。
+
+  所證如是。
+]
+
+可數集 $S$ 之冪集 $ps (S)$ 尤勢 $2^abs(S)$ 也，請以歸納法證明之:
+$abs(ps(emptyset)) = abs({emptyset}) = 1$
+,若設以
+$abs(ps(S)) = 2^abs(S)$,
+既添新元 $x$ 於 $S$，其冪集必含原 $ps(S)$ 之諸元。$ps(S union {x})$ 之新添乃 $x$ 與舊 $ps(S)$ 諸元之併。
+$
+  ps(S union {x}) = ps(S) union.sq {Y union {x} | Y in ps(S)}
+$
+是以
+
+$
+  abs(ps(S union {x})) = abs(ps(S)) + abs({Y union {x} | Y in ps(S)}) = 2^abs(S) + 2^abs(S) = 2^(abs(S)+1) = 2^(abs(S union {x}))
+$
+
+所證如是。
 
 
 // == 界
@@ -206,74 +349,3 @@ $
   (3) ⇒ (1)：
 
 ]
-
-= 代數
-
-== 關係
-稱集 $R subset.eq A times B$ 爲集 $A$ 與 $B$ 上之*二元#index(modifier: "二元")[關係]*，畧以#index[關係]。若 $A = B$ 即 $R subset.eq A^2$ 則畧以 $A$ 上之關係。若以中綴表達式記 $a in A$ 與 $b in B$ 之適關係 $R$ 者，曰 $a R b$:
-$
-  a R b <=> (forall r in R)(exists a in A)(exists b in B)r = (a, b)
-$
-亦可記以前綴表達式並輔以括弧讀號，如 $R(a,b)$。
-
-== 等價關係
-
-#definition(title: [等價關係])[
-  設 $~$ 爲集 $S$ 上之二元關係。適三性如下列者則曰 $S$ 上之*等價關係*。：
-  / 自反性: $(forall s in S) s ~ s$
-  / 對稱性: $(forall s, t in S) s ~ t -> t ~ s$
-  / 傳遞性: $(forall s, t, u in S) s ~ t and t ~ u -> s ~ u$
-]
-
-
-#definition(title: [等價類與商集])[
-  設 $~$ 爲 $S$ 上之等價關係，凡 $s in S$，曰集合 $[s]_~ := {t in S | s ~ t}$ 爲 $s$ 之*等價類*。$S$ 之等價類族曰*商集*，記 $S \/ ~ := {[s]_~ | s in S}$。
-]
-
-#proposition[
-  $S$ 之等價關係與其劃分一一對應也
-]
-
-== 恆等關係
-記 $S$ 上之*恆等#index(modifier: "恆等")[關係]*曰 $id_S$
-$
-  id_S := {(s, s) | s in S}
-$
-例如 $S = {suit.club.stroked, suit.diamond.stroked, suit.heart.stroked}$，$id_S = {(suit.club.stroked, suit.club.stroked), (suit.diamond.stroked, suit.diamond.stroked), (suit.heart.stroked, suit.heart.stroked)}$
-
-恆等關係者，等價關係也
-
-== 偏序關係
-設以并關係集 $(S, prec.eq)$，並有
-/ 自反性: $(forall s in S) s prec.eq s$
-/ 反對稱性: $(forall s, t in S) s prec.eq t and t prec.eq s -> s = t$
-/ 傳遞性: $(forall s, t, u in S) s prec.eq t and t prec.eq u -> s prec.eq u$
-則名 $prec.eq$ 曰*偏序關係*。偏序關係之最小者，唯有恆等關係也。不難證明之。
-+ $id$ 適自反性，反對稱性，傳遞性，故爲偏序關係也。
-+ 凡 $(forall s in S) id without {(s, s)}$ 之關係皆以有違自反性而非偏序關係也。故最小也
-+ 凡偏序關係必含 $id$ 也。可以歸謬法示其唯一也。
-
-== 全序關係
-若改 $prec.eq$ 之自反性爲完全性，即
-$
-    "完全性": & quad (forall s, t in S) s prec.eq t or t prec.eq s \
-  "反對稱性": & quad (forall s, t in S) s prec.eq t and t prec.eq s -> s = t \
-    "傳遞性": & quad (forall s, t, u in S) s prec.eq t and t prec.eq u -> s prec.eq u
-$
-
-則謂之*全序#index(modifier: "全序")[關係]*，或曰*鏈*。凡全序之關係，恆偏序也。請備述之。全序關係滿足反對稱性與傳遞性，並以完全性蘊含自反性即知其亦偏序也。
-
-// = 數域 <chap>
-
-= 換元術
-夫換元之術者，分析學之魂魄也。以之解方程，求積分，皆有其用。且其法之簡明，使人易於理解。換元本爲函數之複合，請例以如下。求函數 $f(x) = 1-x^2$ 之最大值。作換元 $g: x |-> cos t$ 得
-
-$
-  x stretch(->)^(g) cos t stretch(->)^(f) 1 - cos^2 t = sin^2 t
-$
-
-而其最值瞭然也。
-簡記一階邏輯
-$
-  (forall a in A)p(a) <=> forall a(a in A -> p(a))
-$
