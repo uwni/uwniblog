@@ -36,7 +36,7 @@ $
 $
 
 == 子集與空集
-設 $A$ 集也。若擇 $A$ 之部分以為一集 $B$，曰 $A$ 之*子集*，記 $B subset.eq A$。換言之, 凡 $b in B$ 者悉見於 $A$ 也。
+設 $A$ 集也。若分 $A$ 為一新集 $B$，曰 $A$ 之*子集*，記 $B subset.eq A$。然則凡 $b in B$ 者悉見於 $A$ 也。
 
 $
   B subset.eq A <=> (forall b in B) b in A
@@ -52,24 +52,24 @@ $A$ 子集之集
 ]
 
 === 集族
-集合之集曰*集族*，設集族 $cal(F)$ 上之*一般並*為
+集合之集曰*集族*，$cal(F)$ 集族也。*一般並*者
 $
   union.big cal(F) := union.big_(F in cal(F)) F := { x | (exists F in cal(F)) x in F }
 $
-若 $cal(F)$ 非空#footnote[因不存在所有元素之集合]，$cal(F)$ 上之*一般交*為
+若非空#footnote[不存在所有元素之集合故]，*一般交*者
 $
   inter.big cal(F) := inter.big_(F in cal(F)) F := { x | (forall F in cal(F)) x in F }
 $
 且较然易見
 $
-  union.big {A, B} = A union B\
-  inter.big {A, B} = A inter B
+  display(union.big {A, B} = A union B)\
+  display(inter.big {A, B} = A inter B)
 $
 
 
 === 幂集
 #let ps = $cal(P)$
-凡 $S$ 之子悉聚以為集族，曰*冪集*，記 $ps(S) := {x | x subset S }$。例如 $ps {1, 2} = {{}, {1}, {2}, {1, 2}}$。
+凡 $S$ 之子悉聚以為集族，曰*冪集*，記 $ps(S) := {x | x subset.eq S }$。例如 $ps {1, 2} = {{}, {1}, {2}, {1, 2}}$。
 
 === 不交並與劃分
 設 $cal(F)$ 集族也。若 $forall A, B in cal(F), A != B -> A inter B = emptyset$ 則記 $union.big cal(F)$ 為 $union.sq.big cal(F)$。曰*不交並*。
@@ -93,22 +93,22 @@ $
 $
 
 == 關係
-若集合 $R subset.eq A times B$ ，則稱之 *$A$ 與 $B$ 上之二元#index(modifier: "二元")[關係]*，畧以#index[關係]。若 $A = B$ 即 $R subset.eq A^2$ 則畧以 $A$ 上之關係。$(a,b) in R$ 則曰 *$(a, b)$ 適 $R$*。以中綴表達式記曰 $a R b$，亦可記以前綴表達式並輔以括弧讀號，曰$R(a,b)$。
+若集合 $R subset.eq A times B$者，謂之 *$A$ 與 $B$ 上之二元#index(modifier: "二元")[關係]*，畧以#index[關係]。若 $A = B$ 即 $R subset.eq A^2$ 則曰 $A$ 上之關係。$(a,b) in R$ 則曰 *$(a, b)$ 適 $R$*。以中綴表達式記曰 $a R b$，亦可記以前綴式並輔以括弧讀號，曰$R(a,b)$。
 
-定義 $R$ 之*定義域*爲 $dom R := {a in A | (exists b in B) a R b}$，*像域*爲 $im R := {b in B |(exists a in A) a R b}$。
+夫 $R$ 之*定義域*者，$dom R := {a in A | (exists b in B) a R b}$。夫*像域*者，$im R := {b in B |(exists a in A) a R b}$。
 
 == 等價關係
+#let normaleq = $class("normal", ~)$
 
 #definition(title: [等價關係])[
-  設 $~$ 爲集 $S$ 上之二元關係。適三性如下列者則曰 $S$ 上之*等價關係*。：
+  設 $normaleq$ 爲集 $S$ 上之二元關係。適三性如下列者謂 $S$ 上之*等價關係*。：
   / 自反性: $(forall s in S) s ~ s$
   / 對稱性: $(forall s, t in S) s ~ t -> t ~ s$
   / 傳遞性: $(forall s, t, u in S) s ~ t and t ~ u -> s ~ u$
 ]
 
-
 #definition(title: [等價類與商集])[
-  設 $~$ 爲 $S$ 上之等價關係，凡 $s in S$，曰集合 $[s]_~ := {t in S | s ~ t}$ 爲 $s$ 之*等價類*。$S$ 之等價類族曰*商集*，記 $S \/ ~ := {[s]_~ | s in S}$。
+  設 $normaleq$ 爲 $S$ 上之等價關係，凡 $s in S$，集合 $[s]_normaleq := {t in S | s ~ t}$ 名曰 $s$ 之*等價類*。$S$ 之等價類族曰*商集*，記 $S \/ normaleq := {[s]_normaleq | s in S}$。
 ]
 
 #proposition[
@@ -122,17 +122,57 @@ $
 $
 例如 $S = {suit.club.stroked, suit.diamond.stroked, suit.heart.stroked}$，$id_S = {(suit.club.stroked, suit.club.stroked), (suit.diamond.stroked, suit.diamond.stroked), (suit.heart.stroked, suit.heart.stroked)}$
 
-恆等關係者，等價關係也
+恆等關係者，等價關係也。
 
 == 偏序關係
-設以并關係集 $(S, prec.eq)$，並有
+$(S, prec.eq)$ 設以為結構之並以關係者，並有
 / 自反性: $(forall s in S) s prec.eq s$
 / 反對稱性: $(forall s, t in S) s prec.eq t and t prec.eq s -> s = t$
 / 傳遞性: $(forall s, t, u in S) s prec.eq t and t prec.eq u -> s prec.eq u$
-則名 $prec.eq$ 曰*偏序關係*。偏序關係之最小者，唯有恆等關係也。不難證明之。
+則 $prec.eq$ 名曰*偏序關係*。偏序關係之最小者，唯恆等關係也。不難證明之。
 + $id$ 適自反性，反對稱性，傳遞性，故爲偏序關係也。
 + 凡 $(forall s in S) id without {(s, s)}$ 之關係皆以有違自反性而非偏序關係也。故最小也
 + 凡偏序關係必含 $id$ 也。可以歸謬法示其唯一也。
+
+若夫偏序之匪等者，曰*嚴格偏序*也。記 $prec$。$a prec b := a prec.eq b and a != b$
+
+== 最大與最小
+$(T, prec.eq)$ 偏序之構也。$s in T$，若夫
+- $forall t in T, s prec.not t$，莫大於 $s$。$s$ 謂之*極大*。
+- $forall t in T, t prec.not s$，莫小於 $s$。$s$ 謂之*極小*。
+- $forall t in T, t prec.eq s$，皆小於 $s$。$s$ 謂之*最大*，記 $max T = s$。
+- $forall t in T, s prec.eq t$，皆大於 $s$。$s$ 謂之*最小*，記 $min T = s$。
+
+最大（小）者極大（小）也。
+
+非空有窮偏序集者，偏序集之非空且有窮也。
+- 極大（小）元常有。
+  // show me here
+- 最大（小）元不常有。例如 $T = {suit.club.stroked, suit.diamond.stroked, suit.heart.stroked}$，偏序關係 $class("normal", prec.eq) = id$。所以無最大（小）元者，不可相較而已。
+
+非空有窮全序集常有最大（小）元。請擬以歸納證明之
+  + $abs(S) = 1$，$S$ 之元唯一，即最大最小元也。
+  + $abs(S) = 2$，設 $S = {t_1, t_2}$，其最元得計算如下
+    $
+      max S = cases(t_1 quad "if" t_2 prec.eq t_1, t_2 quad "if" t_1 prec.eq t_2), wide
+      min S = cases(t_1 quad "if" t_1 prec.eq t_2, t_2 quad "if" t_2 prec.eq t_1)
+    $
+  + 設 $abs(S) = N$，$S$ 有最大元 $M$ 與最小元 $m$。
+  + 察 $abs(S) = N+1$，令 $S' = S without {s}$。
+    由前款知 $S'$ 有最大元 $M'$ 與最小元 $m'$。然則 $max S = max{M', s}$, $min S = min{m', s}$ 也。即 $S$ 有最大最小元也。
+
+集之界，不逾之境也。凡集 $S subset.eq T$ 之元 $s$，其或 $s <= M$ 者，則名 $M$ 爲 $S$ 一*上界*。反之，若 $M <= s$ 則喚作*下界*。上下界並存，則謂之*有界*。界不必含於集也。上界之最小者，曰*上確界*，或曰最小上界，記 $sup S$。下界之最大者，曰*下確界*，或曰最大下界，記 $inf S$。
+
+$
+  sup S = min{ t in T | s in S, s <= t}
+$
+$
+  inf S = max{ t in T | s in S, t <= s}
+$
+
+例以上界與上確界，察其性質，凡有二項，一曰 $sup S$ 乃 $S$ 之上界也，二曰凡其上界莫小於 $sup S$ 也，即最小之上界也。
+請問偏序集恆有上界乎？
+1。有窮集顯然恆有界，且 $sup S= max S$ 而 $inf S = min S$ 也。依序可列 $S$ 之元,
 
 == 全序關係
 若改 $prec.eq$ 之自反性爲完全性，即
@@ -142,38 +182,61 @@ $
     "傳遞性": & quad (forall s, t, u in S) s prec.eq t and t prec.eq u -> s prec.eq u
 $
 
-則謂之*全序#index(modifier: "全序")[關係]*，或曰*鏈*。凡全序之關係，恆偏序也。請備述之。全序關係滿足反對稱性與傳遞性，並以完全性蘊含自反性即知其亦偏序也。
+則名曰*全序#index(modifier: "全序")[關係]*，或曰*鏈*。凡全序之關係，恆偏序也。請備述之。全序關係滿足反對稱性與傳遞性，並以完全性蘊含自反性即知其亦偏序也。
 
 = 映射
-設 $X$, $Y$ 皆集也。$X times Y$ 上之二元關係 $f$ 為*映射*，若
+$X$, $Y$ 皆設以為集也。$X times Y$ 上之二元關係 $f$ 為*映射*，若
 
 $
   (x, y) in f and (x, y') in f -> y = y'
 $
 
-若定義域 $dom f = A$，像域 $im f subset.eq B$。記 $f: A -> B$，$B$ 曰*終域*。若 $(x,y) in f$，記曰 $f(x) = y$ 或 $f: x |-> y$。若 $B$ 為一數集，則 $f$ 曰*函數*。
+若夫定義域、像域之所謂，承自二元關係也。若定義域 $dom f = A$，像域 $im f subset.eq B$。記 $f: A -> B$，$B$ 曰*終域*。若 $(x,y) in f$，記曰 $f(x) = y$ 或 $f: x |-> y$。若 $B$ 為一數集，則 $f$ 謂之*函數*。
 
 == 限制與擴張
-設 $f: A -> B$ 為映射，$S subset.eq A$，定義集合
+$f: A -> B$ 為映射也，$S subset.eq A$，集合
 $
   f[S] := {f(s) | s in S}
 $
-曰 $f$ 於 $S$ 之*像*。
-定義函數 $f$ 於 $S$ 之*限制* $f|_(S): S -> B$，$f|_S (s) := f(s)$。較然可見 $im f|_S = f[S]$
+名曰 $f$ 於 $S$ 之*像集*。
+
+#proposition[
+  $f[S] subset.eq f[A] = im f$
+]
+#proof[
+  前者較然可見。再者，即證 $f[A] subset.eq im f$ 及 $f[A] supset.eq im f$。其中 $im f = {b in B| (exists a in A) f(a) = b}$ 承義自二元關係。
+  + ($subset.eq$) $forall b in f[A] = {f(a) | a in A}$ 有 $a in A$ 遂使 $b = f(a) in B$。故 $b in im f$。
+  + ($supset.eq$) $forall b in im f$ 有 $a in A$ 遂使 $b = f(a)$。是以 $b in f[A]$。
+]
+定義函數 $f$ 於 $S$ 之*限制* $f|_(S): S -> B$，$f|_S (s) := f(s)$。於是 $im f|_S = f[S]$。
 
 == 單滿性
-$f$ *單射*也，若 $ f(a) = f(a') -> a = a'. $
-意即 $f$ 之不同元有不同像也。
+$f: A -> B$ 映射也。夫*單射*者，
+$
+  f(a) = f(a') -> a = a'.
+$
+為 $f$ 之不同元有不同像也。夫*滿射*者，
+$
+  forall b in B, exists a in A, f(a) = b.
+$
+夫*對射*者，單射且滿射。
 
-$f: A -> B$ 曰*滿射*，若 $forall b in B, exists a in A, f(a) = b$。意即 $im f = B$ 也。
+#proposition[
+  $ f: A -> B "滿射" <-> im f = B $
+]
+#proof[
+  ($->$) 設 $f$ 滿射也。欲證 $im f = B$，即證 $im f subset.eq B$ 且 $B subset.eq im f$。前者較然。及後者，蓋 $f$ 滿射，故 $forall b in B, exists a in A, f(a) = b$。是以 $b in im f = {f(a)| a in A}$。
 
-$f$ *對射*也，若 $f$ 單射且滿射。
+  ($<-$) 設 $im f = B$。欲證 $f$ 滿射也，即證 $forall b in B, exists a in A, f(a) = b$。蓋 $im f = B$，則 $forall b in B, b in im f$。是以 $forall b in B, exists a in A, f(a) = b$。
+]
+
+== 逆映射
 
 == 勢
 孟子曰權，然後知輕重；度，然後知長短。物皆然。計集 $S$ 其元众寡曰*勢*，記以 $abs(S)$。
 $S$, $T$ 集合也，若有對射 $f: S -> T$，則曰二集*等勢*，記曰 $S tilde.equiv T$。是以 $S$ 度 $T$ 之勢也。
 
-自然数以為籌, 若 $exists n in NN$ 可使 $S$ 與 $NN_(<n) := {0, 1, 2, ..., n-1}$ 對射，則謂 $S$ *有限集*，勢 $n$，記 $abs(S) = n$。
+自然数以為籌, 若 $exists n in NN$ 可使 $S$ 與 $NN_(<n) := {0, 1, 2, ..., n-1}$ 對射，則謂 $S$ *有窮集*，勢 $n$，記 $abs(S) = n$。
 此計數之抽象也，若有 $S = {suit.club.stroked, suit.diamond.stroked, suit.heart.stroked, suit.spade.stroked}$ 集，數以一二三四而知其勢乃 $4$ 。蓋有對射:
 $
   f: & S -> NN_(<4) \
@@ -181,7 +244,7 @@ $
 $
 使之然也。
 
-不然，則謂之*無限集*。如分數集，實數集云云。無限集中，定 $abs(NN) =: alef_0$。若集合勢等於自然數集，則名之*可數集*，否則曰*不可數集*。例如分數集爲可數集，實數集爲不可數集。有限集之勢皆自然數，且 $abs(emptyset) = 0$。無限集者，雖不可勝數，猶可較也。若有集可使其元對射於自然數者，譬如盡數自然數之勢然。
+不然，謂之*無窮集*。如分數集，實數集云云。無窮集中，$abs(NN)$ 定以為 $alef_0$。集合勢與自然數集等者，名曰*可數集*，否則曰*不可數集*。例如分數集爲可數集，實數集爲不可數集。有窮集之勢皆自然數，且 $abs(emptyset) = 0$。無窮集者，雖不可勝數，猶可較也。若有集可使其元對射於自然數者，譬如盡數自然數之勢然。
 
 #proposition(title: [Schroder-Bernstein 定理])[
   $S$, $T$ 皆集也。
@@ -233,7 +296,7 @@ $
 ]
 
 #proof[
-  設 $f: S -> ps(S)$ 為任意映射也。欲證 $f$ 非對射也，蓋則 $abs(S) <= abs(ps(S))$。設
+  $f: S -> ps(S)$ 以為映射。欲證 $f$ 非對射也，蓋則 $abs(S) <= abs(ps(S))$。設
   $
     T := {s in S | s in.not f(s)}
   $
@@ -248,53 +311,22 @@ $
 $abs(ps(emptyset)) = abs({emptyset}) = 1$
 ,若設以
 $abs(ps(S)) = 2^abs(S)$,
-既添新元 $x$ 於 $S$，其冪集必含原 $ps(S)$ 之諸元。$ps(S union {x})$ 之新添乃 $x$ 與舊 $ps(S)$ 諸元之併。
+既添新元 $x$ 於 $S$，其冪集必含原 $ps(S)$ 所有。$ps(S union {x})$ 之所添乃 $x$ 與原 $ps(S)$ 所有之併也。
 $
   ps(S union {x}) = ps(S) union.sq {Y union {x} | Y in ps(S)}
 $
 是以
 
 $
-  abs(ps(S union {x})) = abs(ps(S)) + abs({Y union {x} | Y in ps(S)}) = 2^abs(S) + 2^abs(S) = 2^(abs(S)+1) = 2^(abs(S union {x}))
+  2^(abs(S union {x})) = abs(ps(S union {x})) = abs(ps(S)) + abs({Y union {x} | Y in ps(S)}) = 2^abs(S) + 2^abs(S) = 2^(abs(S)+1)
 $
 
 所證如是。
 
 
 // == 界
-== 最大與最小
-論以偏序集之構 $(T, prec.eq)$，若 $forall t exists m (m prec.eq t)$，則稱 $T$ 有*最小元* $m$，記 $min T = m$。若 $forall t exists M(t prec.eq M)$，則謂之有*最大元* $M$也，記 $max T = M$。
-設 $calS := { S | S subset.eq T }$ 爲 $T$ 子集族
-$ max (union.big_(S in calS) S) = max {max S | S in calS} $
-$
-  (forall t_1 in T_1)(forall t_2 in T_2)\ t_1 <= max T_1 <= max{max T_1, max T_2} and t_2 <= max T_2 <= max{max T_1, max T_2}
-$
 
-- 有限偏序集不常有最大最小元。例如 $T = {suit.club.stroked, suit.diamond.stroked, suit.heart.stroked}$，偏序關係 $prec.eq = id$。所以無最大及最小元者，不可相較而已。
-- 有限全序集常有最大最小元。請擬以歸納證明之
-  + $abs(S) = 1$，$S$ 之元唯一，即最大最小元也。
-  + $abs(S) = 2$，設 $S = {t_1, t_2}$，其最元得計算如下
-    $
-      max S = cases(t_1 quad "if" t_2 prec.eq t_1, t_2 quad "if" t_1 prec.eq t_2), wide
-      min S = cases(t_1 quad "if" t_1 prec.eq t_2, t_2 quad "if" t_2 prec.eq t_1)
-    $
-  + 設 $abs(S) = N$，$S$ 有最大元 $M$ 與最小元 $m$。
-  + 察 $abs(S) = N+1$，令 $S' = S without {s}$。
-    由前款知 $S'$ 有最大元 $M'$ 與最小元 $m'$。然則 $max S = max{M', s}$, $min S = min{m', s}$ 也。即 $S$ 有最大最小元也。
-
-集之界，不逾之境也。凡集 $S subset.eq T$ 之元 $s$，其或 $s <= M$ 者，則名 $M$ 爲 $S$ 一*上界*。反之，若 $M <= s$ 則喚作*下界*。上下界並存，則謂之*有界*。界不必含於集也。上界之最小者，曰*上確界*，或曰最小上界，記 $sup S$。下界之最大者，曰*下確界*，或曰最大下界，記 $inf S$。
-
-$
-  sup S = min{ t in T | s in S, s <= t}
-$
-$
-  inf S = max{ t in T | s in S, t <= s}
-$
-
-例以上界與上確界，察其性質，凡有二項，一曰 $sup S$ 乃 $S$ 之上界也，二曰凡其上界莫小於 $sup S$ 也，即最小之上界也。
-請問偏序集恆有上界乎？
-1。有限集顯然恆有界，且 $sup S= max S$ 而 $inf S = min S$ 也。依序可列 $S$ 之元,
-
+== 數列
 #proposition[
   有序列 ${a_n}$ 單調遞減而 ${b_n}$ 單調遞增者，且 $a_n >= b_n$。
   $ forall i, j in NN, quad a_i >= b_j $
